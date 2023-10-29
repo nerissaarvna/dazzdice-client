@@ -1,8 +1,11 @@
-import 'package:dice_client/home.dart';
+import 'package:dice_client/pages/arena.dart';
+import 'package:dice_client/pages/lobby.dart';
 import 'package:flutter/material.dart';
-import 'package:dice_client/start.dart';
+import 'package:dice_client/pages/start.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:dice_client/providers.dart';
 
 final _router = GoRouter(
   routes: [
@@ -14,7 +17,19 @@ final _router = GoRouter(
     GoRoute(
       path: '/lobby/:id',
       name: 'lobby',
-      builder: (context, state) => LobbyPage(id: state.pathParameters['id']!),
+      builder: (context, state) => ChangeNotifierProvider(
+        create: (context) => LobbyUserProvider(),
+        child: LobbyPage(id: state.pathParameters['id']!),
+      ),
+    ),
+    GoRoute(
+      path: '/arena/:id/:match_id/:player',
+      name: 'arena',
+      builder: (context, state) => ArenaPage(
+        id: state.pathParameters['id']!,
+        matchId: state.pathParameters['match_id']!,
+        player: int.parse(state.pathParameters['player']!),
+      ),
     ),
   ],
 );

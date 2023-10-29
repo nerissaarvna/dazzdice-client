@@ -7,19 +7,31 @@
         {
             "name": "dice_client",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--web-port",
+                "3001"
+            ]
         },
         {
             "name": "dice_client (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "args": [
+                "--web-port",
+                "3001"
+            ]
         },
         {
             "name": "dice_client (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "release",
+            "args": [
+                "--web-port",
+                "3001"
+            ]
         }
     ]
 }
