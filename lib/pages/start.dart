@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'package:dice_client/model.dart';
+import 'package:dice_client/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
@@ -23,7 +25,7 @@ class _StartPageState extends State<StartPage> {
   Future<String?> _inputName() {
     return showDialog<String>(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           content: Column(
@@ -57,10 +59,29 @@ class _StartPageState extends State<StartPage> {
                       context.pop(_namaController.text);
                     }
                   },
-                  child: const Text("Masuk"))
+                  child: const Text("Enter"))
             ],
           ),
         );
+      },
+    );
+  }
+
+  void createUser(SharedPreferences prefs) {
+    _inputName().then(
+      (value) {
+        if (value != null && value.isNotEmpty) {
+          http
+              .post(Uri.parse("http://$_address:$_port/create/?name=$value"))
+              .then(
+            (value) {
+              User user = User.fromJson(jsonDecode(value.body));
+              prefs.setInt("id", user.id);
+              Provider.of<UserProvider>(context, listen: false).setUser(user);
+              context.pushNamed("lobby");
+            },
+          );
+        }
       },
     );
   }
@@ -78,30 +99,23 @@ class _StartPageState extends State<StartPage> {
           child: const Text("Start"),
           onPressed: () {
             SharedPreferences.getInstance().then((prefs) {
-              String? id = prefs.getString('id');
+              int? id = prefs.getInt('id');
               if (id == null) {
-                id = const Uuid().v4().split("-")[0];
-                prefs.setString("id", id);
+                createUser(prefs);
+              } else {
+                http
+                    .get(Uri.parse("http://$_address:$_port/check?id=$id"))
+                    .then((value) {
+                  Map<String, dynamic> res = jsonDecode(value.body);
+                  if (!res["status"]) {
+                    createUser(prefs);
+                  } else {
+                    Provider.of<UserProvider>(context, listen: false)
+                        .setUser(User.fromJson(res["user"]));
+                    context.pushNamed("lobby");
+                  }
+                });
               }
-
-              http
-                  .get(Uri.parse("http://$_address:$_port/check/$id"))
-                  .then((value) {
-                if (!jsonDecode(value.body)["status"]) {
-                  _inputName().then((value) {
-                    http
-                        .post(Uri.parse(
-                            "http://$_address:$_port/create/$id/?name=$value"))
-                        .then((value) {
-                      if (jsonDecode(value.body)["status"]) {
-                        context.goNamed("lobby", pathParameters: {"id": id!});
-                      }
-                    });
-                  });
-                } else {
-                  context.goNamed("lobby", pathParameters: {"id": id!});
-                }
-              });
             });
           },
         ),

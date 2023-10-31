@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:dice_client/providers.dart';
+import 'package:flutter/services.dart';
 
 final _router = GoRouter(
   routes: [
@@ -15,21 +16,14 @@ final _router = GoRouter(
       builder: (context, state) => const StartPage(),
     ),
     GoRoute(
-      path: '/lobby/:id',
+      path: '/lobby',
       name: 'lobby',
-      builder: (context, state) => ChangeNotifierProvider(
-        create: (context) => LobbyUserProvider(),
-        child: LobbyPage(id: state.pathParameters['id']!),
-      ),
+      builder: (context, state) => const LobbyPage(),
     ),
     GoRoute(
-      path: '/arena/:id/:match_id/:player',
+      path: '/arena',
       name: 'arena',
-      builder: (context, state) => ArenaPage(
-        id: state.pathParameters['id']!,
-        matchId: state.pathParameters['match_id']!,
-        player: int.parse(state.pathParameters['player']!),
-      ),
+      builder: (context, state) => const ArenaPage(),
     ),
   ],
 );
@@ -44,14 +38,39 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
     return ScreenUtilInit(
       designSize: const Size(1080, 1920),
       minTextAdapt: true,
       builder: (_, child) {
-        return MaterialApp.router(
-          routerConfig: _router,
-          theme: ThemeData(
-            useMaterial3: true,
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (context) => UserProvider()),
+            ChangeNotifierProvider(
+              create: (context) => LobbyUserProvider(),
+              lazy: true,
+            ),
+            ChangeNotifierProvider(
+              create: (context) => LobbyConnProvider(),
+              lazy: true,
+            ),
+            ChangeNotifierProvider(
+              create: (context) => MatchProvider(),
+              lazy: true,
+            ),
+            ChangeNotifierProvider(
+              create: (context) => LobbyHistoryProvider(),
+              lazy: true,
+            ),
+          ],
+          child: MaterialApp.router(
+            routerConfig: _router,
+            theme: ThemeData(
+              useMaterial3: true,
+            ),
           ),
         );
       },
