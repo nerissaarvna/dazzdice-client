@@ -25,42 +25,67 @@ class _StartPageState extends State<StartPage> {
   Future<String?> _inputName() {
     return showDialog<String>(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text("Anda belum terdaftar"),
-              Padding(
-                padding: EdgeInsets.all(8.sp),
-                child: Form(
-                  key: _formKey,
-                  child: TextFormField(
-                    controller: _namaController,
-                    decoration: const InputDecoration(
-                      labelText: 'Masukkan nama',
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
+          content: Container(
+            width: 330,
+            height: 220,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  "Anda belum terdaftar",
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 18),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.sp),
+                  child: Form(
+                    key: _formKey,
+                    child: TextFormField(
+                      controller: _namaController,
+                      decoration: const InputDecoration(
+                        labelText: 'Masukkan nama Anda',
+                      ),
+                      validator: (text) {
+                        if (text == null || text.isEmpty) {
+                          return 'Nama Kosong';
+                        }
+                        if (text.length > 16) {
+                          return 'Terlalu panjang, maks. 16 huruf';
+                        }
+                        return null;
+                      },
                     ),
-                    validator: (text) {
-                      if (text == null || text.isEmpty) {
-                        return 'Nama Kosong';
-                      }
-                      if (text.length > 16) {
-                        return 'Terlalu panjang, maks. 16 huruf';
-                      }
-                      return null;
-                    },
                   ),
                 ),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      context.pop(_namaController.text);
-                    }
-                  },
-                  child: const Text("Enter"))
-            ],
+                SizedBox(
+                  height: 25,
+                ),
+                SizedBox(
+                  height: 40,
+                  width: 150,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.pink.shade100),
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          context.pop(_namaController.text);
+                        }
+                      },
+                      child: const Text("Masuk",
+                          style: TextStyle(fontSize: 20, color: Colors.white))),
+                )
+              ],
+            ),
           ),
         );
       },
@@ -76,7 +101,7 @@ class _StartPageState extends State<StartPage> {
               .then(
             (value) {
               User user = User.fromJson(jsonDecode(value.body));
-              prefs.setInt("id", user.id);
+              prefs.setString("id", user.id);
               Provider.of<UserProvider>(context, listen: false).setUser(user);
               context.pushNamed("lobby");
             },
@@ -95,29 +120,144 @@ class _StartPageState extends State<StartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          child: const Text("Start"),
-          onPressed: () {
-            SharedPreferences.getInstance().then((prefs) {
-              int? id = prefs.getInt('id');
-              if (id == null) {
-                createUser(prefs);
-              } else {
-                http
-                    .get(Uri.parse("http://$_address:$_port/check?id=$id"))
-                    .then((value) {
-                  Map<String, dynamic> res = jsonDecode(value.body);
-                  if (!res["status"]) {
-                    createUser(prefs);
-                  } else {
-                    Provider.of<UserProvider>(context, listen: false)
-                        .setUser(User.fromJson(res["user"]));
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage('assets/images/background/background.png'),
+          )),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
+                child: Image(
+                  height: 0.25.sh,
+                  image: AssetImage('assets/images/logo/logodazzdice.png'),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Image(
+                height: 0.25.sh,
+                image: AssetImage('assets/images/logo/logodice.png'),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              SizedBox(
+                height: 50,
+                width: 200,
+                child: ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(primary: Colors.pink.shade100),
+                  child: const Text("Start",
+                      style: TextStyle(fontSize: 24, color: Colors.white)),
+                  onPressed: () {
+                    //_inputName();
                     context.pushNamed("lobby");
-                  }
-                });
-              }
-            });
-          },
+                    // SharedPreferences.getInstance().then((prefs) {
+                    //   String? id = prefs.getString('id');
+                    //   if (id == null) {
+                    //     createUser(prefs);
+                    //   } else {
+                    //     http
+                    //         .get(Uri.parse("http://$_address:$_port/check?id=$id"))
+                    //         .then((value) {
+                    //       Map<String, dynamic> res = jsonDecode(value.body);
+                    //       if (!res["status"]) {
+                    //         createUser(prefs);
+                    //       } else {
+                    //         Provider.of<UserProvider>(context, listen: false)
+                    //             .setUser(User.fromJson(res["user"]));
+                    //         context.pushNamed("lobby");
+                    //       }
+                    //     });
+                    //   }
+                    // });
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                height: 50,
+                width: 200,
+                child: ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(primary: Colors.pink.shade100),
+                  child: const Text(
+                    'Information',
+                    style: TextStyle(fontSize: 24, color: Colors.white),
+                  ),
+                  onPressed: () {
+                    showDialog<String>(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                            content: Container(
+                              width: 350,
+                              height: 200,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  const Text(
+                                    "Information",
+                                    style: TextStyle(
+                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  RichText(
+                                      text: TextSpan(
+                                          text: 'DazzDize ',
+                                          style: TextStyle(
+                                              color: Colors.blue[200],
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                          children: <TextSpan>[
+                                        TextSpan(
+                                            text:
+                                                'adalah permainan dadu yang dapat meningkatkan kemampuan menghitung anak dan dapat membantu anak mengembangkan konsep bilangan dan lambang bilangan. Melalui permainan ',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal)),
+                                        TextSpan(
+                                            text: 'DazzDice',
+                                            style: TextStyle(
+                                                color: Colors.blue[200],
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                ', anak dapat mengasah kreativitas, imajinasi, kemampuan berpikir logis, dan sistematis.',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal))
+                                      ])),
+                                ],
+                              ),
+                            ),
+                          );
+                        });
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

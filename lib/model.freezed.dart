@@ -219,7 +219,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   History? get history => throw _privateConstructorUsedError;
 
@@ -233,7 +233,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({int id, String name, History? history});
+  $Res call({String id, String name, History? history});
 
   $HistoryCopyWith<$Res>? get history;
 }
@@ -259,7 +259,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -291,7 +291,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$UserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, History? history});
+  $Res call({String id, String name, History? history});
 
   @override
   $HistoryCopyWith<$Res>? get history;
@@ -315,7 +315,7 @@ class __$$UserImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -337,7 +337,7 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
       _$$UserImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final String name;
   @override
@@ -388,14 +388,14 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
 
 abstract class _User implements User {
   const factory _User(
-      {required final int id,
+      {required final String id,
       required final String name,
       final History? history}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   String get name;
   @override
@@ -1050,7 +1050,7 @@ Match _$MatchFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Match {
   @JsonKey(name: "match_id")
-  int get matchId => throw _privateConstructorUsedError;
+  String get matchId => throw _privateConstructorUsedError;
   DateTime get datetime => throw _privateConstructorUsedError;
   Players get players => throw _privateConstructorUsedError;
   Dices get dices => throw _privateConstructorUsedError;
@@ -1069,7 +1069,7 @@ abstract class $MatchCopyWith<$Res> {
       _$MatchCopyWithImpl<$Res, Match>;
   @useResult
   $Res call(
-      {@JsonKey(name: "match_id") int matchId,
+      {@JsonKey(name: "match_id") String matchId,
       DateTime datetime,
       Players players,
       Dices dices,
@@ -1102,7 +1102,7 @@ class _$MatchCopyWithImpl<$Res, $Val extends Match>
       matchId: null == matchId
           ? _value.matchId
           : matchId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       datetime: null == datetime
           ? _value.datetime
           : datetime // ignore: cast_nullable_to_non_nullable
@@ -1147,7 +1147,7 @@ abstract class _$$MatchImplCopyWith<$Res> implements $MatchCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "match_id") int matchId,
+      {@JsonKey(name: "match_id") String matchId,
       DateTime datetime,
       Players players,
       Dices dices,
@@ -1180,7 +1180,7 @@ class __$$MatchImplCopyWithImpl<$Res>
       matchId: null == matchId
           ? _value.matchId
           : matchId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       datetime: null == datetime
           ? _value.datetime
           : datetime // ignore: cast_nullable_to_non_nullable
@@ -1216,7 +1216,7 @@ class _$MatchImpl with DiagnosticableTreeMixin implements _Match {
 
   @override
   @JsonKey(name: "match_id")
-  final int matchId;
+  final String matchId;
   @override
   final DateTime datetime;
   @override
@@ -1259,7 +1259,7 @@ class _$MatchImpl with DiagnosticableTreeMixin implements _Match {
 
 abstract class _Match implements Match {
   factory _Match(
-      {@JsonKey(name: "match_id") required final int matchId,
+      {@JsonKey(name: "match_id") required final String matchId,
       required final DateTime datetime,
       required final Players players,
       required Dices dices,
@@ -1269,7 +1269,7 @@ abstract class _Match implements Match {
 
   @override
   @JsonKey(name: "match_id")
-  int get matchId;
+  String get matchId;
   @override
   DateTime get datetime;
   @override

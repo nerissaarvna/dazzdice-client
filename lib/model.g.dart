@@ -23,7 +23,7 @@ Map<String, dynamic> _$$HistoryImplToJson(_$HistoryImpl instance) =>
     };
 
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
-      id: json['id'] as int,
+      id: json['id'] as String,
       name: json['name'] as String,
       history: json['history'] == null
           ? null
@@ -82,7 +82,7 @@ Map<String, dynamic> _$$DicesImplToJson(_$DicesImpl instance) =>
     };
 
 _$MatchImpl _$$MatchImplFromJson(Map<String, dynamic> json) => _$MatchImpl(
-      matchId: json['match_id'] as int,
+      matchId: json['match_id'] as String,
       datetime: DateTime.parse(json['datetime'] as String),
       players: Players.fromJson(json['players'] as Map<String, dynamic>),
       dices: Dices.fromJson(json['dices'] as Map<String, dynamic>),

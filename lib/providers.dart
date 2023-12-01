@@ -25,6 +25,11 @@ class LobbyConnProvider extends ChangeNotifier {
 
             Provider.of<LobbyUserProvider>(context, listen: false)
                 .removeUser(user);
+          } else if (data.event == "new_match") {
+            Match match = Match.fromJson(data.params);
+
+            Provider.of<LobbyHistoryProvider>(context, listen: false)
+                .addMatch(match);
           }
         }
       }).onDone(() {

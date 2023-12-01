@@ -23,7 +23,7 @@ class History with _$History {
 @freezed
 class User with _$User {
   const factory User({
-    required int id,
+    required String id,
     required String name,
     History? history,
   }) = _User;
@@ -75,7 +75,7 @@ class Dices with _$Dices {
 @unfreezed
 class Match with _$Match {
   factory Match({
-    @JsonKey(name: "match_id") required final int matchId,
+    @JsonKey(name: "match_id") required final String matchId,
     required final DateTime datetime,
     required final Players players,
     required Dices dices,

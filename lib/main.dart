@@ -1,5 +1,6 @@
-import 'package:dice_client/pages/arena.dart';
+import 'package:dice_client/pages/satuplayer.dart';
 import 'package:dice_client/pages/lobby.dart';
+import 'package:dice_client/pages/duaplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:dice_client/pages/start.dart';
 import 'package:go_router/go_router.dart';
@@ -21,9 +22,14 @@ final _router = GoRouter(
       builder: (context, state) => const LobbyPage(),
     ),
     GoRoute(
-      path: '/arena',
-      name: 'arena',
-      builder: (context, state) => const ArenaPage(),
+      path: '/satuplayer',
+      name: 'satuplayer',
+      builder: (context, state) => const SatuplayerPage(),
+    ),
+    GoRoute(
+      path: '/duaplayer',
+      name: 'duaplayer',
+      builder: (context, state) => const DuaplayerPage(),
     ),
   ],
 );
@@ -35,13 +41,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ]);
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
     return ScreenUtilInit(
       designSize: const Size(1080, 1920),
       minTextAdapt: true,

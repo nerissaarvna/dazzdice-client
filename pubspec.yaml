@@ -76,6 +76,10 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/dices/ # <a href="https://www.flaticon.com/free-icons/dice" title="dice icons">Dice icons created by Mike Zuidgeest - Flaticon</a>
+    - assets/images/logo/
+    - assets/images/background/
+    - assets/images/emoticon/
+    - assets/images/operasi/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
