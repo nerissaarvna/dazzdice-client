@@ -31,20 +31,29 @@ class _StartPageState extends State<StartPage> {
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
           content: Container(
             width: 330,
-            height: 220,
+            height: 300,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
                   height: 10,
                 ),
-                const Text(
-                  "Anda belum terdaftar",
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 18),
+                Image(
+                  image: AssetImage('assets/images/emoticon/hello.png'),
+                  height: 100,
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 5,
+                ),
+                const Text(
+                  "What's your name?",
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 30, 30, 30),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500),
+                ),
+                SizedBox(
+                  height: 5,
                 ),
                 Padding(
                   padding: EdgeInsets.all(8.sp),
@@ -52,9 +61,7 @@ class _StartPageState extends State<StartPage> {
                     key: _formKey,
                     child: TextFormField(
                       controller: _namaController,
-                      decoration: const InputDecoration(
-                        labelText: 'Masukkan nama Anda',
-                      ),
+                      decoration: const InputDecoration(hintText: 'Your name'),
                       validator: (text) {
                         if (text == null || text.isEmpty) {
                           return 'Nama Kosong';
@@ -68,7 +75,7 @@ class _StartPageState extends State<StartPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 25,
+                  height: 15,
                 ),
                 SizedBox(
                   height: 40,
@@ -78,7 +85,7 @@ class _StartPageState extends State<StartPage> {
                           primary: Colors.pink.shade100),
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
-                          context.pop(_namaController.text);
+                          context.pushNamed("lobby");
                         }
                       },
                       child: const Text("Masuk",
@@ -95,6 +102,7 @@ class _StartPageState extends State<StartPage> {
   void createUser(SharedPreferences prefs) {
     _inputName().then(
       (value) {
+        //Cek Ketersediaan dan Non-Empty Nama
         if (value != null && value.isNotEmpty) {
           http
               .post(Uri.parse("http://$_address:$_port/create/?name=$value"))
@@ -156,15 +164,16 @@ class _StartPageState extends State<StartPage> {
                   child: const Text("Start",
                       style: TextStyle(fontSize: 24, color: Colors.white)),
                   onPressed: () {
-                    //_inputName();
-                    context.pushNamed("lobby");
+                    _inputName();
+                    // context.pushNamed("lobby");
                     // SharedPreferences.getInstance().then((prefs) {
                     //   String? id = prefs.getString('id');
                     //   if (id == null) {
                     //     createUser(prefs);
                     //   } else {
                     //     http
-                    //         .get(Uri.parse("http://$_address:$_port/check?id=$id"))
+                    //         .get(Uri.parse(
+                    //             "http://$_address:$_port/check?id=$id"))
                     //         .then((value) {
                     //       Map<String, dynamic> res = jsonDecode(value.body);
                     //       if (!res["status"]) {

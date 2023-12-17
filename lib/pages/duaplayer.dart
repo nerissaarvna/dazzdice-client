@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 import "package:provider/provider.dart";
 import 'dart:async';
 
@@ -28,6 +29,113 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
       await Future.delayed(Duration(seconds: 1));
       _timer.value = _timer.value - 1 / 30;
     }
+    //_showTimerFinishedDialogWin();
+    _showTimerFinishedDialogLose();
+  }
+
+  void _showTimerFinishedDialogWin() {
+    showDialog<String>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Color.fromARGB(255, 30, 30, 30),
+            content: Container(
+              width: 500,
+              height: 320,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: Image(
+                        width: 100,
+                        image: AssetImage('assets/images/emoticon/love.png')),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Congratulations!',
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Kamu adalah pemenang sejati dalam permainan perhitungan ini! Keterampilan matematika dan kecerdasanmu sungguh luar biasa.',
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 30),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.pink.shade100,
+                          fixedSize: Size(100, 40)),
+                      onPressed: () {
+                        context.pushNamed("lobby");
+                      },
+                      child: Text('OK',
+                          style: TextStyle(fontSize: 22, color: Colors.white))),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  void _showTimerFinishedDialogLose() {
+    showDialog<String>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Color.fromARGB(255, 30, 30, 30),
+            content: Container(
+              width: 500,
+              height: 320,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: Image(
+                        width: 100,
+                        image:
+                            AssetImage('assets/images/emoticon/concern.png')),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Don't give up!",
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Tidak masalah, jangan kecewa. Besok adalah kesempatan baru untuk meraih kemenangan!',
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 30),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.pink.shade100,
+                          fixedSize: Size(100, 40)),
+                      onPressed: () {
+                        context.pushNamed("lobby");
+                      },
+                      child: Text('OK',
+                          style: TextStyle(fontSize: 22, color: Colors.white))),
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   @override
@@ -56,9 +164,13 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
                     if (value > 0) {
                       return Align(
                         alignment: Alignment.topCenter,
-                        child: Text(
-                          value.toString(),
-                          style: TextStyle(fontSize: 56),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          child: Text(
+                            value.toString(),
+                            style: TextStyle(
+                                fontSize: 56, fontWeight: FontWeight.w700),
+                          ),
                         ),
                       );
                     } else {
@@ -100,7 +212,7 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
                                       child: Image(
                                           width: 50,
                                           image: AssetImage(
-                                              'assets/images/emoticon/face-neutral.png')),
+                                              'assets/images/emoticon/suspicious.png')),
                                     ),
                                     SizedBox(
                                       height: 20,
@@ -119,7 +231,10 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
                                             style: ElevatedButton.styleFrom(
                                                 primary: Colors.pink.shade100,
                                                 fixedSize: Size(100, 40)),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              context.pop();
+                                              context.pop();
+                                            },
                                             child: Text('Yes',
                                                 style: TextStyle(
                                                     fontSize: 22,
@@ -131,7 +246,9 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
                                             style: ElevatedButton.styleFrom(
                                                 primary: Colors.blue.shade200,
                                                 fixedSize: Size(100, 40)),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              context.pop();
+                                            },
                                             child: Text('No',
                                                 style: TextStyle(
                                                     fontSize: 22,
@@ -158,7 +275,7 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
                       valueListenable: _timer,
                       builder: (context, value, _) {
                         return LinearProgressIndicator(
-                          backgroundColor: Colors.red,
+                          backgroundColor: Colors.white,
                           value: value,
                         );
                       },
@@ -173,7 +290,7 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
                   children: [
                     Container(
                         height: 60,
-                        width: 200,
+                        width: 250,
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
@@ -182,7 +299,7 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
                         child: Align(
                           alignment: Alignment.center,
                           child: Text(
-                            'leejeno23',
+                            'player 2',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Color.fromARGB(255, 30, 30, 30),
@@ -191,7 +308,7 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
                         )),
                     Container(
                         height: 60,
-                        width: 200,
+                        width: 250,
                         decoration: BoxDecoration(
                             color: Colors.green.shade200,
                             borderRadius: BorderRadius.only(
@@ -199,7 +316,7 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
                                 bottomLeft: Radius.circular(20))),
                         child: Align(
                           alignment: Alignment.center,
-                          child: Text('You',
+                          child: Text('nerissa (you)',
                               textAlign: TextAlign.center,
                               style:
                                   TextStyle(color: Colors.white, fontSize: 28)),
@@ -208,7 +325,7 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(300, 250, 300, 0),
+                padding: const EdgeInsets.fromLTRB(225, 250, 225, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -239,7 +356,20 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(400, 0, 400, 80),
+                padding: const EdgeInsets.fromLTRB(0, 300, 0, 0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Choose the correct answer below',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(400, 470, 400, 0),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Row(
@@ -248,53 +378,59 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
                       Container(
                         child: Align(
                             alignment: Alignment.center,
-                            child: Text(
-                              '5',
-                              style: TextStyle(
-                                  fontSize: 38,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            )),
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.green.shade200,
-                        ),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.green.shade200,
+                                  minimumSize: Size(100, 100),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                ),
+                                onPressed: () {},
+                                child: Text(
+                                  '5',
+                                  style: TextStyle(
+                                      fontSize: 38,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ))),
                       ),
                       Container(
                         child: Align(
                             alignment: Alignment.center,
-                            child: Text(
-                              '7',
-                              style: TextStyle(
-                                  fontSize: 38,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            )),
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.pink.shade100,
-                        ),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.green.shade200,
+                                  minimumSize: Size(100, 100),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                ),
+                                onPressed: () {},
+                                child: Text(
+                                  '7',
+                                  style: TextStyle(
+                                      fontSize: 38,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ))),
                       ),
                       Container(
                         child: Align(
                             alignment: Alignment.center,
-                            child: Text(
-                              '10',
-                              style: TextStyle(
-                                  fontSize: 38,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            )),
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.yellow.shade200,
-                        ),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.green.shade200,
+                                  minimumSize: Size(100, 100),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                ),
+                                onPressed: () {},
+                                child: Text(
+                                  '12',
+                                  style: TextStyle(
+                                      fontSize: 38,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ))),
                       )
                     ],
                   ),
@@ -308,65 +444,5 @@ class _DuaplayerPageState extends State<DuaplayerPage> {
   @override
   void dispose() {
     super.dispose();
-  }
-}
-
-class CustomProgressBar extends StatelessWidget {
-  final double width;
-  final double value;
-  final double totalValue;
-
-  CustomProgressBar(this.width, this.value, this.totalValue);
-  @override
-  Widget build(BuildContext context) {
-    double ratio = value / totalValue;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          Icons.timer,
-          color: Colors.white,
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Stack(
-          children: [
-            Container(
-              width: width,
-              height: 10,
-              decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(5)),
-            ),
-            Material(
-              elevation: 1,
-              borderRadius: BorderRadius.circular(5),
-              child: AnimatedContainer(
-                height: 10,
-                width: width * ratio,
-                duration: Duration(seconds: 30),
-                decoration: BoxDecoration(
-                    color: (ratio < 0.3)
-                        ? Colors.red.shade500
-                        : (ratio < 0.6)
-                            ? Colors.yellow.shade700
-                            : Colors.pink.shade200,
-                    borderRadius: BorderRadius.circular(5)),
-              ),
-            )
-          ],
-        )
-      ],
-    );
-  }
-}
-
-class TimeState with ChangeNotifier {
-  int _time = 15;
-  int get time => _time;
-  set time(int newTime) {
-    _time = newTime;
-    notifyListeners();
   }
 }

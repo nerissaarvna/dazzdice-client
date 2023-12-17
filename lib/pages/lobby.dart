@@ -29,46 +29,6 @@ class _LobbyPageState extends State<LobbyPage> {
 
   @override
   void initState() {
-    // _channelLobby ??= Provider.of<LobbyConnProvider>(context, listen: false).init(
-    //     context,
-    //     Uri.parse(
-    //         "ws://$_address:$_port/lobby?id=${Provider.of<UserProvider>(context, listen: false).user.id}"));
-
-    // _channelLobby!.ready.then((value) {
-    //   if (!Provider.of<LobbyUserProvider>(context, listen: false).isCalled) {
-    //     print("called");
-    //     http.get(Uri.parse("http://localhost:3000/online")).then((value) {
-    //       Map<dynamic, dynamic> data = jsonDecode(value.body);
-
-    //       if (data.isNotEmpty) {
-    //         List<User> users = [];
-    //         data.forEach((key, value) {
-    //           users.add(User.fromJson(value));
-    //         });
-
-    //         Provider.of<LobbyUserProvider>(context, listen: false)
-    //             .addUsers(users);
-    //       }
-    //     });
-    //   }
-
-    //   if (!Provider.of<LobbyHistoryProvider>(context, listen: false).isCalled) {
-    //     http.get(Uri.parse("http://localhost:3000/history")).then((value) {
-    //       List<dynamic> data = jsonDecode(value.body);
-
-    //       if (data.isNotEmpty) {
-    //         List<Match> matchs = [];
-    //         for (var e in data) {
-    //           matchs.add(Match.fromJson(e));
-    //         }
-
-    //         Provider.of<LobbyHistoryProvider>(context, listen: false)
-    //             .addMatchs(matchs);
-    //       }
-    //     });
-    //   }
-    // });
-
     super.initState();
   }
 
@@ -119,7 +79,7 @@ class _LobbyPageState extends State<LobbyPage> {
                               children: [
                                 Icon(
                                   Icons.supervised_user_circle,
-                                  color: Color.fromARGB(255, 205, 226, 81),
+                                  color: Color.fromARGB(255, 165, 214, 167),
                                   size: 30,
                                 ),
                                 SizedBox(
@@ -128,7 +88,9 @@ class _LobbyPageState extends State<LobbyPage> {
                                 Text(
                                   "Online",
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 22),
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w300),
                                 )
                               ],
                             ),
@@ -174,11 +136,11 @@ class _LobbyPageState extends State<LobbyPage> {
                           primary: Colors.pink.shade100,
                           fixedSize: Size(150, 40)),
                       child: const Text(
-                        "Player 1",
+                        "1 Player",
                         style: TextStyle(fontSize: 22, color: Colors.white),
                       )),
                   SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
                   ElevatedButton(
                       onPressed: () {
@@ -188,9 +150,12 @@ class _LobbyPageState extends State<LobbyPage> {
                           primary: Colors.pink.shade100,
                           fixedSize: Size(150, 40)),
                       child: const Text(
-                        "Player 2",
+                        "2 Player",
                         style: TextStyle(fontSize: 22, color: Colors.white),
                       )),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Padding(
                     padding: EdgeInsets.all(16.sp),
                     child: ElevatedButton(
@@ -220,6 +185,7 @@ class _LobbyPageState extends State<LobbyPage> {
                   width: 0.25.sw,
                   height: 0.5.sh,
                   child: Card(
+                    color: Colors.white,
                     child: Column(
                       children: [
                         const ListTile(
@@ -243,118 +209,225 @@ class _LobbyPageState extends State<LobbyPage> {
                                 Text(
                                   "Leaderboard",
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 22),
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w300),
                                 )
                               ],
                             ),
                           ),
                         ),
-                        Flexible(
-                          child: ScrollConfiguration(
-                            behavior: ScrollConfiguration.of(context).copyWith(
-                              dragDevices: {
-                                PointerDeviceKind.touch,
-                                PointerDeviceKind.mouse,
-                              },
-                            ),
-                            child: Consumer<LobbyHistoryProvider>(
-                              builder: (context, history, _) =>
-                                  ListView.builder(
-                                itemCount: history.match.length,
-                                itemBuilder: (context, index) {
-                                  return ListTile(
-                                    title: Center(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Flexible(
-                                            child: SizedBox(
-                                              width: 80,
-                                              child: Text(
-                                                history.match[index].players
-                                                    .player1.player.name,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
-                                                style: (history.match[index]
-                                                            .winner! ==
-                                                        1)
-                                                    ? const TextStyle(
+                        DefaultTabController(
+                          length: 2,
+                          child: Container(
+                            height: 260,
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TabBar(
+                                    labelColor: Colors.black,
+                                    unselectedLabelColor: Colors.grey,
+                                    indicatorColor: Colors.black,
+                                    indicatorSize: TabBarIndicatorSize.label,
+                                    tabs: [
+                                      Tab(text: '1 Player'),
+                                      Tab(text: '2 Player'),
+                                    ],
+                                  ),
+                                  Expanded(
+                                    child: TabBarView(
+                                      children: [
+                                        Container(
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                            child: Align(
+                                              alignment: Alignment.topCenter,
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    '1',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
                                                         fontWeight:
-                                                            FontWeight.bold)
-                                                    : null,
+                                                            FontWeight.bold),
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  Container(
+                                                      height: 40,
+                                                      width: 290,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          10)),
+                                                          color: Colors
+                                                              .green.shade200),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.fromLTRB(
+                                                                10, 0, 10, 0),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              'nerissa (you)',
+                                                              style: TextStyle(
+                                                                  fontSize: 18),
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color: Colors
+                                                                      .yellow
+                                                                      .shade300,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                                Text('1000',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            18))
+                                                              ],
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ))
+                                                ],
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(
-                                            width: 30,
-                                            child: Text(
-                                              "VS",
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: SizedBox(
-                                              width: 80,
-                                              child: Text(
-                                                history.match[index].players
-                                                    .player2.player.name,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
-                                                style: (history.match[index]
-                                                            .winner! ==
-                                                        2)
-                                                    ? const TextStyle(
+                                        ),
+                                        Container(
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                            child: Align(
+                                              alignment: Alignment.topCenter,
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    '1',
+                                                    style: TextStyle(
+                                                        fontSize: 20,
                                                         fontWeight:
-                                                            FontWeight.bold)
-                                                    : null,
+                                                            FontWeight.bold),
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  Container(
+                                                      height: 40,
+                                                      width: 290,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          10)),
+                                                          color: Colors
+                                                              .green.shade200),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.fromLTRB(
+                                                                10, 0, 10, 0),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              'nerissa (you)',
+                                                              style: TextStyle(
+                                                                  fontSize: 18),
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color: Colors
+                                                                      .yellow
+                                                                      .shade300,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                                Text('1000',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            18))
+                                                              ],
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ))
+                                                ],
                                               ),
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                    subtitle: Center(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Flexible(
-                                            child: SizedBox(
-                                              child: Text(
-                                                history.match[index].dices.dice1
-                                                    .toString(),
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                            child: Text(
-                                              ":",
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: SizedBox(
-                                              child: Text(
-                                                history.match[index].dices.dice2
-                                                    .toString(),
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ),
+                        )
+                        // Flexible(
+                        //   child: ScrollConfiguration(
+                        //     behavior: ScrollConfiguration.of(context).copyWith(
+                        //       dragDevices: {
+                        //         PointerDeviceKind.touch,
+                        //         PointerDeviceKind.mouse,
+                        //       },
+                        //     ),
+                        //     child: Consumer<LobbyHistoryProvider>(
+                        //       builder: (context, history, _) =>
+                        //           ListView.builder(
+                        //         itemCount: 1,
+                        //         itemBuilder: (context, index) {
+                        //           return Row(
+                        //             mainAxisAlignment: MainAxisAlignment.center,
+                        //             children: [
+                        //               Container(
+                        //                 padding:
+                        //                     EdgeInsets.fromLTRB(20, 5, 20, 0),
+                        //                 child: Row(
+                        //                   children: [
+                        //                     Text(
+                        //                       '1',
+                        //                       style: TextStyle(fontSize: 24),
+                        //                     ),
+                        //                     SizedBox(
+                        //                       width: 20,
+                        //                     ),
+                        //                     Text('nerissa (you)',
+                        //                         style: TextStyle(fontSize: 22)),
+                        //                     SizedBox(
+                        //                       width: 70,
+                        //                     ),
+                        //                     Icon(
+                        //                       Icons.star_rounded,
+                        //                       size: 22,
+                        //                     ),
+                        //                     Text('0',
+                        //                         style: TextStyle(fontSize: 22)),
+                        //                   ],
+                        //                 ),
+                        //               )
+                        //             ],
+                        //           );
+                        //         },
+                        //       ),
+                        //     ),
+                        //   ),
+                        // )
                       ],
                     ),
                   ),

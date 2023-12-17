@@ -73,6 +73,7 @@ class MyApp extends StatelessWidget {
           ],
           child: MaterialApp.router(
             routerConfig: _router,
+            debugShowCheckedModeBanner: false,
             theme: ThemeData(
               useMaterial3: true,
             ),
