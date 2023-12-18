@@ -7,25 +7,18 @@ part 'model.freezed.dart';
 
 part 'model.g.dart';
 
-@freezed
-class History with _$History {
-  const factory History({
-    required int win,
-    required int lose,
-    required int draw,
-    required int plays,
-  }) = _History;
-
-  factory History.fromJson(Map<String, dynamic> json) =>
-      _$HistoryFromJson(json);
-}
-
-@freezed
+@unfreezed
 class User with _$User {
-  const factory User({
-    required String id,
+  factory User({
+    required final String id,
     required String name,
-    History? history,
+    required int decorator,
+    MatchLeaderboard? matchLeaderboard,
+    ChallengeLeaderboard? challengeLeaderboard,
+    List<Match>? matchs,
+    List<Challenge>? challenges,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -35,52 +28,101 @@ class User with _$User {
 class DataEvent with _$DataEvent {
   factory DataEvent({
     required String event,
-    required Map<String, dynamic> params,
+    String? sender,
+    Map<String, dynamic>? params,
   }) = _DataEvent;
 
-  factory DataEvent.fromJson(Map<String, dynamic> json) =>
-      _$DataEventFromJson(json);
-}
-
-@freezed
-class Player with _$Player {
-  const factory Player({
-    required User player,
-  }) = _Player;
-
-  factory Player.fromJson(Map<String, dynamic> json) => _$PlayerFromJson(json);
-}
-
-@freezed
-class Players with _$Players {
-  const factory Players({
-    required Player player1,
-    required Player player2,
-  }) = _Players;
-
-  factory Players.fromJson(Map<String, dynamic> json) =>
-      _$PlayersFromJson(json);
-}
-
-@unfreezed
-class Dices with _$Dices {
-  factory Dices({
-    required int dice1,
-    required int dice2,
-  }) = _Dices;
-
-  factory Dices.fromJson(Map<String, dynamic> json) => _$DicesFromJson(json);
+  factory DataEvent.fromJson(Map<String, dynamic> json) => _$DataEventFromJson(json);
 }
 
 @unfreezed
 class Match with _$Match {
   factory Match({
-    @JsonKey(name: "match_id") required final String matchId,
-    required final DateTime datetime,
-    required final Players players,
-    required Dices dices,
-    required int? winner,
+    required final String id,
+    required String player1Id,
+    required String player2Id,
+    User? player1,
+    User? player2,
+    int? round,
+    int? winner,
+    List<Question>? question,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? player1Status,
+    String? player2Status,
   }) = _Match;
 
   factory Match.fromJson(Map<String, dynamic> json) => _$MatchFromJson(json);
+}
+
+@unfreezed
+class Challenge with _$Challenge {
+  factory Challenge({
+    required final String id,
+    required final String playerId,
+    User? player,
+    int? round,
+    int? score,
+    int? rank,
+    List<Question>? question,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) = _Challenge;
+
+  factory Challenge.fromJson(Map<String, dynamic> json) => _$ChallengeFromJson(json);
+}
+
+@unfreezed
+class ChallengeLeaderboard with _$ChallengeLeaderboard {
+  factory ChallengeLeaderboard({
+    required final String playerId,
+    required String challengeId,
+    User? player,
+    int? round,
+    int? score,
+    int? rank,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) = _ChallengeLeaderboard;
+
+  factory ChallengeLeaderboard.fromJson(Map<String, dynamic> json) => _$ChallengeLeaderboardFromJson(json);
+}
+
+@unfreezed
+class MatchLeaderboard with _$MatchLeaderboard {
+  factory MatchLeaderboard({
+    required final String playerId,
+    User? player,
+    int? rating,
+    int? rank,
+    int? wins,
+    int? loses,
+    int? draws,
+    int? plays,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) = _MatchLeaderboard;
+
+  factory MatchLeaderboard.fromJson(Map<String, dynamic> json) => _$MatchLeaderboardFromJson(json);
+}
+
+@unfreezed
+class Question with _$Question {
+  factory Question({
+    required final int id,
+    String? challengeId,
+    String? matchId,
+    required int difficulty,
+    required int num1,
+    required String op,
+    required int num2,
+    int? answer,
+    int? score,
+    int? score2,
+    List<int>? wrong,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) = _Question;
+
+  factory Question.fromJson(Map<String, dynamic> json) => _$QuestionFromJson(json);
 }

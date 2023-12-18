@@ -14,205 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-History _$HistoryFromJson(Map<String, dynamic> json) {
-  return _History.fromJson(json);
-}
-
-/// @nodoc
-mixin _$History {
-  int get win => throw _privateConstructorUsedError;
-  int get lose => throw _privateConstructorUsedError;
-  int get draw => throw _privateConstructorUsedError;
-  int get plays => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $HistoryCopyWith<History> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $HistoryCopyWith<$Res> {
-  factory $HistoryCopyWith(History value, $Res Function(History) then) =
-      _$HistoryCopyWithImpl<$Res, History>;
-  @useResult
-  $Res call({int win, int lose, int draw, int plays});
-}
-
-/// @nodoc
-class _$HistoryCopyWithImpl<$Res, $Val extends History>
-    implements $HistoryCopyWith<$Res> {
-  _$HistoryCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? win = null,
-    Object? lose = null,
-    Object? draw = null,
-    Object? plays = null,
-  }) {
-    return _then(_value.copyWith(
-      win: null == win
-          ? _value.win
-          : win // ignore: cast_nullable_to_non_nullable
-              as int,
-      lose: null == lose
-          ? _value.lose
-          : lose // ignore: cast_nullable_to_non_nullable
-              as int,
-      draw: null == draw
-          ? _value.draw
-          : draw // ignore: cast_nullable_to_non_nullable
-              as int,
-      plays: null == plays
-          ? _value.plays
-          : plays // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$HistoryImplCopyWith<$Res> implements $HistoryCopyWith<$Res> {
-  factory _$$HistoryImplCopyWith(
-          _$HistoryImpl value, $Res Function(_$HistoryImpl) then) =
-      __$$HistoryImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int win, int lose, int draw, int plays});
-}
-
-/// @nodoc
-class __$$HistoryImplCopyWithImpl<$Res>
-    extends _$HistoryCopyWithImpl<$Res, _$HistoryImpl>
-    implements _$$HistoryImplCopyWith<$Res> {
-  __$$HistoryImplCopyWithImpl(
-      _$HistoryImpl _value, $Res Function(_$HistoryImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? win = null,
-    Object? lose = null,
-    Object? draw = null,
-    Object? plays = null,
-  }) {
-    return _then(_$HistoryImpl(
-      win: null == win
-          ? _value.win
-          : win // ignore: cast_nullable_to_non_nullable
-              as int,
-      lose: null == lose
-          ? _value.lose
-          : lose // ignore: cast_nullable_to_non_nullable
-              as int,
-      draw: null == draw
-          ? _value.draw
-          : draw // ignore: cast_nullable_to_non_nullable
-              as int,
-      plays: null == plays
-          ? _value.plays
-          : plays // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$HistoryImpl with DiagnosticableTreeMixin implements _History {
-  const _$HistoryImpl(
-      {required this.win,
-      required this.lose,
-      required this.draw,
-      required this.plays});
-
-  factory _$HistoryImpl.fromJson(Map<String, dynamic> json) =>
-      _$$HistoryImplFromJson(json);
-
-  @override
-  final int win;
-  @override
-  final int lose;
-  @override
-  final int draw;
-  @override
-  final int plays;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'History(win: $win, lose: $lose, draw: $draw, plays: $plays)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'History'))
-      ..add(DiagnosticsProperty('win', win))
-      ..add(DiagnosticsProperty('lose', lose))
-      ..add(DiagnosticsProperty('draw', draw))
-      ..add(DiagnosticsProperty('plays', plays));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$HistoryImpl &&
-            (identical(other.win, win) || other.win == win) &&
-            (identical(other.lose, lose) || other.lose == lose) &&
-            (identical(other.draw, draw) || other.draw == draw) &&
-            (identical(other.plays, plays) || other.plays == plays));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, win, lose, draw, plays);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$HistoryImplCopyWith<_$HistoryImpl> get copyWith =>
-      __$$HistoryImplCopyWithImpl<_$HistoryImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$HistoryImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _History implements History {
-  const factory _History(
-      {required final int win,
-      required final int lose,
-      required final int draw,
-      required final int plays}) = _$HistoryImpl;
-
-  factory _History.fromJson(Map<String, dynamic> json) = _$HistoryImpl.fromJson;
-
-  @override
-  int get win;
-  @override
-  int get lose;
-  @override
-  int get draw;
-  @override
-  int get plays;
-  @override
-  @JsonKey(ignore: true)
-  _$$HistoryImplCopyWith<_$HistoryImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 User _$UserFromJson(Map<String, dynamic> json) {
   return _User.fromJson(json);
 }
@@ -221,7 +22,24 @@ User _$UserFromJson(Map<String, dynamic> json) {
 mixin _$User {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  History? get history => throw _privateConstructorUsedError;
+  set name(String value) => throw _privateConstructorUsedError;
+  int get decorator => throw _privateConstructorUsedError;
+  set decorator(int value) => throw _privateConstructorUsedError;
+  MatchLeaderboard? get matchLeaderboard => throw _privateConstructorUsedError;
+  set matchLeaderboard(MatchLeaderboard? value) =>
+      throw _privateConstructorUsedError;
+  ChallengeLeaderboard? get challengeLeaderboard =>
+      throw _privateConstructorUsedError;
+  set challengeLeaderboard(ChallengeLeaderboard? value) =>
+      throw _privateConstructorUsedError;
+  List<Match>? get matchs => throw _privateConstructorUsedError;
+  set matchs(List<Match>? value) => throw _privateConstructorUsedError;
+  List<Challenge>? get challenges => throw _privateConstructorUsedError;
+  set challenges(List<Challenge>? value) => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime? value) => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  set updatedAt(DateTime? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -233,9 +51,19 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String id, String name, History? history});
+  $Res call(
+      {String id,
+      String name,
+      int decorator,
+      MatchLeaderboard? matchLeaderboard,
+      ChallengeLeaderboard? challengeLeaderboard,
+      List<Match>? matchs,
+      List<Challenge>? challenges,
+      DateTime? createdAt,
+      DateTime? updatedAt});
 
-  $HistoryCopyWith<$Res>? get history;
+  $MatchLeaderboardCopyWith<$Res>? get matchLeaderboard;
+  $ChallengeLeaderboardCopyWith<$Res>? get challengeLeaderboard;
 }
 
 /// @nodoc
@@ -253,7 +81,13 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? history = freezed,
+    Object? decorator = null,
+    Object? matchLeaderboard = freezed,
+    Object? challengeLeaderboard = freezed,
+    Object? matchs = freezed,
+    Object? challenges = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -264,22 +98,59 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      history: freezed == history
-          ? _value.history
-          : history // ignore: cast_nullable_to_non_nullable
-              as History?,
+      decorator: null == decorator
+          ? _value.decorator
+          : decorator // ignore: cast_nullable_to_non_nullable
+              as int,
+      matchLeaderboard: freezed == matchLeaderboard
+          ? _value.matchLeaderboard
+          : matchLeaderboard // ignore: cast_nullable_to_non_nullable
+              as MatchLeaderboard?,
+      challengeLeaderboard: freezed == challengeLeaderboard
+          ? _value.challengeLeaderboard
+          : challengeLeaderboard // ignore: cast_nullable_to_non_nullable
+              as ChallengeLeaderboard?,
+      matchs: freezed == matchs
+          ? _value.matchs
+          : matchs // ignore: cast_nullable_to_non_nullable
+              as List<Match>?,
+      challenges: freezed == challenges
+          ? _value.challenges
+          : challenges // ignore: cast_nullable_to_non_nullable
+              as List<Challenge>?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $HistoryCopyWith<$Res>? get history {
-    if (_value.history == null) {
+  $MatchLeaderboardCopyWith<$Res>? get matchLeaderboard {
+    if (_value.matchLeaderboard == null) {
       return null;
     }
 
-    return $HistoryCopyWith<$Res>(_value.history!, (value) {
-      return _then(_value.copyWith(history: value) as $Val);
+    return $MatchLeaderboardCopyWith<$Res>(_value.matchLeaderboard!, (value) {
+      return _then(_value.copyWith(matchLeaderboard: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ChallengeLeaderboardCopyWith<$Res>? get challengeLeaderboard {
+    if (_value.challengeLeaderboard == null) {
+      return null;
+    }
+
+    return $ChallengeLeaderboardCopyWith<$Res>(_value.challengeLeaderboard!,
+        (value) {
+      return _then(_value.copyWith(challengeLeaderboard: value) as $Val);
     });
   }
 }
@@ -291,10 +162,21 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$UserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, History? history});
+  $Res call(
+      {String id,
+      String name,
+      int decorator,
+      MatchLeaderboard? matchLeaderboard,
+      ChallengeLeaderboard? challengeLeaderboard,
+      List<Match>? matchs,
+      List<Challenge>? challenges,
+      DateTime? createdAt,
+      DateTime? updatedAt});
 
   @override
-  $HistoryCopyWith<$Res>? get history;
+  $MatchLeaderboardCopyWith<$Res>? get matchLeaderboard;
+  @override
+  $ChallengeLeaderboardCopyWith<$Res>? get challengeLeaderboard;
 }
 
 /// @nodoc
@@ -309,7 +191,13 @@ class __$$UserImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? history = freezed,
+    Object? decorator = null,
+    Object? matchLeaderboard = freezed,
+    Object? challengeLeaderboard = freezed,
+    Object? matchs = freezed,
+    Object? challenges = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_$UserImpl(
       id: null == id
@@ -320,10 +208,34 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      history: freezed == history
-          ? _value.history
-          : history // ignore: cast_nullable_to_non_nullable
-              as History?,
+      decorator: null == decorator
+          ? _value.decorator
+          : decorator // ignore: cast_nullable_to_non_nullable
+              as int,
+      matchLeaderboard: freezed == matchLeaderboard
+          ? _value.matchLeaderboard
+          : matchLeaderboard // ignore: cast_nullable_to_non_nullable
+              as MatchLeaderboard?,
+      challengeLeaderboard: freezed == challengeLeaderboard
+          ? _value.challengeLeaderboard
+          : challengeLeaderboard // ignore: cast_nullable_to_non_nullable
+              as ChallengeLeaderboard?,
+      matchs: freezed == matchs
+          ? _value.matchs
+          : matchs // ignore: cast_nullable_to_non_nullable
+              as List<Match>?,
+      challenges: freezed == challenges
+          ? _value.challenges
+          : challenges // ignore: cast_nullable_to_non_nullable
+              as List<Challenge>?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -331,7 +243,16 @@ class __$$UserImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$UserImpl with DiagnosticableTreeMixin implements _User {
-  const _$UserImpl({required this.id, required this.name, this.history});
+  _$UserImpl(
+      {required this.id,
+      required this.name,
+      required this.decorator,
+      this.matchLeaderboard,
+      this.challengeLeaderboard,
+      this.matchs,
+      this.challenges,
+      this.createdAt,
+      this.updatedAt});
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
@@ -339,13 +260,25 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
   @override
   final String id;
   @override
-  final String name;
+  String name;
   @override
-  final History? history;
+  int decorator;
+  @override
+  MatchLeaderboard? matchLeaderboard;
+  @override
+  ChallengeLeaderboard? challengeLeaderboard;
+  @override
+  List<Match>? matchs;
+  @override
+  List<Challenge>? challenges;
+  @override
+  DateTime? createdAt;
+  @override
+  DateTime? updatedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'User(id: $id, name: $name, history: $history)';
+    return 'User(id: $id, name: $name, decorator: $decorator, matchLeaderboard: $matchLeaderboard, challengeLeaderboard: $challengeLeaderboard, matchs: $matchs, challenges: $challenges, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -355,22 +288,14 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
       ..add(DiagnosticsProperty('type', 'User'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('history', history));
+      ..add(DiagnosticsProperty('decorator', decorator))
+      ..add(DiagnosticsProperty('matchLeaderboard', matchLeaderboard))
+      ..add(DiagnosticsProperty('challengeLeaderboard', challengeLeaderboard))
+      ..add(DiagnosticsProperty('matchs', matchs))
+      ..add(DiagnosticsProperty('challenges', challenges))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UserImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.history, history) || other.history == history));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, name, history);
 
   @JsonKey(ignore: true)
   @override
@@ -387,10 +312,16 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
 }
 
 abstract class _User implements User {
-  const factory _User(
+  factory _User(
       {required final String id,
-      required final String name,
-      final History? history}) = _$UserImpl;
+      required String name,
+      required int decorator,
+      MatchLeaderboard? matchLeaderboard,
+      ChallengeLeaderboard? challengeLeaderboard,
+      List<Match>? matchs,
+      List<Challenge>? challenges,
+      DateTime? createdAt,
+      DateTime? updatedAt}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
@@ -398,8 +329,28 @@ abstract class _User implements User {
   String get id;
   @override
   String get name;
+  set name(String value);
   @override
-  History? get history;
+  int get decorator;
+  set decorator(int value);
+  @override
+  MatchLeaderboard? get matchLeaderboard;
+  set matchLeaderboard(MatchLeaderboard? value);
+  @override
+  ChallengeLeaderboard? get challengeLeaderboard;
+  set challengeLeaderboard(ChallengeLeaderboard? value);
+  @override
+  List<Match>? get matchs;
+  set matchs(List<Match>? value);
+  @override
+  List<Challenge>? get challenges;
+  set challenges(List<Challenge>? value);
+  @override
+  DateTime? get createdAt;
+  set createdAt(DateTime? value);
+  @override
+  DateTime? get updatedAt;
+  set updatedAt(DateTime? value);
   @override
   @JsonKey(ignore: true)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
@@ -414,8 +365,10 @@ DataEvent _$DataEventFromJson(Map<String, dynamic> json) {
 mixin _$DataEvent {
   String get event => throw _privateConstructorUsedError;
   set event(String value) => throw _privateConstructorUsedError;
-  Map<String, dynamic> get params => throw _privateConstructorUsedError;
-  set params(Map<String, dynamic> value) => throw _privateConstructorUsedError;
+  String? get sender => throw _privateConstructorUsedError;
+  set sender(String? value) => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get params => throw _privateConstructorUsedError;
+  set params(Map<String, dynamic>? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -428,7 +381,7 @@ abstract class $DataEventCopyWith<$Res> {
   factory $DataEventCopyWith(DataEvent value, $Res Function(DataEvent) then) =
       _$DataEventCopyWithImpl<$Res, DataEvent>;
   @useResult
-  $Res call({String event, Map<String, dynamic> params});
+  $Res call({String event, String? sender, Map<String, dynamic>? params});
 }
 
 /// @nodoc
@@ -445,17 +398,22 @@ class _$DataEventCopyWithImpl<$Res, $Val extends DataEvent>
   @override
   $Res call({
     Object? event = null,
-    Object? params = null,
+    Object? sender = freezed,
+    Object? params = freezed,
   }) {
     return _then(_value.copyWith(
       event: null == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as String,
-      params: null == params
+      sender: freezed == sender
+          ? _value.sender
+          : sender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      params: freezed == params
           ? _value.params
           : params // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, dynamic>?,
     ) as $Val);
   }
 }
@@ -468,7 +426,7 @@ abstract class _$$DataEventImplCopyWith<$Res>
       __$$DataEventImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String event, Map<String, dynamic> params});
+  $Res call({String event, String? sender, Map<String, dynamic>? params});
 }
 
 /// @nodoc
@@ -483,17 +441,22 @@ class __$$DataEventImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? event = null,
-    Object? params = null,
+    Object? sender = freezed,
+    Object? params = freezed,
   }) {
     return _then(_$DataEventImpl(
       event: null == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as String,
-      params: null == params
+      sender: freezed == sender
+          ? _value.sender
+          : sender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      params: freezed == params
           ? _value.params
           : params // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, dynamic>?,
     ));
   }
 }
@@ -501,7 +464,7 @@ class __$$DataEventImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$DataEventImpl with DiagnosticableTreeMixin implements _DataEvent {
-  _$DataEventImpl({required this.event, required this.params});
+  _$DataEventImpl({required this.event, this.sender, this.params});
 
   factory _$DataEventImpl.fromJson(Map<String, dynamic> json) =>
       _$$DataEventImplFromJson(json);
@@ -509,11 +472,13 @@ class _$DataEventImpl with DiagnosticableTreeMixin implements _DataEvent {
   @override
   String event;
   @override
-  Map<String, dynamic> params;
+  String? sender;
+  @override
+  Map<String, dynamic>? params;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'DataEvent(event: $event, params: $params)';
+    return 'DataEvent(event: $event, sender: $sender, params: $params)';
   }
 
   @override
@@ -522,6 +487,7 @@ class _$DataEventImpl with DiagnosticableTreeMixin implements _DataEvent {
     properties
       ..add(DiagnosticsProperty('type', 'DataEvent'))
       ..add(DiagnosticsProperty('event', event))
+      ..add(DiagnosticsProperty('sender', sender))
       ..add(DiagnosticsProperty('params', params));
   }
 
@@ -542,7 +508,8 @@ class _$DataEventImpl with DiagnosticableTreeMixin implements _DataEvent {
 abstract class _DataEvent implements DataEvent {
   factory _DataEvent(
       {required String event,
-      required Map<String, dynamic> params}) = _$DataEventImpl;
+      String? sender,
+      Map<String, dynamic>? params}) = _$DataEventImpl;
 
   factory _DataEvent.fromJson(Map<String, dynamic> json) =
       _$DataEventImpl.fromJson;
@@ -551,495 +518,14 @@ abstract class _DataEvent implements DataEvent {
   String get event;
   set event(String value);
   @override
-  Map<String, dynamic> get params;
-  set params(Map<String, dynamic> value);
+  String? get sender;
+  set sender(String? value);
+  @override
+  Map<String, dynamic>? get params;
+  set params(Map<String, dynamic>? value);
   @override
   @JsonKey(ignore: true)
   _$$DataEventImplCopyWith<_$DataEventImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-Player _$PlayerFromJson(Map<String, dynamic> json) {
-  return _Player.fromJson(json);
-}
-
-/// @nodoc
-mixin _$Player {
-  User get player => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $PlayerCopyWith<Player> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PlayerCopyWith<$Res> {
-  factory $PlayerCopyWith(Player value, $Res Function(Player) then) =
-      _$PlayerCopyWithImpl<$Res, Player>;
-  @useResult
-  $Res call({User player});
-
-  $UserCopyWith<$Res> get player;
-}
-
-/// @nodoc
-class _$PlayerCopyWithImpl<$Res, $Val extends Player>
-    implements $PlayerCopyWith<$Res> {
-  _$PlayerCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? player = null,
-  }) {
-    return _then(_value.copyWith(
-      player: null == player
-          ? _value.player
-          : player // ignore: cast_nullable_to_non_nullable
-              as User,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get player {
-    return $UserCopyWith<$Res>(_value.player, (value) {
-      return _then(_value.copyWith(player: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$PlayerImplCopyWith<$Res> implements $PlayerCopyWith<$Res> {
-  factory _$$PlayerImplCopyWith(
-          _$PlayerImpl value, $Res Function(_$PlayerImpl) then) =
-      __$$PlayerImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({User player});
-
-  @override
-  $UserCopyWith<$Res> get player;
-}
-
-/// @nodoc
-class __$$PlayerImplCopyWithImpl<$Res>
-    extends _$PlayerCopyWithImpl<$Res, _$PlayerImpl>
-    implements _$$PlayerImplCopyWith<$Res> {
-  __$$PlayerImplCopyWithImpl(
-      _$PlayerImpl _value, $Res Function(_$PlayerImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? player = null,
-  }) {
-    return _then(_$PlayerImpl(
-      player: null == player
-          ? _value.player
-          : player // ignore: cast_nullable_to_non_nullable
-              as User,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$PlayerImpl with DiagnosticableTreeMixin implements _Player {
-  const _$PlayerImpl({required this.player});
-
-  factory _$PlayerImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PlayerImplFromJson(json);
-
-  @override
-  final User player;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Player(player: $player)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Player'))
-      ..add(DiagnosticsProperty('player', player));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PlayerImpl &&
-            (identical(other.player, player) || other.player == player));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, player);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PlayerImplCopyWith<_$PlayerImpl> get copyWith =>
-      __$$PlayerImplCopyWithImpl<_$PlayerImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PlayerImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _Player implements Player {
-  const factory _Player({required final User player}) = _$PlayerImpl;
-
-  factory _Player.fromJson(Map<String, dynamic> json) = _$PlayerImpl.fromJson;
-
-  @override
-  User get player;
-  @override
-  @JsonKey(ignore: true)
-  _$$PlayerImplCopyWith<_$PlayerImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-Players _$PlayersFromJson(Map<String, dynamic> json) {
-  return _Players.fromJson(json);
-}
-
-/// @nodoc
-mixin _$Players {
-  Player get player1 => throw _privateConstructorUsedError;
-  Player get player2 => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $PlayersCopyWith<Players> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PlayersCopyWith<$Res> {
-  factory $PlayersCopyWith(Players value, $Res Function(Players) then) =
-      _$PlayersCopyWithImpl<$Res, Players>;
-  @useResult
-  $Res call({Player player1, Player player2});
-
-  $PlayerCopyWith<$Res> get player1;
-  $PlayerCopyWith<$Res> get player2;
-}
-
-/// @nodoc
-class _$PlayersCopyWithImpl<$Res, $Val extends Players>
-    implements $PlayersCopyWith<$Res> {
-  _$PlayersCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? player1 = null,
-    Object? player2 = null,
-  }) {
-    return _then(_value.copyWith(
-      player1: null == player1
-          ? _value.player1
-          : player1 // ignore: cast_nullable_to_non_nullable
-              as Player,
-      player2: null == player2
-          ? _value.player2
-          : player2 // ignore: cast_nullable_to_non_nullable
-              as Player,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $PlayerCopyWith<$Res> get player1 {
-    return $PlayerCopyWith<$Res>(_value.player1, (value) {
-      return _then(_value.copyWith(player1: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $PlayerCopyWith<$Res> get player2 {
-    return $PlayerCopyWith<$Res>(_value.player2, (value) {
-      return _then(_value.copyWith(player2: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$PlayersImplCopyWith<$Res> implements $PlayersCopyWith<$Res> {
-  factory _$$PlayersImplCopyWith(
-          _$PlayersImpl value, $Res Function(_$PlayersImpl) then) =
-      __$$PlayersImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({Player player1, Player player2});
-
-  @override
-  $PlayerCopyWith<$Res> get player1;
-  @override
-  $PlayerCopyWith<$Res> get player2;
-}
-
-/// @nodoc
-class __$$PlayersImplCopyWithImpl<$Res>
-    extends _$PlayersCopyWithImpl<$Res, _$PlayersImpl>
-    implements _$$PlayersImplCopyWith<$Res> {
-  __$$PlayersImplCopyWithImpl(
-      _$PlayersImpl _value, $Res Function(_$PlayersImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? player1 = null,
-    Object? player2 = null,
-  }) {
-    return _then(_$PlayersImpl(
-      player1: null == player1
-          ? _value.player1
-          : player1 // ignore: cast_nullable_to_non_nullable
-              as Player,
-      player2: null == player2
-          ? _value.player2
-          : player2 // ignore: cast_nullable_to_non_nullable
-              as Player,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$PlayersImpl with DiagnosticableTreeMixin implements _Players {
-  const _$PlayersImpl({required this.player1, required this.player2});
-
-  factory _$PlayersImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PlayersImplFromJson(json);
-
-  @override
-  final Player player1;
-  @override
-  final Player player2;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Players(player1: $player1, player2: $player2)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Players'))
-      ..add(DiagnosticsProperty('player1', player1))
-      ..add(DiagnosticsProperty('player2', player2));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PlayersImpl &&
-            (identical(other.player1, player1) || other.player1 == player1) &&
-            (identical(other.player2, player2) || other.player2 == player2));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, player1, player2);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PlayersImplCopyWith<_$PlayersImpl> get copyWith =>
-      __$$PlayersImplCopyWithImpl<_$PlayersImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PlayersImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _Players implements Players {
-  const factory _Players(
-      {required final Player player1,
-      required final Player player2}) = _$PlayersImpl;
-
-  factory _Players.fromJson(Map<String, dynamic> json) = _$PlayersImpl.fromJson;
-
-  @override
-  Player get player1;
-  @override
-  Player get player2;
-  @override
-  @JsonKey(ignore: true)
-  _$$PlayersImplCopyWith<_$PlayersImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-Dices _$DicesFromJson(Map<String, dynamic> json) {
-  return _Dices.fromJson(json);
-}
-
-/// @nodoc
-mixin _$Dices {
-  int get dice1 => throw _privateConstructorUsedError;
-  set dice1(int value) => throw _privateConstructorUsedError;
-  int get dice2 => throw _privateConstructorUsedError;
-  set dice2(int value) => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $DicesCopyWith<Dices> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $DicesCopyWith<$Res> {
-  factory $DicesCopyWith(Dices value, $Res Function(Dices) then) =
-      _$DicesCopyWithImpl<$Res, Dices>;
-  @useResult
-  $Res call({int dice1, int dice2});
-}
-
-/// @nodoc
-class _$DicesCopyWithImpl<$Res, $Val extends Dices>
-    implements $DicesCopyWith<$Res> {
-  _$DicesCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? dice1 = null,
-    Object? dice2 = null,
-  }) {
-    return _then(_value.copyWith(
-      dice1: null == dice1
-          ? _value.dice1
-          : dice1 // ignore: cast_nullable_to_non_nullable
-              as int,
-      dice2: null == dice2
-          ? _value.dice2
-          : dice2 // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$DicesImplCopyWith<$Res> implements $DicesCopyWith<$Res> {
-  factory _$$DicesImplCopyWith(
-          _$DicesImpl value, $Res Function(_$DicesImpl) then) =
-      __$$DicesImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int dice1, int dice2});
-}
-
-/// @nodoc
-class __$$DicesImplCopyWithImpl<$Res>
-    extends _$DicesCopyWithImpl<$Res, _$DicesImpl>
-    implements _$$DicesImplCopyWith<$Res> {
-  __$$DicesImplCopyWithImpl(
-      _$DicesImpl _value, $Res Function(_$DicesImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? dice1 = null,
-    Object? dice2 = null,
-  }) {
-    return _then(_$DicesImpl(
-      dice1: null == dice1
-          ? _value.dice1
-          : dice1 // ignore: cast_nullable_to_non_nullable
-              as int,
-      dice2: null == dice2
-          ? _value.dice2
-          : dice2 // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$DicesImpl with DiagnosticableTreeMixin implements _Dices {
-  _$DicesImpl({required this.dice1, required this.dice2});
-
-  factory _$DicesImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DicesImplFromJson(json);
-
-  @override
-  int dice1;
-  @override
-  int dice2;
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Dices(dice1: $dice1, dice2: $dice2)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Dices'))
-      ..add(DiagnosticsProperty('dice1', dice1))
-      ..add(DiagnosticsProperty('dice2', dice2));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DicesImplCopyWith<_$DicesImpl> get copyWith =>
-      __$$DicesImplCopyWithImpl<_$DicesImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DicesImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _Dices implements Dices {
-  factory _Dices({required int dice1, required int dice2}) = _$DicesImpl;
-
-  factory _Dices.fromJson(Map<String, dynamic> json) = _$DicesImpl.fromJson;
-
-  @override
-  int get dice1;
-  set dice1(int value);
-  @override
-  int get dice2;
-  set dice2(int value);
-  @override
-  @JsonKey(ignore: true)
-  _$$DicesImplCopyWith<_$DicesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1049,14 +535,29 @@ Match _$MatchFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Match {
-  @JsonKey(name: "match_id")
-  String get matchId => throw _privateConstructorUsedError;
-  DateTime get datetime => throw _privateConstructorUsedError;
-  Players get players => throw _privateConstructorUsedError;
-  Dices get dices => throw _privateConstructorUsedError;
-  set dices(Dices value) => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String get player1Id => throw _privateConstructorUsedError;
+  set player1Id(String value) => throw _privateConstructorUsedError;
+  String get player2Id => throw _privateConstructorUsedError;
+  set player2Id(String value) => throw _privateConstructorUsedError;
+  User? get player1 => throw _privateConstructorUsedError;
+  set player1(User? value) => throw _privateConstructorUsedError;
+  User? get player2 => throw _privateConstructorUsedError;
+  set player2(User? value) => throw _privateConstructorUsedError;
+  int? get round => throw _privateConstructorUsedError;
+  set round(int? value) => throw _privateConstructorUsedError;
   int? get winner => throw _privateConstructorUsedError;
   set winner(int? value) => throw _privateConstructorUsedError;
+  List<Question>? get question => throw _privateConstructorUsedError;
+  set question(List<Question>? value) => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime? value) => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  set updatedAt(DateTime? value) => throw _privateConstructorUsedError;
+  String? get player1Status => throw _privateConstructorUsedError;
+  set player1Status(String? value) => throw _privateConstructorUsedError;
+  String? get player2Status => throw _privateConstructorUsedError;
+  set player2Status(String? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1069,14 +570,21 @@ abstract class $MatchCopyWith<$Res> {
       _$MatchCopyWithImpl<$Res, Match>;
   @useResult
   $Res call(
-      {@JsonKey(name: "match_id") String matchId,
-      DateTime datetime,
-      Players players,
-      Dices dices,
-      int? winner});
+      {String id,
+      String player1Id,
+      String player2Id,
+      User? player1,
+      User? player2,
+      int? round,
+      int? winner,
+      List<Question>? question,
+      DateTime? createdAt,
+      DateTime? updatedAt,
+      String? player1Status,
+      String? player2Status});
 
-  $PlayersCopyWith<$Res> get players;
-  $DicesCopyWith<$Res> get dices;
+  $UserCopyWith<$Res>? get player1;
+  $UserCopyWith<$Res>? get player2;
 }
 
 /// @nodoc
@@ -1092,49 +600,92 @@ class _$MatchCopyWithImpl<$Res, $Val extends Match>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? matchId = null,
-    Object? datetime = null,
-    Object? players = null,
-    Object? dices = null,
+    Object? id = null,
+    Object? player1Id = null,
+    Object? player2Id = null,
+    Object? player1 = freezed,
+    Object? player2 = freezed,
+    Object? round = freezed,
     Object? winner = freezed,
+    Object? question = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? player1Status = freezed,
+    Object? player2Status = freezed,
   }) {
     return _then(_value.copyWith(
-      matchId: null == matchId
-          ? _value.matchId
-          : matchId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
-      datetime: null == datetime
-          ? _value.datetime
-          : datetime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      players: null == players
-          ? _value.players
-          : players // ignore: cast_nullable_to_non_nullable
-              as Players,
-      dices: null == dices
-          ? _value.dices
-          : dices // ignore: cast_nullable_to_non_nullable
-              as Dices,
+      player1Id: null == player1Id
+          ? _value.player1Id
+          : player1Id // ignore: cast_nullable_to_non_nullable
+              as String,
+      player2Id: null == player2Id
+          ? _value.player2Id
+          : player2Id // ignore: cast_nullable_to_non_nullable
+              as String,
+      player1: freezed == player1
+          ? _value.player1
+          : player1 // ignore: cast_nullable_to_non_nullable
+              as User?,
+      player2: freezed == player2
+          ? _value.player2
+          : player2 // ignore: cast_nullable_to_non_nullable
+              as User?,
+      round: freezed == round
+          ? _value.round
+          : round // ignore: cast_nullable_to_non_nullable
+              as int?,
       winner: freezed == winner
           ? _value.winner
           : winner // ignore: cast_nullable_to_non_nullable
               as int?,
+      question: freezed == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as List<Question>?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      player1Status: freezed == player1Status
+          ? _value.player1Status
+          : player1Status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      player2Status: freezed == player2Status
+          ? _value.player2Status
+          : player2Status // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $PlayersCopyWith<$Res> get players {
-    return $PlayersCopyWith<$Res>(_value.players, (value) {
-      return _then(_value.copyWith(players: value) as $Val);
+  $UserCopyWith<$Res>? get player1 {
+    if (_value.player1 == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.player1!, (value) {
+      return _then(_value.copyWith(player1: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $DicesCopyWith<$Res> get dices {
-    return $DicesCopyWith<$Res>(_value.dices, (value) {
-      return _then(_value.copyWith(dices: value) as $Val);
+  $UserCopyWith<$Res>? get player2 {
+    if (_value.player2 == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.player2!, (value) {
+      return _then(_value.copyWith(player2: value) as $Val);
     });
   }
 }
@@ -1147,16 +698,23 @@ abstract class _$$MatchImplCopyWith<$Res> implements $MatchCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: "match_id") String matchId,
-      DateTime datetime,
-      Players players,
-      Dices dices,
-      int? winner});
+      {String id,
+      String player1Id,
+      String player2Id,
+      User? player1,
+      User? player2,
+      int? round,
+      int? winner,
+      List<Question>? question,
+      DateTime? createdAt,
+      DateTime? updatedAt,
+      String? player1Status,
+      String? player2Status});
 
   @override
-  $PlayersCopyWith<$Res> get players;
+  $UserCopyWith<$Res>? get player1;
   @override
-  $DicesCopyWith<$Res> get dices;
+  $UserCopyWith<$Res>? get player2;
 }
 
 /// @nodoc
@@ -1170,33 +728,68 @@ class __$$MatchImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? matchId = null,
-    Object? datetime = null,
-    Object? players = null,
-    Object? dices = null,
+    Object? id = null,
+    Object? player1Id = null,
+    Object? player2Id = null,
+    Object? player1 = freezed,
+    Object? player2 = freezed,
+    Object? round = freezed,
     Object? winner = freezed,
+    Object? question = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? player1Status = freezed,
+    Object? player2Status = freezed,
   }) {
     return _then(_$MatchImpl(
-      matchId: null == matchId
-          ? _value.matchId
-          : matchId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
-      datetime: null == datetime
-          ? _value.datetime
-          : datetime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      players: null == players
-          ? _value.players
-          : players // ignore: cast_nullable_to_non_nullable
-              as Players,
-      dices: null == dices
-          ? _value.dices
-          : dices // ignore: cast_nullable_to_non_nullable
-              as Dices,
+      player1Id: null == player1Id
+          ? _value.player1Id
+          : player1Id // ignore: cast_nullable_to_non_nullable
+              as String,
+      player2Id: null == player2Id
+          ? _value.player2Id
+          : player2Id // ignore: cast_nullable_to_non_nullable
+              as String,
+      player1: freezed == player1
+          ? _value.player1
+          : player1 // ignore: cast_nullable_to_non_nullable
+              as User?,
+      player2: freezed == player2
+          ? _value.player2
+          : player2 // ignore: cast_nullable_to_non_nullable
+              as User?,
+      round: freezed == round
+          ? _value.round
+          : round // ignore: cast_nullable_to_non_nullable
+              as int?,
       winner: freezed == winner
           ? _value.winner
           : winner // ignore: cast_nullable_to_non_nullable
               as int?,
+      question: freezed == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as List<Question>?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      player1Status: freezed == player1Status
+          ? _value.player1Status
+          : player1Status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      player2Status: freezed == player2Status
+          ? _value.player2Status
+          : player2Status // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1205,30 +798,50 @@ class __$$MatchImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MatchImpl with DiagnosticableTreeMixin implements _Match {
   _$MatchImpl(
-      {@JsonKey(name: "match_id") required this.matchId,
-      required this.datetime,
-      required this.players,
-      required this.dices,
-      required this.winner});
+      {required this.id,
+      required this.player1Id,
+      required this.player2Id,
+      this.player1,
+      this.player2,
+      this.round,
+      this.winner,
+      this.question,
+      this.createdAt,
+      this.updatedAt,
+      this.player1Status,
+      this.player2Status});
 
   factory _$MatchImpl.fromJson(Map<String, dynamic> json) =>
       _$$MatchImplFromJson(json);
 
   @override
-  @JsonKey(name: "match_id")
-  final String matchId;
+  final String id;
   @override
-  final DateTime datetime;
+  String player1Id;
   @override
-  final Players players;
+  String player2Id;
   @override
-  Dices dices;
+  User? player1;
+  @override
+  User? player2;
+  @override
+  int? round;
   @override
   int? winner;
+  @override
+  List<Question>? question;
+  @override
+  DateTime? createdAt;
+  @override
+  DateTime? updatedAt;
+  @override
+  String? player1Status;
+  @override
+  String? player2Status;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Match(matchId: $matchId, datetime: $datetime, players: $players, dices: $dices, winner: $winner)';
+    return 'Match(id: $id, player1Id: $player1Id, player2Id: $player2Id, player1: $player1, player2: $player2, round: $round, winner: $winner, question: $question, createdAt: $createdAt, updatedAt: $updatedAt, player1Status: $player1Status, player2Status: $player2Status)';
   }
 
   @override
@@ -1236,11 +849,18 @@ class _$MatchImpl with DiagnosticableTreeMixin implements _Match {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Match'))
-      ..add(DiagnosticsProperty('matchId', matchId))
-      ..add(DiagnosticsProperty('datetime', datetime))
-      ..add(DiagnosticsProperty('players', players))
-      ..add(DiagnosticsProperty('dices', dices))
-      ..add(DiagnosticsProperty('winner', winner));
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('player1Id', player1Id))
+      ..add(DiagnosticsProperty('player2Id', player2Id))
+      ..add(DiagnosticsProperty('player1', player1))
+      ..add(DiagnosticsProperty('player2', player2))
+      ..add(DiagnosticsProperty('round', round))
+      ..add(DiagnosticsProperty('winner', winner))
+      ..add(DiagnosticsProperty('question', question))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt))
+      ..add(DiagnosticsProperty('player1Status', player1Status))
+      ..add(DiagnosticsProperty('player2Status', player2Status));
   }
 
   @JsonKey(ignore: true)
@@ -1259,29 +879,1449 @@ class _$MatchImpl with DiagnosticableTreeMixin implements _Match {
 
 abstract class _Match implements Match {
   factory _Match(
-      {@JsonKey(name: "match_id") required final String matchId,
-      required final DateTime datetime,
-      required final Players players,
-      required Dices dices,
-      required int? winner}) = _$MatchImpl;
+      {required final String id,
+      required String player1Id,
+      required String player2Id,
+      User? player1,
+      User? player2,
+      int? round,
+      int? winner,
+      List<Question>? question,
+      DateTime? createdAt,
+      DateTime? updatedAt,
+      String? player1Status,
+      String? player2Status}) = _$MatchImpl;
 
   factory _Match.fromJson(Map<String, dynamic> json) = _$MatchImpl.fromJson;
 
   @override
-  @JsonKey(name: "match_id")
-  String get matchId;
+  String get id;
   @override
-  DateTime get datetime;
+  String get player1Id;
+  set player1Id(String value);
   @override
-  Players get players;
+  String get player2Id;
+  set player2Id(String value);
   @override
-  Dices get dices;
-  set dices(Dices value);
+  User? get player1;
+  set player1(User? value);
+  @override
+  User? get player2;
+  set player2(User? value);
+  @override
+  int? get round;
+  set round(int? value);
   @override
   int? get winner;
   set winner(int? value);
   @override
+  List<Question>? get question;
+  set question(List<Question>? value);
+  @override
+  DateTime? get createdAt;
+  set createdAt(DateTime? value);
+  @override
+  DateTime? get updatedAt;
+  set updatedAt(DateTime? value);
+  @override
+  String? get player1Status;
+  set player1Status(String? value);
+  @override
+  String? get player2Status;
+  set player2Status(String? value);
+  @override
   @JsonKey(ignore: true)
   _$$MatchImplCopyWith<_$MatchImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Challenge _$ChallengeFromJson(Map<String, dynamic> json) {
+  return _Challenge.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Challenge {
+  String get id => throw _privateConstructorUsedError;
+  String get playerId => throw _privateConstructorUsedError;
+  User? get player => throw _privateConstructorUsedError;
+  set player(User? value) => throw _privateConstructorUsedError;
+  int? get round => throw _privateConstructorUsedError;
+  set round(int? value) => throw _privateConstructorUsedError;
+  int? get score => throw _privateConstructorUsedError;
+  set score(int? value) => throw _privateConstructorUsedError;
+  int? get rank => throw _privateConstructorUsedError;
+  set rank(int? value) => throw _privateConstructorUsedError;
+  List<Question>? get question => throw _privateConstructorUsedError;
+  set question(List<Question>? value) => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime? value) => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  set updatedAt(DateTime? value) => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ChallengeCopyWith<Challenge> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ChallengeCopyWith<$Res> {
+  factory $ChallengeCopyWith(Challenge value, $Res Function(Challenge) then) =
+      _$ChallengeCopyWithImpl<$Res, Challenge>;
+  @useResult
+  $Res call(
+      {String id,
+      String playerId,
+      User? player,
+      int? round,
+      int? score,
+      int? rank,
+      List<Question>? question,
+      DateTime? createdAt,
+      DateTime? updatedAt});
+
+  $UserCopyWith<$Res>? get player;
+}
+
+/// @nodoc
+class _$ChallengeCopyWithImpl<$Res, $Val extends Challenge>
+    implements $ChallengeCopyWith<$Res> {
+  _$ChallengeCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? playerId = null,
+    Object? player = freezed,
+    Object? round = freezed,
+    Object? score = freezed,
+    Object? rank = freezed,
+    Object? question = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      playerId: null == playerId
+          ? _value.playerId
+          : playerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      player: freezed == player
+          ? _value.player
+          : player // ignore: cast_nullable_to_non_nullable
+              as User?,
+      round: freezed == round
+          ? _value.round
+          : round // ignore: cast_nullable_to_non_nullable
+              as int?,
+      score: freezed == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rank: freezed == rank
+          ? _value.rank
+          : rank // ignore: cast_nullable_to_non_nullable
+              as int?,
+      question: freezed == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as List<Question>?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res>? get player {
+    if (_value.player == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.player!, (value) {
+      return _then(_value.copyWith(player: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$ChallengeImplCopyWith<$Res>
+    implements $ChallengeCopyWith<$Res> {
+  factory _$$ChallengeImplCopyWith(
+          _$ChallengeImpl value, $Res Function(_$ChallengeImpl) then) =
+      __$$ChallengeImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String id,
+      String playerId,
+      User? player,
+      int? round,
+      int? score,
+      int? rank,
+      List<Question>? question,
+      DateTime? createdAt,
+      DateTime? updatedAt});
+
+  @override
+  $UserCopyWith<$Res>? get player;
+}
+
+/// @nodoc
+class __$$ChallengeImplCopyWithImpl<$Res>
+    extends _$ChallengeCopyWithImpl<$Res, _$ChallengeImpl>
+    implements _$$ChallengeImplCopyWith<$Res> {
+  __$$ChallengeImplCopyWithImpl(
+      _$ChallengeImpl _value, $Res Function(_$ChallengeImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? playerId = null,
+    Object? player = freezed,
+    Object? round = freezed,
+    Object? score = freezed,
+    Object? rank = freezed,
+    Object? question = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_$ChallengeImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      playerId: null == playerId
+          ? _value.playerId
+          : playerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      player: freezed == player
+          ? _value.player
+          : player // ignore: cast_nullable_to_non_nullable
+              as User?,
+      round: freezed == round
+          ? _value.round
+          : round // ignore: cast_nullable_to_non_nullable
+              as int?,
+      score: freezed == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rank: freezed == rank
+          ? _value.rank
+          : rank // ignore: cast_nullable_to_non_nullable
+              as int?,
+      question: freezed == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as List<Question>?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ChallengeImpl with DiagnosticableTreeMixin implements _Challenge {
+  _$ChallengeImpl(
+      {required this.id,
+      required this.playerId,
+      this.player,
+      this.round,
+      this.score,
+      this.rank,
+      this.question,
+      this.createdAt,
+      this.updatedAt});
+
+  factory _$ChallengeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ChallengeImplFromJson(json);
+
+  @override
+  final String id;
+  @override
+  final String playerId;
+  @override
+  User? player;
+  @override
+  int? round;
+  @override
+  int? score;
+  @override
+  int? rank;
+  @override
+  List<Question>? question;
+  @override
+  DateTime? createdAt;
+  @override
+  DateTime? updatedAt;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'Challenge(id: $id, playerId: $playerId, player: $player, round: $round, score: $score, rank: $rank, question: $question, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'Challenge'))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('playerId', playerId))
+      ..add(DiagnosticsProperty('player', player))
+      ..add(DiagnosticsProperty('round', round))
+      ..add(DiagnosticsProperty('score', score))
+      ..add(DiagnosticsProperty('rank', rank))
+      ..add(DiagnosticsProperty('question', question))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChallengeImplCopyWith<_$ChallengeImpl> get copyWith =>
+      __$$ChallengeImplCopyWithImpl<_$ChallengeImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ChallengeImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Challenge implements Challenge {
+  factory _Challenge(
+      {required final String id,
+      required final String playerId,
+      User? player,
+      int? round,
+      int? score,
+      int? rank,
+      List<Question>? question,
+      DateTime? createdAt,
+      DateTime? updatedAt}) = _$ChallengeImpl;
+
+  factory _Challenge.fromJson(Map<String, dynamic> json) =
+      _$ChallengeImpl.fromJson;
+
+  @override
+  String get id;
+  @override
+  String get playerId;
+  @override
+  User? get player;
+  set player(User? value);
+  @override
+  int? get round;
+  set round(int? value);
+  @override
+  int? get score;
+  set score(int? value);
+  @override
+  int? get rank;
+  set rank(int? value);
+  @override
+  List<Question>? get question;
+  set question(List<Question>? value);
+  @override
+  DateTime? get createdAt;
+  set createdAt(DateTime? value);
+  @override
+  DateTime? get updatedAt;
+  set updatedAt(DateTime? value);
+  @override
+  @JsonKey(ignore: true)
+  _$$ChallengeImplCopyWith<_$ChallengeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+ChallengeLeaderboard _$ChallengeLeaderboardFromJson(Map<String, dynamic> json) {
+  return _ChallengeLeaderboard.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ChallengeLeaderboard {
+  String get playerId => throw _privateConstructorUsedError;
+  String get challengeId => throw _privateConstructorUsedError;
+  set challengeId(String value) => throw _privateConstructorUsedError;
+  User? get player => throw _privateConstructorUsedError;
+  set player(User? value) => throw _privateConstructorUsedError;
+  int? get round => throw _privateConstructorUsedError;
+  set round(int? value) => throw _privateConstructorUsedError;
+  int? get score => throw _privateConstructorUsedError;
+  set score(int? value) => throw _privateConstructorUsedError;
+  int? get rank => throw _privateConstructorUsedError;
+  set rank(int? value) => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime? value) => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  set updatedAt(DateTime? value) => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ChallengeLeaderboardCopyWith<ChallengeLeaderboard> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ChallengeLeaderboardCopyWith<$Res> {
+  factory $ChallengeLeaderboardCopyWith(ChallengeLeaderboard value,
+          $Res Function(ChallengeLeaderboard) then) =
+      _$ChallengeLeaderboardCopyWithImpl<$Res, ChallengeLeaderboard>;
+  @useResult
+  $Res call(
+      {String playerId,
+      String challengeId,
+      User? player,
+      int? round,
+      int? score,
+      int? rank,
+      DateTime? createdAt,
+      DateTime? updatedAt});
+
+  $UserCopyWith<$Res>? get player;
+}
+
+/// @nodoc
+class _$ChallengeLeaderboardCopyWithImpl<$Res,
+        $Val extends ChallengeLeaderboard>
+    implements $ChallengeLeaderboardCopyWith<$Res> {
+  _$ChallengeLeaderboardCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? playerId = null,
+    Object? challengeId = null,
+    Object? player = freezed,
+    Object? round = freezed,
+    Object? score = freezed,
+    Object? rank = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      playerId: null == playerId
+          ? _value.playerId
+          : playerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      challengeId: null == challengeId
+          ? _value.challengeId
+          : challengeId // ignore: cast_nullable_to_non_nullable
+              as String,
+      player: freezed == player
+          ? _value.player
+          : player // ignore: cast_nullable_to_non_nullable
+              as User?,
+      round: freezed == round
+          ? _value.round
+          : round // ignore: cast_nullable_to_non_nullable
+              as int?,
+      score: freezed == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rank: freezed == rank
+          ? _value.rank
+          : rank // ignore: cast_nullable_to_non_nullable
+              as int?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res>? get player {
+    if (_value.player == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.player!, (value) {
+      return _then(_value.copyWith(player: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$ChallengeLeaderboardImplCopyWith<$Res>
+    implements $ChallengeLeaderboardCopyWith<$Res> {
+  factory _$$ChallengeLeaderboardImplCopyWith(_$ChallengeLeaderboardImpl value,
+          $Res Function(_$ChallengeLeaderboardImpl) then) =
+      __$$ChallengeLeaderboardImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String playerId,
+      String challengeId,
+      User? player,
+      int? round,
+      int? score,
+      int? rank,
+      DateTime? createdAt,
+      DateTime? updatedAt});
+
+  @override
+  $UserCopyWith<$Res>? get player;
+}
+
+/// @nodoc
+class __$$ChallengeLeaderboardImplCopyWithImpl<$Res>
+    extends _$ChallengeLeaderboardCopyWithImpl<$Res, _$ChallengeLeaderboardImpl>
+    implements _$$ChallengeLeaderboardImplCopyWith<$Res> {
+  __$$ChallengeLeaderboardImplCopyWithImpl(_$ChallengeLeaderboardImpl _value,
+      $Res Function(_$ChallengeLeaderboardImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? playerId = null,
+    Object? challengeId = null,
+    Object? player = freezed,
+    Object? round = freezed,
+    Object? score = freezed,
+    Object? rank = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_$ChallengeLeaderboardImpl(
+      playerId: null == playerId
+          ? _value.playerId
+          : playerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      challengeId: null == challengeId
+          ? _value.challengeId
+          : challengeId // ignore: cast_nullable_to_non_nullable
+              as String,
+      player: freezed == player
+          ? _value.player
+          : player // ignore: cast_nullable_to_non_nullable
+              as User?,
+      round: freezed == round
+          ? _value.round
+          : round // ignore: cast_nullable_to_non_nullable
+              as int?,
+      score: freezed == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rank: freezed == rank
+          ? _value.rank
+          : rank // ignore: cast_nullable_to_non_nullable
+              as int?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ChallengeLeaderboardImpl
+    with DiagnosticableTreeMixin
+    implements _ChallengeLeaderboard {
+  _$ChallengeLeaderboardImpl(
+      {required this.playerId,
+      required this.challengeId,
+      this.player,
+      this.round,
+      this.score,
+      this.rank,
+      this.createdAt,
+      this.updatedAt});
+
+  factory _$ChallengeLeaderboardImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ChallengeLeaderboardImplFromJson(json);
+
+  @override
+  final String playerId;
+  @override
+  String challengeId;
+  @override
+  User? player;
+  @override
+  int? round;
+  @override
+  int? score;
+  @override
+  int? rank;
+  @override
+  DateTime? createdAt;
+  @override
+  DateTime? updatedAt;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ChallengeLeaderboard(playerId: $playerId, challengeId: $challengeId, player: $player, round: $round, score: $score, rank: $rank, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ChallengeLeaderboard'))
+      ..add(DiagnosticsProperty('playerId', playerId))
+      ..add(DiagnosticsProperty('challengeId', challengeId))
+      ..add(DiagnosticsProperty('player', player))
+      ..add(DiagnosticsProperty('round', round))
+      ..add(DiagnosticsProperty('score', score))
+      ..add(DiagnosticsProperty('rank', rank))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChallengeLeaderboardImplCopyWith<_$ChallengeLeaderboardImpl>
+      get copyWith =>
+          __$$ChallengeLeaderboardImplCopyWithImpl<_$ChallengeLeaderboardImpl>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ChallengeLeaderboardImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ChallengeLeaderboard implements ChallengeLeaderboard {
+  factory _ChallengeLeaderboard(
+      {required final String playerId,
+      required String challengeId,
+      User? player,
+      int? round,
+      int? score,
+      int? rank,
+      DateTime? createdAt,
+      DateTime? updatedAt}) = _$ChallengeLeaderboardImpl;
+
+  factory _ChallengeLeaderboard.fromJson(Map<String, dynamic> json) =
+      _$ChallengeLeaderboardImpl.fromJson;
+
+  @override
+  String get playerId;
+  @override
+  String get challengeId;
+  set challengeId(String value);
+  @override
+  User? get player;
+  set player(User? value);
+  @override
+  int? get round;
+  set round(int? value);
+  @override
+  int? get score;
+  set score(int? value);
+  @override
+  int? get rank;
+  set rank(int? value);
+  @override
+  DateTime? get createdAt;
+  set createdAt(DateTime? value);
+  @override
+  DateTime? get updatedAt;
+  set updatedAt(DateTime? value);
+  @override
+  @JsonKey(ignore: true)
+  _$$ChallengeLeaderboardImplCopyWith<_$ChallengeLeaderboardImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+MatchLeaderboard _$MatchLeaderboardFromJson(Map<String, dynamic> json) {
+  return _MatchLeaderboard.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MatchLeaderboard {
+  String get playerId => throw _privateConstructorUsedError;
+  User? get player => throw _privateConstructorUsedError;
+  set player(User? value) => throw _privateConstructorUsedError;
+  int? get rating => throw _privateConstructorUsedError;
+  set rating(int? value) => throw _privateConstructorUsedError;
+  int? get rank => throw _privateConstructorUsedError;
+  set rank(int? value) => throw _privateConstructorUsedError;
+  int? get wins => throw _privateConstructorUsedError;
+  set wins(int? value) => throw _privateConstructorUsedError;
+  int? get loses => throw _privateConstructorUsedError;
+  set loses(int? value) => throw _privateConstructorUsedError;
+  int? get draws => throw _privateConstructorUsedError;
+  set draws(int? value) => throw _privateConstructorUsedError;
+  int? get plays => throw _privateConstructorUsedError;
+  set plays(int? value) => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime? value) => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  set updatedAt(DateTime? value) => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $MatchLeaderboardCopyWith<MatchLeaderboard> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MatchLeaderboardCopyWith<$Res> {
+  factory $MatchLeaderboardCopyWith(
+          MatchLeaderboard value, $Res Function(MatchLeaderboard) then) =
+      _$MatchLeaderboardCopyWithImpl<$Res, MatchLeaderboard>;
+  @useResult
+  $Res call(
+      {String playerId,
+      User? player,
+      int? rating,
+      int? rank,
+      int? wins,
+      int? loses,
+      int? draws,
+      int? plays,
+      DateTime? createdAt,
+      DateTime? updatedAt});
+
+  $UserCopyWith<$Res>? get player;
+}
+
+/// @nodoc
+class _$MatchLeaderboardCopyWithImpl<$Res, $Val extends MatchLeaderboard>
+    implements $MatchLeaderboardCopyWith<$Res> {
+  _$MatchLeaderboardCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? playerId = null,
+    Object? player = freezed,
+    Object? rating = freezed,
+    Object? rank = freezed,
+    Object? wins = freezed,
+    Object? loses = freezed,
+    Object? draws = freezed,
+    Object? plays = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      playerId: null == playerId
+          ? _value.playerId
+          : playerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      player: freezed == player
+          ? _value.player
+          : player // ignore: cast_nullable_to_non_nullable
+              as User?,
+      rating: freezed == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rank: freezed == rank
+          ? _value.rank
+          : rank // ignore: cast_nullable_to_non_nullable
+              as int?,
+      wins: freezed == wins
+          ? _value.wins
+          : wins // ignore: cast_nullable_to_non_nullable
+              as int?,
+      loses: freezed == loses
+          ? _value.loses
+          : loses // ignore: cast_nullable_to_non_nullable
+              as int?,
+      draws: freezed == draws
+          ? _value.draws
+          : draws // ignore: cast_nullable_to_non_nullable
+              as int?,
+      plays: freezed == plays
+          ? _value.plays
+          : plays // ignore: cast_nullable_to_non_nullable
+              as int?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res>? get player {
+    if (_value.player == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.player!, (value) {
+      return _then(_value.copyWith(player: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$MatchLeaderboardImplCopyWith<$Res>
+    implements $MatchLeaderboardCopyWith<$Res> {
+  factory _$$MatchLeaderboardImplCopyWith(_$MatchLeaderboardImpl value,
+          $Res Function(_$MatchLeaderboardImpl) then) =
+      __$$MatchLeaderboardImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String playerId,
+      User? player,
+      int? rating,
+      int? rank,
+      int? wins,
+      int? loses,
+      int? draws,
+      int? plays,
+      DateTime? createdAt,
+      DateTime? updatedAt});
+
+  @override
+  $UserCopyWith<$Res>? get player;
+}
+
+/// @nodoc
+class __$$MatchLeaderboardImplCopyWithImpl<$Res>
+    extends _$MatchLeaderboardCopyWithImpl<$Res, _$MatchLeaderboardImpl>
+    implements _$$MatchLeaderboardImplCopyWith<$Res> {
+  __$$MatchLeaderboardImplCopyWithImpl(_$MatchLeaderboardImpl _value,
+      $Res Function(_$MatchLeaderboardImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? playerId = null,
+    Object? player = freezed,
+    Object? rating = freezed,
+    Object? rank = freezed,
+    Object? wins = freezed,
+    Object? loses = freezed,
+    Object? draws = freezed,
+    Object? plays = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_$MatchLeaderboardImpl(
+      playerId: null == playerId
+          ? _value.playerId
+          : playerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      player: freezed == player
+          ? _value.player
+          : player // ignore: cast_nullable_to_non_nullable
+              as User?,
+      rating: freezed == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int?,
+      rank: freezed == rank
+          ? _value.rank
+          : rank // ignore: cast_nullable_to_non_nullable
+              as int?,
+      wins: freezed == wins
+          ? _value.wins
+          : wins // ignore: cast_nullable_to_non_nullable
+              as int?,
+      loses: freezed == loses
+          ? _value.loses
+          : loses // ignore: cast_nullable_to_non_nullable
+              as int?,
+      draws: freezed == draws
+          ? _value.draws
+          : draws // ignore: cast_nullable_to_non_nullable
+              as int?,
+      plays: freezed == plays
+          ? _value.plays
+          : plays // ignore: cast_nullable_to_non_nullable
+              as int?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MatchLeaderboardImpl
+    with DiagnosticableTreeMixin
+    implements _MatchLeaderboard {
+  _$MatchLeaderboardImpl(
+      {required this.playerId,
+      this.player,
+      this.rating,
+      this.rank,
+      this.wins,
+      this.loses,
+      this.draws,
+      this.plays,
+      this.createdAt,
+      this.updatedAt});
+
+  factory _$MatchLeaderboardImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MatchLeaderboardImplFromJson(json);
+
+  @override
+  final String playerId;
+  @override
+  User? player;
+  @override
+  int? rating;
+  @override
+  int? rank;
+  @override
+  int? wins;
+  @override
+  int? loses;
+  @override
+  int? draws;
+  @override
+  int? plays;
+  @override
+  DateTime? createdAt;
+  @override
+  DateTime? updatedAt;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'MatchLeaderboard(playerId: $playerId, player: $player, rating: $rating, rank: $rank, wins: $wins, loses: $loses, draws: $draws, plays: $plays, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'MatchLeaderboard'))
+      ..add(DiagnosticsProperty('playerId', playerId))
+      ..add(DiagnosticsProperty('player', player))
+      ..add(DiagnosticsProperty('rating', rating))
+      ..add(DiagnosticsProperty('rank', rank))
+      ..add(DiagnosticsProperty('wins', wins))
+      ..add(DiagnosticsProperty('loses', loses))
+      ..add(DiagnosticsProperty('draws', draws))
+      ..add(DiagnosticsProperty('plays', plays))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MatchLeaderboardImplCopyWith<_$MatchLeaderboardImpl> get copyWith =>
+      __$$MatchLeaderboardImplCopyWithImpl<_$MatchLeaderboardImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MatchLeaderboardImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _MatchLeaderboard implements MatchLeaderboard {
+  factory _MatchLeaderboard(
+      {required final String playerId,
+      User? player,
+      int? rating,
+      int? rank,
+      int? wins,
+      int? loses,
+      int? draws,
+      int? plays,
+      DateTime? createdAt,
+      DateTime? updatedAt}) = _$MatchLeaderboardImpl;
+
+  factory _MatchLeaderboard.fromJson(Map<String, dynamic> json) =
+      _$MatchLeaderboardImpl.fromJson;
+
+  @override
+  String get playerId;
+  @override
+  User? get player;
+  set player(User? value);
+  @override
+  int? get rating;
+  set rating(int? value);
+  @override
+  int? get rank;
+  set rank(int? value);
+  @override
+  int? get wins;
+  set wins(int? value);
+  @override
+  int? get loses;
+  set loses(int? value);
+  @override
+  int? get draws;
+  set draws(int? value);
+  @override
+  int? get plays;
+  set plays(int? value);
+  @override
+  DateTime? get createdAt;
+  set createdAt(DateTime? value);
+  @override
+  DateTime? get updatedAt;
+  set updatedAt(DateTime? value);
+  @override
+  @JsonKey(ignore: true)
+  _$$MatchLeaderboardImplCopyWith<_$MatchLeaderboardImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Question _$QuestionFromJson(Map<String, dynamic> json) {
+  return _Question.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Question {
+  int get id => throw _privateConstructorUsedError;
+  String? get challengeId => throw _privateConstructorUsedError;
+  set challengeId(String? value) => throw _privateConstructorUsedError;
+  String? get matchId => throw _privateConstructorUsedError;
+  set matchId(String? value) => throw _privateConstructorUsedError;
+  int get difficulty => throw _privateConstructorUsedError;
+  set difficulty(int value) => throw _privateConstructorUsedError;
+  int get num1 => throw _privateConstructorUsedError;
+  set num1(int value) => throw _privateConstructorUsedError;
+  String get op => throw _privateConstructorUsedError;
+  set op(String value) => throw _privateConstructorUsedError;
+  int get num2 => throw _privateConstructorUsedError;
+  set num2(int value) => throw _privateConstructorUsedError;
+  int? get answer => throw _privateConstructorUsedError;
+  set answer(int? value) => throw _privateConstructorUsedError;
+  int? get score => throw _privateConstructorUsedError;
+  set score(int? value) => throw _privateConstructorUsedError;
+  int? get score2 => throw _privateConstructorUsedError;
+  set score2(int? value) => throw _privateConstructorUsedError;
+  List<int>? get wrong => throw _privateConstructorUsedError;
+  set wrong(List<int>? value) => throw _privateConstructorUsedError;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  set createdAt(DateTime? value) => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  set updatedAt(DateTime? value) => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $QuestionCopyWith<Question> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $QuestionCopyWith<$Res> {
+  factory $QuestionCopyWith(Question value, $Res Function(Question) then) =
+      _$QuestionCopyWithImpl<$Res, Question>;
+  @useResult
+  $Res call(
+      {int id,
+      String? challengeId,
+      String? matchId,
+      int difficulty,
+      int num1,
+      String op,
+      int num2,
+      int? answer,
+      int? score,
+      int? score2,
+      List<int>? wrong,
+      DateTime? createdAt,
+      DateTime? updatedAt});
+}
+
+/// @nodoc
+class _$QuestionCopyWithImpl<$Res, $Val extends Question>
+    implements $QuestionCopyWith<$Res> {
+  _$QuestionCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? challengeId = freezed,
+    Object? matchId = freezed,
+    Object? difficulty = null,
+    Object? num1 = null,
+    Object? op = null,
+    Object? num2 = null,
+    Object? answer = freezed,
+    Object? score = freezed,
+    Object? score2 = freezed,
+    Object? wrong = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      challengeId: freezed == challengeId
+          ? _value.challengeId
+          : challengeId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      matchId: freezed == matchId
+          ? _value.matchId
+          : matchId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      difficulty: null == difficulty
+          ? _value.difficulty
+          : difficulty // ignore: cast_nullable_to_non_nullable
+              as int,
+      num1: null == num1
+          ? _value.num1
+          : num1 // ignore: cast_nullable_to_non_nullable
+              as int,
+      op: null == op
+          ? _value.op
+          : op // ignore: cast_nullable_to_non_nullable
+              as String,
+      num2: null == num2
+          ? _value.num2
+          : num2 // ignore: cast_nullable_to_non_nullable
+              as int,
+      answer: freezed == answer
+          ? _value.answer
+          : answer // ignore: cast_nullable_to_non_nullable
+              as int?,
+      score: freezed == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int?,
+      score2: freezed == score2
+          ? _value.score2
+          : score2 // ignore: cast_nullable_to_non_nullable
+              as int?,
+      wrong: freezed == wrong
+          ? _value.wrong
+          : wrong // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$QuestionImplCopyWith<$Res>
+    implements $QuestionCopyWith<$Res> {
+  factory _$$QuestionImplCopyWith(
+          _$QuestionImpl value, $Res Function(_$QuestionImpl) then) =
+      __$$QuestionImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int id,
+      String? challengeId,
+      String? matchId,
+      int difficulty,
+      int num1,
+      String op,
+      int num2,
+      int? answer,
+      int? score,
+      int? score2,
+      List<int>? wrong,
+      DateTime? createdAt,
+      DateTime? updatedAt});
+}
+
+/// @nodoc
+class __$$QuestionImplCopyWithImpl<$Res>
+    extends _$QuestionCopyWithImpl<$Res, _$QuestionImpl>
+    implements _$$QuestionImplCopyWith<$Res> {
+  __$$QuestionImplCopyWithImpl(
+      _$QuestionImpl _value, $Res Function(_$QuestionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? challengeId = freezed,
+    Object? matchId = freezed,
+    Object? difficulty = null,
+    Object? num1 = null,
+    Object? op = null,
+    Object? num2 = null,
+    Object? answer = freezed,
+    Object? score = freezed,
+    Object? score2 = freezed,
+    Object? wrong = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_$QuestionImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      challengeId: freezed == challengeId
+          ? _value.challengeId
+          : challengeId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      matchId: freezed == matchId
+          ? _value.matchId
+          : matchId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      difficulty: null == difficulty
+          ? _value.difficulty
+          : difficulty // ignore: cast_nullable_to_non_nullable
+              as int,
+      num1: null == num1
+          ? _value.num1
+          : num1 // ignore: cast_nullable_to_non_nullable
+              as int,
+      op: null == op
+          ? _value.op
+          : op // ignore: cast_nullable_to_non_nullable
+              as String,
+      num2: null == num2
+          ? _value.num2
+          : num2 // ignore: cast_nullable_to_non_nullable
+              as int,
+      answer: freezed == answer
+          ? _value.answer
+          : answer // ignore: cast_nullable_to_non_nullable
+              as int?,
+      score: freezed == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as int?,
+      score2: freezed == score2
+          ? _value.score2
+          : score2 // ignore: cast_nullable_to_non_nullable
+              as int?,
+      wrong: freezed == wrong
+          ? _value.wrong
+          : wrong // ignore: cast_nullable_to_non_nullable
+              as List<int>?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$QuestionImpl with DiagnosticableTreeMixin implements _Question {
+  _$QuestionImpl(
+      {required this.id,
+      this.challengeId,
+      this.matchId,
+      required this.difficulty,
+      required this.num1,
+      required this.op,
+      required this.num2,
+      this.answer,
+      this.score,
+      this.score2,
+      this.wrong,
+      this.createdAt,
+      this.updatedAt});
+
+  factory _$QuestionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$QuestionImplFromJson(json);
+
+  @override
+  final int id;
+  @override
+  String? challengeId;
+  @override
+  String? matchId;
+  @override
+  int difficulty;
+  @override
+  int num1;
+  @override
+  String op;
+  @override
+  int num2;
+  @override
+  int? answer;
+  @override
+  int? score;
+  @override
+  int? score2;
+  @override
+  List<int>? wrong;
+  @override
+  DateTime? createdAt;
+  @override
+  DateTime? updatedAt;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'Question(id: $id, challengeId: $challengeId, matchId: $matchId, difficulty: $difficulty, num1: $num1, op: $op, num2: $num2, answer: $answer, score: $score, score2: $score2, wrong: $wrong, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'Question'))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('challengeId', challengeId))
+      ..add(DiagnosticsProperty('matchId', matchId))
+      ..add(DiagnosticsProperty('difficulty', difficulty))
+      ..add(DiagnosticsProperty('num1', num1))
+      ..add(DiagnosticsProperty('op', op))
+      ..add(DiagnosticsProperty('num2', num2))
+      ..add(DiagnosticsProperty('answer', answer))
+      ..add(DiagnosticsProperty('score', score))
+      ..add(DiagnosticsProperty('score2', score2))
+      ..add(DiagnosticsProperty('wrong', wrong))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$QuestionImplCopyWith<_$QuestionImpl> get copyWith =>
+      __$$QuestionImplCopyWithImpl<_$QuestionImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$QuestionImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Question implements Question {
+  factory _Question(
+      {required final int id,
+      String? challengeId,
+      String? matchId,
+      required int difficulty,
+      required int num1,
+      required String op,
+      required int num2,
+      int? answer,
+      int? score,
+      int? score2,
+      List<int>? wrong,
+      DateTime? createdAt,
+      DateTime? updatedAt}) = _$QuestionImpl;
+
+  factory _Question.fromJson(Map<String, dynamic> json) =
+      _$QuestionImpl.fromJson;
+
+  @override
+  int get id;
+  @override
+  String? get challengeId;
+  set challengeId(String? value);
+  @override
+  String? get matchId;
+  set matchId(String? value);
+  @override
+  int get difficulty;
+  set difficulty(int value);
+  @override
+  int get num1;
+  set num1(int value);
+  @override
+  String get op;
+  set op(String value);
+  @override
+  int get num2;
+  set num2(int value);
+  @override
+  int? get answer;
+  set answer(int? value);
+  @override
+  int? get score;
+  set score(int? value);
+  @override
+  int? get score2;
+  set score2(int? value);
+  @override
+  List<int>? get wrong;
+  set wrong(List<int>? value);
+  @override
+  DateTime? get createdAt;
+  set createdAt(DateTime? value);
+  @override
+  DateTime? get updatedAt;
+  set updatedAt(DateTime? value);
+  @override
+  @JsonKey(ignore: true)
+  _$$QuestionImplCopyWith<_$QuestionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

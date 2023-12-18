@@ -1,6 +1,6 @@
-import 'package:dice_client/pages/satuplayer.dart';
+import 'package:dice_client/pages/single_player.dart';
 import 'package:dice_client/pages/lobby.dart';
-import 'package:dice_client/pages/duaplayer.dart';
+import 'package:dice_client/pages/vs_player.dart';
 import 'package:flutter/material.dart';
 import 'package:dice_client/pages/start.dart';
 import 'package:go_router/go_router.dart';
@@ -22,14 +22,14 @@ final _router = GoRouter(
       builder: (context, state) => const LobbyPage(),
     ),
     GoRoute(
-      path: '/satuplayer',
-      name: 'satuplayer',
-      builder: (context, state) => const SatuplayerPage(),
+      path: '/singleplayer',
+      name: 'singleplayer',
+      builder: (context, state) => const SinglePlayerPage(),
     ),
     GoRoute(
-      path: '/duaplayer',
-      name: 'duaplayer',
-      builder: (context, state) => const DuaplayerPage(),
+      path: '/vsplayer',
+      name: 'vsplayer',
+      builder: (context, state) => const VsPlayerPage(),
     ),
   ],
 );
@@ -59,15 +59,19 @@ class MyApp extends StatelessWidget {
               lazy: true,
             ),
             ChangeNotifierProvider(
-              create: (context) => LobbyConnProvider(),
-              lazy: true,
-            ),
-            ChangeNotifierProvider(
               create: (context) => MatchProvider(),
               lazy: true,
             ),
             ChangeNotifierProvider(
-              create: (context) => LobbyHistoryProvider(),
+              create: (context) => LobbyMatchProvider(),
+              lazy: true,
+            ),
+            ChangeNotifierProvider(
+              create: (context) => LobbyChallengeProvider(),
+              lazy: true,
+            ),
+            ChangeNotifierProvider(
+              create: (context) => ChallengeProvider(),
               lazy: true,
             ),
           ],

@@ -1,50 +1,11 @@
 import 'dart:collection';
-import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:dice_client/model.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:provider/provider.dart';
 
-class LobbyConnProvider extends ChangeNotifier {
-  WebSocketChannel? channelLobby;
-
-  WebSocketChannel init(BuildContext context, Uri uri) {
-    if (channelLobby == null) {
-      channelLobby = WebSocketChannel.connect(uri);
-
-      channelLobby!.stream.listen((event) {
-        if (event != null) {
-          DataEvent data = DataEvent.fromJson(jsonDecode(event));
-          if (data.event == "on_join") {
-            User user = User.fromJson(data.params);
-
-            Provider.of<LobbyUserProvider>(context, listen: false)
-                .addUser(user);
-          } else if (data.event == "on_leave") {
-            User user = User.fromJson(data.params);
-
-            Provider.of<LobbyUserProvider>(context, listen: false)
-                .removeUser(user);
-          } else if (data.event == "new_match") {
-            Match match = Match.fromJson(data.params);
-
-            Provider.of<LobbyHistoryProvider>(context, listen: false)
-                .addMatch(match);
-          }
-        }
-      }).onDone(() {
-        clear();
-      });
-    }
-
-    return channelLobby!;
-  }
-
-  void clear() {
-    channelLobby?.sink.close();
-    channelLobby = null;
-  }
-}
+const ENDPOINT = String.fromEnvironment('ENDPOINT');
+const HTTPENDPOINT = "https://$ENDPOINT";
+const WSENDPOINT = "wss://$ENDPOINT";
 
 class LobbyUserProvider extends ChangeNotifier {
   final List<User> _userList = [];
@@ -58,8 +19,8 @@ class LobbyUserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeUser(User user) {
-    _userList.removeWhere((e) => e.id == user.id);
+  void removeUser(String id) {
+    _userList.removeWhere((e) => e.id == id);
 
     notifyListeners();
   }
@@ -72,48 +33,81 @@ class LobbyUserProvider extends ChangeNotifier {
   }
 
   void clear() {
+    onDispose();
+    notifyListeners();
+  }
+
+  void onDispose() {
     _userList.clear();
     isCalled = false;
-
-    notifyListeners();
   }
 }
 
-class LobbyHistoryProvider extends ChangeNotifier {
-  final List<Match> _matchList = [];
+class LobbyMatchProvider extends ChangeNotifier {
+  final List<MatchLeaderboard> _matchList = [];
   bool isCalled = false;
 
-  UnmodifiableListView<Match> get match => UnmodifiableListView(_matchList);
+  UnmodifiableListView<MatchLeaderboard> get matchLeaderboard =>
+      UnmodifiableListView(_matchList);
 
-  void addMatch(Match match) {
+  void addMatch(MatchLeaderboard match) {
     _matchList.insert(0, match);
 
     notifyListeners();
   }
 
-  void removeMatch(Match match) {
-    _matchList.removeWhere((e) => e.matchId == match.matchId);
-
-    notifyListeners();
-  }
-
-  void addMatchs(List<Match> match) {
-    _matchList.addAll(match.reversed.toList());
+  void addMatchs(List<MatchLeaderboard> matchs) {
+    _matchList.addAll(matchs);
     isCalled = true;
 
     notifyListeners();
   }
 
   void clear() {
+    onDispose();
+    notifyListeners();
+  }
+
+  void onDispose() {
     _matchList.clear();
     isCalled = false;
+  }
+}
+
+class LobbyChallengeProvider extends ChangeNotifier {
+  List<ChallengeLeaderboard> _challengeList = [];
+  bool isCalled = false;
+
+  UnmodifiableListView<ChallengeLeaderboard> get challengeLeaderboard =>
+      UnmodifiableListView(_challengeList);
+
+  void addChallenges(List<ChallengeLeaderboard> challenges) {
+    _challengeList = challenges;
+    isCalled = true;
 
     notifyListeners();
+  }
+
+  void setChallenge(ChallengeLeaderboard challenge) {
+    _challengeList[_challengeList.indexWhere(
+        (element) => element.playerId == challenge.playerId)] = challenge;
+
+    notifyListeners();
+  }
+
+  void clear() {
+    onDispose();
+    notifyListeners();
+  }
+
+  void onDispose() {
+    _challengeList.clear();
+    isCalled = false;
   }
 }
 
 class UserProvider extends ChangeNotifier {
-  late User? _user;
+  User? _user;
 
   User get user => _user!;
 
@@ -123,38 +117,115 @@ class UserProvider extends ChangeNotifier {
   }
 
   void clear() {
-    _user = null;
-
+    onDispose();
     notifyListeners();
+  }
+
+  void onDispose() {
+    _user = null;
   }
 }
 
 class MatchProvider extends ChangeNotifier {
   Match? _match;
-  bool isPlayer1 = false;
+  Question? _question;
+  int dice1 = 6;
+  int dice2 = 6;
+  int curRank = 0;
+  int curScore = 0;
+
+  Question? get question => _question;
 
   Match get match => _match!;
 
-  void setMatch(Match match) {
+  setMatch(Match match) {
     _match = match;
     notifyListeners();
   }
 
-  void setDices(Dices dices) {
-    _match!.dices = dices;
+  setQuestion(Question question) {
+    _question = question;
+
+    dice1 = question.num1;
+    dice2 = question.num2;
+    // notifyListeners();
+  }
+
+  void notify() {
     notifyListeners();
   }
 
-  void setDicesValue({int? dice1, int? dice2}) {
-    if (dice1 != null) _match!.dices.dice1 = dice1;
-    if (dice2 != null) _match!.dices.dice2 = dice2;
+  void clearQuestion() {
+    _question = null;
+    notifyListeners();
+  }
 
+  void roll() {
+    dice1 = Random().nextInt(6) + 1;
+    dice2 = Random().nextInt(6) + 1;
     notifyListeners();
   }
 
   void clear() {
-    _match = null;
-
+    onDispose();
     notifyListeners();
+  }
+
+  void onDispose() {
+    _match = null;
+  }
+}
+
+class ChallengeProvider extends ChangeNotifier {
+  late Challenge _challenge;
+  Question? _question;
+  int dice1 = 6;
+  int dice2 = 6;
+  int curRank = 0;
+  int curScore = 0;
+
+  Challenge get challenge => _challenge;
+  Question? get question => _question;
+
+  setChallenge(Challenge challenge) async {
+    _challenge = challenge;
+    notifyListeners();
+  }
+
+  setQuestion(Question question) async {
+    _question = question;
+
+    dice1 = question.num1;
+    dice2 = question.num2;
+  }
+
+  void notify() {
+    notifyListeners();
+  }
+
+  void clearQuestion() {
+    _question = null;
+    notifyListeners();
+  }
+
+  void roll() {
+    dice1 = Random().nextInt(6) + 1;
+    dice2 = Random().nextInt(6) + 1;
+    notifyListeners();
+  }
+
+  void setCur({required int rank, required int score}) {
+    curRank = rank;
+    curScore = score;
+    notifyListeners();
+  }
+
+  void clear() {
+    onDispose();
+    notifyListeners();
+  }
+
+  void onDispose() {
+    _question = null;
   }
 }
