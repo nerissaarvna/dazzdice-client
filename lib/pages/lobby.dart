@@ -221,7 +221,9 @@ class _LobbyPageState extends State<LobbyPage> {
                                         ? TextStyle(
                                             fontSize: 16.sp,
                                             fontWeight: FontWeight.bold)
-                                        : null,
+                                        : TextStyle(
+                                            fontSize: 16.sp,
+                                          ),
                                   ),
                                 );
                               },
@@ -278,15 +280,17 @@ class _LobbyPageState extends State<LobbyPage> {
                         builder: (context) {
                           return AlertDialog(
                             content: SizedBox(
-                              width: 0.1.sw,
-                              height: 0.2.sh,
+                              width: 0.3.sw,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.all(8),
-                                    child: Text("Searching..."),
+                                    child: Text(
+                                      "Searching...",
+                                      style: TextStyle(fontSize: 16.sp),
+                                    ),
                                   ),
                                   const CircularProgressIndicator(),
                                   ElevatedButton(

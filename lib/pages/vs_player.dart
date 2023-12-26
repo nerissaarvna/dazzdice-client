@@ -238,7 +238,10 @@ class _ArenaPageState extends State<VsPlayerPage>
     _channelArena.stream.listen((event) {
       if (event != null) {
         _dataEvent = DataEvent.fromJson(jsonDecode(event));
-        if (_dataEvent!.event == "done") {
+        if (_dataEvent!.event == "next_round") {
+          _channelArena.sink.add(jsonEncode({
+            "event": "ready",
+          }));
         } else if (_dataEvent!.event == "question") {
           _matchProvider
               .setQuestion(Question.fromJson(_dataEvent!.params!['question']));
@@ -411,8 +414,18 @@ class _ArenaPageState extends State<VsPlayerPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.red.shade300,
-        body: Consumer<MatchProvider>(builder: (context, match, _) {
+        body: Center(
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage(
+                'assets/images/background/background2.png'), // background
+          ),
+        ),
+        child: Consumer<MatchProvider>(builder: (context, match, _) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -420,8 +433,8 @@ class _ArenaPageState extends State<VsPlayerPage>
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(
-                    height: 120,
-                    width: 120,
+                    height: 0.2.sh,
+                    width: 0.2.sw,
                     child: ListenableBuilder(
                       listenable: _diceModel,
                       builder: (context, _) {
@@ -480,8 +493,10 @@ class _ArenaPageState extends State<VsPlayerPage>
                           return Center(
                             child: Text(
                               match.question!.op,
-                              style: const TextStyle(
-                                  fontSize: 40, color: Colors.white),
+                              style: TextStyle(
+                                  fontSize: 70.sp,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
                             ),
                           );
                         } else {
@@ -498,26 +513,26 @@ class _ArenaPageState extends State<VsPlayerPage>
                                   } else if (value == -1) {
                                     child = const SizedBox();
                                   } else if (value == 4) {
-                                    child = const Text(
+                                    child = Text(
                                       "Ready",
                                       style: TextStyle(
-                                          fontSize: 32,
+                                          fontSize: 20.sp,
                                           fontWeight: FontWeight.w700,
                                           color: Colors.white),
                                     );
                                   } else if (value == 0) {
-                                    child = const Text(
+                                    child = Text(
                                       "ROLL",
                                       style: TextStyle(
-                                          fontSize: 50,
+                                          fontSize: 32.sp,
                                           fontWeight: FontWeight.w700,
                                           color: Colors.white),
                                     );
                                   } else {
                                     child = Text(
                                       value.toString(),
-                                      style: const TextStyle(
-                                          fontSize: 32,
+                                      style: TextStyle(
+                                          fontSize: 28.sp,
                                           fontWeight: FontWeight.w700,
                                           color: Colors.white),
                                     );
@@ -531,8 +546,8 @@ class _ArenaPageState extends State<VsPlayerPage>
                                           ? const SizedBox()
                                           : Text(
                                               "Round $round",
-                                              style: const TextStyle(
-                                                  fontSize: 32,
+                                              style: TextStyle(
+                                                  fontSize: 28.sp,
                                                   fontWeight: FontWeight.w700,
                                                   color: Colors.white),
                                             ),
@@ -562,8 +577,8 @@ class _ArenaPageState extends State<VsPlayerPage>
                     ),
                   ),
                   SizedBox(
-                    height: 120,
-                    width: 120,
+                    height: 0.2.sh,
+                    width: 0.2.sw,
                     child: ListenableBuilder(
                       listenable: _diceModel,
                       builder: (context, _) {
@@ -614,8 +629,8 @@ class _ArenaPageState extends State<VsPlayerPage>
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 80,
+              SizedBox(
+                height: 0.1.sh,
               ),
               Center(
                 child: SizedBox(
@@ -901,7 +916,9 @@ class _ArenaPageState extends State<VsPlayerPage>
               ),
             ],
           );
-        }));
+        }),
+      ),
+    ));
   }
 
   @override

@@ -493,7 +493,7 @@ class _SinglePlayerPageState extends State<SinglePlayerPage>
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 40, 0, 0),
+                  padding: EdgeInsets.fromLTRB(40.sp, 40.sp, 0, 0),
                   child: ElevatedButton(
                     // button home
                     style: ElevatedButton.styleFrom(
@@ -501,7 +501,7 @@ class _SinglePlayerPageState extends State<SinglePlayerPage>
                         padding: const EdgeInsets.all(0),
                         minimumSize: Size(0.06.sw, 0.12.sh),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.sp))),
+                            borderRadius: BorderRadius.circular(15.sp))),
                     child: Icon(
                       Icons.home,
                       color: Colors.white,
@@ -676,7 +676,7 @@ class _SinglePlayerPageState extends State<SinglePlayerPage>
                                         .op, // random operasi perhitungan
                                     style: TextStyle(
                                         fontSize: 70.sp,
-                                        color: Colors.black,
+                                        color: Colors.white,
                                         fontWeight: FontWeight.w700),
                                   ),
                                 );
