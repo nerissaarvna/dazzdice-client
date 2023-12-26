@@ -35,10 +35,13 @@ class _LobbyPageState extends State<LobbyPage> {
 
     _userProvider = Provider.of<UserProvider>(context, listen: false);
     _lobbyUserProvider = Provider.of<LobbyUserProvider>(context, listen: false);
-    _lobbyMatchProvider = Provider.of<LobbyMatchProvider>(context, listen: false);
-    _lobbyChallengeProvider = Provider.of<LobbyChallengeProvider>(context, listen: false);
+    _lobbyMatchProvider =
+        Provider.of<LobbyMatchProvider>(context, listen: false);
+    _lobbyChallengeProvider =
+        Provider.of<LobbyChallengeProvider>(context, listen: false);
 
-    _channelLobby = WebSocketChannel.connect(Uri.parse("$WSENDPOINT/lobby?id=${_userProvider.user.id}"));
+    _channelLobby = WebSocketChannel.connect(
+        Uri.parse("$WSENDPOINT/lobby?id=${_userProvider.user.id}"));
 
     _channelLobby.stream.listen((event) {
       if (event != null) {
@@ -94,7 +97,8 @@ class _LobbyPageState extends State<LobbyPage> {
                   users.add(User.fromJson(i));
                 }
 
-                int indexUser = users.indexWhere((element) => element.id == _userProvider.user.id);
+                int indexUser = users.indexWhere(
+                    (element) => element.id == _userProvider.user.id);
 
                 users.insert(0, users[indexUser]);
                 users.removeAt(indexUser + 1);
@@ -140,6 +144,7 @@ class _LobbyPageState extends State<LobbyPage> {
     );
   }
 
+  // Halaman lobby game
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,33 +153,37 @@ class _LobbyPageState extends State<LobbyPage> {
         height: double.infinity,
         decoration: const BoxDecoration(
             image: DecorationImage(
-          fit: BoxFit.fill,
-          image: AssetImage('assets/images/background/background.png'),
+          fit: BoxFit.cover,
+          image: AssetImage(
+              'assets/images/background/background.png'), // background
         )),
         child: Stack(
           alignment: Alignment.center,
           children: [
-            const Positioned(
+            Positioned(
               top: 35,
               child: Image(
-                height: 150,
-                image: AssetImage('assets/images/logo/logodazzdice.png'),
+                height: 0.2.sh,
+                image: AssetImage(
+                    'assets/images/logo/logodazzdice.png'), // logo dazzdice
               ),
             ),
             Positioned(
+              // List lawan yang online
               left: 60,
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: SizedBox(
-                  width: 300,
-                  height: 400,
+                  width: 0.25.sw,
+                  height: 0.5.sh,
                   child: Card(
                     child: Column(
                       children: [
-                        const ListTile(
+                        ListTile(
                           shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10))),
                           tileColor: Color.fromARGB(255, 30, 30, 30),
                           title: Center(
                             child: Row(
@@ -183,14 +192,17 @@ class _LobbyPageState extends State<LobbyPage> {
                                 Icon(
                                   Icons.supervised_user_circle,
                                   color: Color.fromARGB(255, 165, 214, 167),
-                                  size: 30,
+                                  size: 25.sp,
                                 ),
                                 SizedBox(
-                                  width: 10,
+                                  width: 0.01.sw,
                                 ),
                                 Text(
                                   "Online",
-                                  style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w300),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.w300),
                                 )
                               ],
                             ),
@@ -204,8 +216,11 @@ class _LobbyPageState extends State<LobbyPage> {
                                 return ListTile(
                                   title: Text(
                                     '${user.items[index].name}#${user.items[index].decorator}${(_userProvider.user.id == user.items[index].id) ? " (me)" : ""}',
-                                    style: (_userProvider.user.id == user.items[index].id)
-                                        ? const TextStyle(fontWeight: FontWeight.bold)
+                                    style: (_userProvider.user.id ==
+                                            user.items[index].id)
+                                        ? TextStyle(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.bold)
                                         : null,
                                   ),
                                 );
@@ -223,43 +238,51 @@ class _LobbyPageState extends State<LobbyPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  width: 180,
-                  height: 40,
+                  height: 0.08.sh,
+                  width: 0.18.sw,
                   child: ElevatedButton(
+                    // button single player
                     onPressed: () {
                       http
-                          .get(Uri.parse("$HTTPENDPOINT/create_challenge?id=${_userProvider.user.id}"))
+                          .get(Uri.parse(
+                              "$HTTPENDPOINT/create_challenge?id=${_userProvider.user.id}"))
                           .then((value) {
-                        Challenge challenge = Challenge.fromJson(jsonDecode(value.body));
-                        Provider.of<ChallengeProvider>(context, listen: false).setChallenge(challenge);
+                        Challenge challenge =
+                            Challenge.fromJson(jsonDecode(value.body));
+                        Provider.of<ChallengeProvider>(context, listen: false)
+                            .setChallenge(challenge);
                         context.pushNamed('singleplayer');
                       });
                     },
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.pink.shade100),
-                    child: const Text(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pink.shade100),
+                    child: Text(
                       "Single Player",
-                      style: TextStyle(fontSize: 22, color: Colors.white),
+                      style: TextStyle(fontSize: 18.sp, color: Colors.white),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 40,
+                SizedBox(
+                  height: 0.05.sh,
                 ),
                 SizedBox(
-                  width: 180,
-                  height: 40,
+                  height: 0.08.sh,
+                  width: 0.18.sw,
                   child: ElevatedButton(
+                    // button vs player
                     onPressed: () {
                       showDialog(
+                        // pencarian lawan yang online
                         barrierDismissible: false,
                         context: context,
                         builder: (context) {
                           return AlertDialog(
                             content: SizedBox(
-                              width: 100,
-                              height: 200,
+                              width: 0.1.sw,
+                              height: 0.2.sh,
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   const Padding(
                                     padding: EdgeInsets.all(8),
@@ -280,17 +303,19 @@ class _LobbyPageState extends State<LobbyPage> {
                         },
                       );
 
-                      _channelMm =
-                          WebSocketChannel.connect(Uri.parse("$WSENDPOINT/mm?id=${_userProvider.user.id}"));
+                      _channelMm = WebSocketChannel.connect(Uri.parse(
+                          "$WSENDPOINT/mm?id=${_userProvider.user.id}"));
                       _channelMm.stream.listen((event) {
                         if (event != null) {
-                          DataEvent data = DataEvent.fromJson(jsonDecode(event));
+                          DataEvent data =
+                              DataEvent.fromJson(jsonDecode(event));
 
                           if (data.event == "match") {
                             _channelMm.sink.close();
 
                             Provider.of<MatchProvider>(context, listen: false)
-                                .setMatch(Match.fromJson(data.params!["match"]));
+                                .setMatch(
+                                    Match.fromJson(data.params!["match"]));
 
                             context.pop();
                             context.pushNamed("vsplayer");
@@ -310,36 +335,39 @@ class _LobbyPageState extends State<LobbyPage> {
                         ),
                       );
                     },
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.pink.shade100),
-                    child: const Text(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pink.shade100),
+                    child: Text(
                       "VS Player",
-                      style: TextStyle(fontSize: 22, color: Colors.white),
+                      style: TextStyle(fontSize: 18.sp, color: Colors.white),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 40,
-                ),
+                SizedBox(height: 0.05.sh),
                 SizedBox(
-                  width: 180,
-                  height: 40,
+                  height: 0.08.sh,
+                  width: 0.18.sw,
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.pink.shade100),
+                    // button exit atau kembali ke halaman utama
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pink.shade100),
                     onPressed: () {
                       context.goNamed('/');
                     },
-                    child: const Text("Exit", style: TextStyle(fontSize: 22, color: Colors.white)),
+                    child: Text("Exit",
+                        style: TextStyle(fontSize: 18.sp, color: Colors.white)),
                   ),
                 ),
               ],
             ),
             Positioned(
+              //leaderboard
               right: 60,
               child: Align(
                 alignment: Alignment.centerRight,
                 child: SizedBox(
-                  width: 300,
-                  height: 400,
+                  width: 0.25.sw,
+                  height: 0.5.sh,
                   child: Card(
                     color: Colors.white,
                     child: Column(
@@ -348,110 +376,158 @@ class _LobbyPageState extends State<LobbyPage> {
                           height: 48,
                           decoration: const BoxDecoration(
                             color: Color.fromARGB(255, 30, 30, 30),
-                            borderRadius:
-                                BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10)),
                           ),
-                          child: const Center(
+                          child: Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.star,
                                   color: Color.fromARGB(255, 250, 240, 175),
-                                  size: 30,
+                                  size: 25.sp,
                                 ),
                                 SizedBox(
                                   width: 10,
                                 ),
                                 Text(
                                   "Leaderboard",
-                                  style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w300),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.w300),
                                 )
                               ],
                             ),
                           ),
                         ),
                         DefaultTabController(
+                          // tab controller
                           length: 2,
                           child: SizedBox(
-                            height: 300,
+                            height: 0.37.sh,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const TabBar(
+                                TabBar(
                                   labelColor: Colors.black,
                                   unselectedLabelColor: Colors.grey,
                                   indicatorColor: Colors.black,
                                   indicatorSize: TabBarIndicatorSize.label,
+                                  labelStyle: TextStyle(fontSize: 14.sp),
                                   tabs: [
-                                    Tab(text: 'Single Player'),
+                                    Tab(
+                                      text: 'Single Player',
+                                    ),
                                     Tab(text: 'VS Player'),
                                   ],
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(5),
+                                    padding: EdgeInsets.all(10),
                                     child: TabBarView(
                                       children: [
                                         ScrollConfiguration(
-                                          behavior: ScrollConfiguration.of(context).copyWith(
+                                          // scroll
+                                          behavior:
+                                              ScrollConfiguration.of(context)
+                                                  .copyWith(
                                             dragDevices: {
                                               PointerDeviceKind.touch,
                                               PointerDeviceKind.mouse,
                                             },
                                           ),
-                                          child: Consumer<LobbyChallengeProvider>(
+                                          child:
+                                              Consumer<LobbyChallengeProvider>(
+                                            // leaderboard single player
                                             builder: (context, provider, _) {
                                               return ListView.separated(
-                                                itemCount: provider.challengeLeaderboard.length,
-                                                separatorBuilder: (context, index) {
-                                                  return const SizedBox(
+                                                itemCount: provider
+                                                    .challengeLeaderboard
+                                                    .length,
+                                                separatorBuilder:
+                                                    (context, index) {
+                                                  return SizedBox(
                                                     height: 8,
                                                   );
                                                 },
                                                 itemBuilder: (context, index) {
                                                   return SizedBox(
-                                                    height: 32,
+                                                    height: 0.06.sh,
                                                     child: Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .stretch,
                                                       children: [
                                                         Center(
                                                           child: Text(
-                                                            provider.challengeLeaderboard[index].rank?.toString() ?? '',
-                                                            style: const TextStyle(
-                                                                fontSize: 20, fontWeight: FontWeight.bold),
+                                                            provider
+                                                                    .challengeLeaderboard[
+                                                                        index]
+                                                                    .rank
+                                                                    ?.toString() ??
+                                                                '',
+                                                            style: TextStyle(
+                                                                fontSize: 20.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
                                                           ),
                                                         ),
-                                                        const SizedBox(width: 10),
+                                                        const SizedBox(
+                                                            width: 10),
                                                         Expanded(
                                                           child: Container(
                                                             decoration: BoxDecoration(
                                                                 borderRadius:
-                                                                    const BorderRadius.all(Radius.circular(10)),
-                                                                color: Colors.green.shade200),
+                                                                    const BorderRadius
+                                                                        .all(
+                                                                        Radius.circular(
+                                                                            10)),
+                                                                color: Colors
+                                                                    .green
+                                                                    .shade200),
                                                             child: Padding(
-                                                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .fromLTRB(
+                                                                      10,
+                                                                      0,
+                                                                      10,
+                                                                      0),
                                                               child: Row(
-                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
                                                                 children: [
                                                                   Text(
                                                                     '${provider.challengeLeaderboard[index].player?.name}#${provider.challengeLeaderboard[index].player?.decorator}${(_userProvider.user.id == provider.challengeLeaderboard[index].playerId) ? " (me)" : ""}',
-                                                                    style: const TextStyle(fontSize: 18),
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            16.sp),
                                                                   ),
                                                                   Row(
                                                                     children: [
                                                                       Icon(
-                                                                        Icons.star,
-                                                                        color: Colors.yellow.shade300,
+                                                                        Icons
+                                                                            .star,
+                                                                        color: Colors
+                                                                            .yellow
+                                                                            .shade300,
+                                                                        size: 18
+                                                                            .sp,
                                                                       ),
                                                                       const SizedBox(
-                                                                        width: 5,
+                                                                        width:
+                                                                            5,
                                                                       ),
                                                                       Text(
-                                                                          provider.challengeLeaderboard[index].score
-                                                                                  ?.toString() ??
+                                                                          provider.challengeLeaderboard[index].score?.toString() ??
                                                                               '',
-                                                                          style: const TextStyle(fontSize: 18))
+                                                                          style:
+                                                                              TextStyle(fontSize: 16.sp))
                                                                     ],
                                                                   )
                                                                 ],
@@ -468,64 +544,102 @@ class _LobbyPageState extends State<LobbyPage> {
                                           ),
                                         ),
                                         ScrollConfiguration(
-                                          behavior: ScrollConfiguration.of(context).copyWith(
+                                          // scroll
+                                          behavior:
+                                              ScrollConfiguration.of(context)
+                                                  .copyWith(
                                             dragDevices: {
                                               PointerDeviceKind.touch,
                                               PointerDeviceKind.mouse,
                                             },
                                           ),
                                           child: Consumer<LobbyMatchProvider>(
+                                            // leaderboard vs player
                                             builder: (context, provider, _) {
                                               return ListView.separated(
-                                                itemCount: provider.matchLeaderboard.length,
-                                                separatorBuilder: (context, index) {
+                                                itemCount: provider
+                                                    .matchLeaderboard.length,
+                                                separatorBuilder:
+                                                    (context, index) {
                                                   return const SizedBox(
                                                     height: 8,
                                                   );
                                                 },
                                                 itemBuilder: (context, index) {
                                                   return SizedBox(
-                                                    height: 32,
+                                                    height: 0.06.sh,
                                                     child: Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .stretch,
                                                       children: [
                                                         Center(
                                                           child: Text(
-                                                            provider.matchLeaderboard[index].rank?.toString() ?? '',
-                                                            style: const TextStyle(
-                                                                fontSize: 20, fontWeight: FontWeight.bold),
+                                                            provider
+                                                                    .matchLeaderboard[
+                                                                        index]
+                                                                    .rank
+                                                                    ?.toString() ??
+                                                                '',
+                                                            style: TextStyle(
+                                                                fontSize: 20.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
                                                           ),
                                                         ),
-                                                        const SizedBox(width: 10),
+                                                        const SizedBox(
+                                                            width: 10),
                                                         Expanded(
                                                           child: Container(
                                                             decoration: BoxDecoration(
                                                                 borderRadius:
-                                                                    const BorderRadius.all(Radius.circular(10)),
-                                                                color: Colors.green.shade200),
+                                                                    const BorderRadius
+                                                                        .all(
+                                                                        Radius.circular(
+                                                                            10)),
+                                                                color: Colors
+                                                                    .green
+                                                                    .shade200),
                                                             child: Padding(
-                                                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .fromLTRB(
+                                                                      10,
+                                                                      0,
+                                                                      10,
+                                                                      0),
                                                               child: Row(
-                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
                                                                 children: [
                                                                   Text(
                                                                     '${provider.matchLeaderboard[index].player?.name}#${provider.matchLeaderboard[index].player?.decorator}${(_userProvider.user.id == provider.matchLeaderboard[index].playerId) ? " (me)" : ""}',
-                                                                    style: const TextStyle(fontSize: 18),
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            16.sp),
                                                                   ),
                                                                   Row(
                                                                     children: [
                                                                       Icon(
-                                                                        Icons.star,
-                                                                        color: Colors.yellow.shade300,
+                                                                        Icons
+                                                                            .star,
+                                                                        color: Colors
+                                                                            .yellow
+                                                                            .shade300,
+                                                                        size: 18
+                                                                            .sp,
                                                                       ),
                                                                       const SizedBox(
-                                                                        width: 5,
+                                                                        width:
+                                                                            5,
                                                                       ),
                                                                       Text(
-                                                                          provider.matchLeaderboard[index].rating
-                                                                                  ?.toString() ??
+                                                                          provider.matchLeaderboard[index].rating?.toString() ??
                                                                               '',
-                                                                          style: const TextStyle(fontSize: 18))
+                                                                          style:
+                                                                              TextStyle(fontSize: 16.sp))
                                                                     ],
                                                                   )
                                                                 ],

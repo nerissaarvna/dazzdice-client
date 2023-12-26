@@ -34,7 +34,8 @@ class VsPlayerPage extends StatefulWidget {
   State<VsPlayerPage> createState() => _ArenaPageState();
 }
 
-class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin {
+class _ArenaPageState extends State<VsPlayerPage>
+    with TickerProviderStateMixin {
   static const Duration _timerDuration = Duration(seconds: 10);
   final ValueNotifier<int> _count = ValueNotifier<int>(5);
   final ValueNotifier<bool> _answer1Locked = ValueNotifier<bool>(false);
@@ -55,7 +56,8 @@ class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin 
   final DiceModel _diceModel = DiceModel();
   bool _hasResult = false;
   final ValueNotifier<bool?> _timesup = ValueNotifier<bool?>(null);
-  final ColorTween _colorTween = ColorTween(begin: Colors.red, end: Colors.green);
+  final ColorTween _colorTween =
+      ColorTween(begin: Colors.red, end: Colors.green);
   late AnimationController _timerBarController;
   DataEvent? _dataEvent;
   int i = 0;
@@ -86,11 +88,14 @@ class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin 
     _count.value--;
 
     await Future.delayed(const Duration(seconds: 2));
-    _diceModel.setDices(_matchProvider.question!.num1, _matchProvider.question!.num2);
+    _diceModel.setDices(
+        _matchProvider.question!.num1, _matchProvider.question!.num2);
 
     _hasResult = true;
     _rolling = false;
-    _options.value = (_matchProvider.question!.wrong!..add(_matchProvider.question!.answer!))..shuffle();
+    _options.value =
+        (_matchProvider.question!.wrong!..add(_matchProvider.question!.answer!))
+          ..shuffle();
 
     _matchProvider.notify();
     _timerBarController.reverse();
@@ -150,8 +155,9 @@ class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin 
   }
 
   Widget _timerWidget() {
+    // timer widget
     return Column(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
       children: [
         ValueListenableBuilder(
           valueListenable: _round,
@@ -159,45 +165,51 @@ class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin 
             return Text("Round: $value/${_matchProvider.match.round}");
           },
         ),
-        Expanded(
-          child: AnimatedBuilder(
-            animation: _timerBarController,
-            builder: (context, _) {
-              var curDur = _timerDuration * _timerBarController.value;
-              return Stack(
-                fit: StackFit.expand,
-                alignment: Alignment.center,
-                children: [
-                  Positioned.fill(
-                    child: LinearProgressIndicator(
-                      value: _timerBarController.value,
-                      valueColor: _colorTween.animate(_timerBarController),
+        Flexible(
+          // time bar
+          child: SizedBox(
+            height: 0.06.sh,
+            width: 0.5.sw,
+            child: AnimatedBuilder(
+              animation: _timerBarController,
+              builder: (context, _) {
+                var curDur = _timerDuration * _timerBarController.value;
+                return Stack(
+                  fit: StackFit.expand,
+                  alignment: Alignment.center,
+                  children: [
+                    Positioned.fill(
+                      child: LinearProgressIndicator(
+                        value: _timerBarController.value,
+                        valueColor: _colorTween.animate(_timerBarController),
+                      ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Stack(
-                      children: [
-                        Text(
-                          '${curDur.inSeconds}.${(curDur.inMilliseconds % 1000).toString().padLeft(3, "0")}',
-                          style: TextStyle(
-                            fontSize: 18,
-                            foreground: Paint()
-                              ..style = PaintingStyle.stroke
-                              ..strokeWidth = 3
-                              ..color = Colors.black,
+                    Align(
+                      alignment: Alignment.center,
+                      child: Stack(
+                        children: [
+                          Text(
+                            '${curDur.inSeconds}.${(curDur.inMilliseconds % 1000).toString().padLeft(3, "0")}',
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..strokeWidth = 3
+                                ..color = Colors.black12,
+                            ),
                           ),
-                        ),
-                        Text(
-                          '${curDur.inSeconds}.${(curDur.inMilliseconds % 1000).toString().padLeft(3, "0")}',
-                          style: const TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                      ],
+                          Text(
+                            '${curDur.inSeconds}.${(curDur.inMilliseconds % 1000).toString().padLeft(3, "0")}',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 18.sp),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              );
-            },
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ],
@@ -206,27 +218,30 @@ class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin 
 
   @override
   void initState() {
-    _timerBarController = AnimationController(vsync: this, duration: _timerDuration, value: 1)
-      ..addListener(() {
-        if (_timerBarController.value == 0) {
-          _timesup.value = true;
-          _dataEvent!.event = "answer";
-          _dataEvent!.params!["answer"] = -99999;
-          _dataEvent!.params!['remaining_seconds'] = _timerBarController.value * _timerDuration.inSeconds;
-          _channelArena.sink.add(jsonEncode(_dataEvent!.toJson()));
-        }
-      });
+    _timerBarController =
+        AnimationController(vsync: this, duration: _timerDuration, value: 1)
+          ..addListener(() {
+            if (_timerBarController.value == 0) {
+              _timesup.value = true;
+              _dataEvent!.event = "answer";
+              _dataEvent!.params!["answer"] = -99999;
+              _dataEvent!.params!['remaining_seconds'] =
+                  _timerBarController.value * _timerDuration.inSeconds;
+              _channelArena.sink.add(jsonEncode(_dataEvent!.toJson()));
+            }
+          });
     _matchProvider = Provider.of<MatchProvider>(context, listen: false);
     _userProvider = Provider.of<UserProvider>(context, listen: false);
-    _channelArena = WebSocketChannel.connect(
-        Uri.parse("$WSENDPOINT/arena?id=${_userProvider.user.id}&match_id=${_matchProvider.match.id}"));
+    _channelArena = WebSocketChannel.connect(Uri.parse(
+        "$WSENDPOINT/arena?id=${_userProvider.user.id}&match_id=${_matchProvider.match.id}"));
 
     _channelArena.stream.listen((event) {
       if (event != null) {
         _dataEvent = DataEvent.fromJson(jsonDecode(event));
         if (_dataEvent!.event == "done") {
         } else if (_dataEvent!.event == "question") {
-          _matchProvider.setQuestion(Question.fromJson(_dataEvent!.params!['question']));
+          _matchProvider
+              .setQuestion(Question.fromJson(_dataEvent!.params!['question']));
           _round.value = _matchProvider.question!.difficulty;
           _countDown();
         } else if (_dataEvent!.event == "answer") {
@@ -345,23 +360,27 @@ class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin 
                         const Text("Rating"),
                         Text("$oldRating -> $newRating"),
                         Table(
-                          border: const TableBorder(verticalInside: BorderSide()),
+                          border:
+                              const TableBorder(verticalInside: BorderSide()),
                           children: [
                             TableRow(
-                              decoration: const BoxDecoration(border: Border(bottom: BorderSide())),
+                              decoration: const BoxDecoration(
+                                  border: Border(bottom: BorderSide())),
                               children: [
                                 Text(_matchProvider.match.player1!.name),
                                 Text(_matchProvider.match.player2!.name)
                               ],
                             ),
-                            ...List<int>.from(List.generate(_scores1.length, (index) => index)).map(
+                            ...List<int>.from(List.generate(
+                                _scores1.length, (index) => index)).map(
                               (e) => TableRow(children: [
                                 Text(_scores1[e].toString()),
                                 Text(_scores2[e].toString()),
                               ]),
                             ),
                             TableRow(
-                              decoration: const BoxDecoration(border: Border(top: BorderSide())),
+                              decoration: const BoxDecoration(
+                                  border: Border(top: BorderSide())),
                               children: [
                                 Text(_score1.value.toString()),
                                 Text(
@@ -443,7 +462,8 @@ class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin 
                               duration: const Duration(milliseconds: 150),
                               child: Image(
                                 key: ValueKey(Random().nextDouble()),
-                                image: AssetImage('assets/images/dices/dice_${_diceModel.dice1}.png'),
+                                image: AssetImage(
+                                    'assets/images/dices/dice_${_diceModel.dice1}.png'),
                               ),
                             ),
                           ),
@@ -460,7 +480,8 @@ class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin 
                           return Center(
                             child: Text(
                               match.question!.op,
-                              style: const TextStyle(fontSize: 40, color: Colors.white),
+                              style: const TextStyle(
+                                  fontSize: 40, color: Colors.white),
                             ),
                           );
                         } else {
@@ -479,30 +500,41 @@ class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin 
                                   } else if (value == 4) {
                                     child = const Text(
                                       "Ready",
-                                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700, color: Colors.white),
+                                      style: TextStyle(
+                                          fontSize: 32,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white),
                                     );
                                   } else if (value == 0) {
                                     child = const Text(
                                       "ROLL",
-                                      style: TextStyle(fontSize: 50, fontWeight: FontWeight.w700, color: Colors.white),
+                                      style: TextStyle(
+                                          fontSize: 50,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white),
                                     );
                                   } else {
                                     child = Text(
                                       value.toString(),
                                       style: const TextStyle(
-                                          fontSize: 32, fontWeight: FontWeight.w700, color: Colors.white),
+                                          fontSize: 32,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white),
                                     );
                                   }
 
                                   return Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       (value <= 0)
                                           ? const SizedBox()
                                           : Text(
                                               "Round $round",
                                               style: const TextStyle(
-                                                  fontSize: 32, fontWeight: FontWeight.w700, color: Colors.white),
+                                                  fontSize: 32,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white),
                                             ),
                                       AnimatedSwitcher(
                                         duration: (value == 0 || value == 4)
@@ -589,7 +621,10 @@ class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin 
                 child: SizedBox(
                   height: 40,
                   child: ValueListenableBuilder(
-                    valueListenable: (_userProvider.user.id == match.match.player1Id) ? _result1 : _result2,
+                    valueListenable:
+                        (_userProvider.user.id == match.match.player1Id)
+                            ? _result1
+                            : _result2,
                     builder: (context, result, _) {
                       return ValueListenableBuilder(
                         valueListenable: _options,
@@ -611,19 +646,28 @@ class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin 
                                   return SizedBox(
                                     width: 100,
                                     child: AnimatedOpacity(
-                                      opacity: ((value == null || value == index) ||
-                                              (result != null &&
-                                                  (result == false && options[index] == match.question!.answer!)))
-                                          ? 1
-                                          : 0,
-                                      duration: const Duration(milliseconds: 250),
+                                      opacity:
+                                          ((value == null || value == index) ||
+                                                  (result != null &&
+                                                      (result == false &&
+                                                          options[index] ==
+                                                              match.question!
+                                                                  .answer!)))
+                                              ? 1
+                                              : 0,
+                                      duration:
+                                          const Duration(milliseconds: 250),
                                       child: ElevatedButton(
                                         style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.resolveWith(
+                                          backgroundColor:
+                                              MaterialStateProperty.resolveWith(
                                             (states) {
-                                              bool isCorrect = (options[index] == match.question!.answer!);
+                                              bool isCorrect =
+                                                  (options[index] ==
+                                                      match.question!.answer!);
 
-                                              if (states.contains(MaterialState.disabled)) {
+                                              if (states.contains(
+                                                  MaterialState.disabled)) {
                                                 if (result == null) {
                                                   return Colors.orange;
                                                 } else if (isCorrect) {
@@ -640,7 +684,8 @@ class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin 
                                         onPressed: (value != null)
                                             ? null
                                             : () {
-                                                if ((_userProvider.user.id == match.match.player1Id)) {
+                                                if ((_userProvider.user.id ==
+                                                    match.match.player1Id)) {
                                                   _answer1Locked.value = true;
                                                 } else {
                                                   _answer2Locked.value = true;
@@ -648,13 +693,20 @@ class _ArenaPageState extends State<VsPlayerPage> with TickerProviderStateMixin 
                                                 _selectedOption.value = index;
                                                 _timerBarController.stop();
                                                 _dataEvent!.event = "answer";
-                                                _dataEvent!.params!["answer"] = options[index];
-                                                _dataEvent!.params!['remaining_seconds'] =
-                                                    _timerBarController.value * _timerDuration.inSeconds;
-                                                _channelArena.sink.add(jsonEncode(_dataEvent!.toJson()));
+                                                _dataEvent!.params!["answer"] =
+                                                    options[index];
+                                                _dataEvent!.params![
+                                                        'remaining_seconds'] =
+                                                    _timerBarController.value *
+                                                        _timerDuration
+                                                            .inSeconds;
+                                                _channelArena.sink.add(
+                                                    jsonEncode(
+                                                        _dataEvent!.toJson()));
                                               },
                                         child: Text(options[index].toString(),
-                                            style: const TextStyle(color: Colors.white)),
+                                            style: const TextStyle(
+                                                color: Colors.white)),
                                       ),
                                     ),
                                   );

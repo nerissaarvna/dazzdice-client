@@ -10,7 +10,8 @@
             "type": "dart",
             "args": [
                 "--web-port",
-                "3001"
+                "3001",
+                "--dart-define=ENDPOINT=dazzdice-server.nerissaarvna.repl.co"
             ]
         },
         {
@@ -20,7 +21,8 @@
             "flutterMode": "profile",
             "args": [
                 "--web-port",
-                "3001"
+                "3001",
+                "--dart-define=ENDPOINT=dazzdice-server.nerissaarvna.repl.co"
             ]
         },
         {
@@ -30,7 +32,8 @@
             "flutterMode": "release",
             "args": [
                 "--web-port",
-                "3001"
+                "3001",
+                "--dart-define=ENDPOINT=dazzdice-server.nerissaarvna.repl.co"
             ]
         }
     ]

@@ -35,7 +35,8 @@ class SinglePlayerPage extends StatefulWidget {
   State<SinglePlayerPage> createState() => _SinglePlayerPageState();
 }
 
-class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProviderStateMixin {
+class _SinglePlayerPageState extends State<SinglePlayerPage>
+    with TickerProviderStateMixin {
   static const Duration _timerDuration = Duration(seconds: 10);
   final ValueNotifier<int> _count = ValueNotifier<int>(5);
   final ValueNotifier<int> _score = ValueNotifier<int>(0);
@@ -48,7 +49,8 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
   bool _hasResult = false;
   final ValueNotifier<bool> _timesup = ValueNotifier<bool>(false);
   final ValueNotifier<bool?> _result = ValueNotifier<bool?>(null);
-  final ColorTween _colorTween = ColorTween(begin: Colors.red, end: Colors.green);
+  final ColorTween _colorTween =
+      ColorTween(begin: Colors.red, end: Colors.green);
   late AnimationController _timerBarController;
   final DiceModel _diceModel = DiceModel();
   DataEvent? _dataEvent;
@@ -72,7 +74,9 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
   Future<void> _countDown() async {
     _channelArena.sink.add(
       jsonEncode(
-        DataEvent(event: "get_q", params: {"challenge_id": _challengeProvider.challenge.id}),
+        DataEvent(
+            event: "get_q",
+            params: {"challenge_id": _challengeProvider.challenge.id}),
       ),
     );
     await Future.delayed(const Duration(seconds: 1));
@@ -86,59 +90,70 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
     _count.value--;
 
     await Future.delayed(const Duration(seconds: 2));
-    _diceModel.setDices(_challengeProvider.question!.num1, _challengeProvider.question!.num2);
+    _diceModel.setDices(
+        _challengeProvider.question!.num1, _challengeProvider.question!.num2);
 
     _hasResult = true;
     _rolling = false;
-    _options.value = (_challengeProvider.question!.wrong!..add(_challengeProvider.question!.answer!))..shuffle();
+    _options.value =
+        (_challengeProvider.question!.wrong!..add(_challengeProvider.question!.answer!))
+          ..shuffle();
 
     _challengeProvider.notify();
     _timerBarController.reverse();
   }
 
   void _showTimeoutDialog(Challenge challenge) {
+    // dialog ketika waktu habis
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color.fromARGB(255, 30, 30, 30),
+          backgroundColor: Colors.white,
           content: SizedBox(
-            width: 500,
-            height: 320,
+            width: 0.3.sw,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  child: Image(width: 100, image: AssetImage('assets/images/emoticon/amazing.png')),
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Image(
+                      height: 0.15.sh,
+                      image: AssetImage('assets/images/emoticon/amazing.png')),
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: 0.05.sh,
                 ),
-                const Text(
-                  'Waktu Habis!',
-                  style: TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(height: 20),
                 Text(
-                  'Skor ${challenge.score ?? 0}',
-                  style: const TextStyle(fontSize: 16, color: Colors.white),
+                  'Waktu Habis!',
+                  style: TextStyle(
+                      fontSize: 24.sp,
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w800),
+                ),
+                SizedBox(height: 0.05.sh),
+                Text(
+                  'Skor ${challenge.score ?? 0}', // skor
+                  style: TextStyle(fontSize: 16.sp, color: Colors.black87),
                   textAlign: TextAlign.center,
                 ),
-                const Text(
+                Text(
                   'Teruslah berlatih dan jadilah bintang cerdas di dunia perhitungan!',
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(fontSize: 16.sp, color: Colors.black87),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 0.05.sh),
                 ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.pink.shade100),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pink.shade100),
                     onPressed: () {
                       context.pop();
                       context.pop();
                     },
-                    child: const Text('Keluar', style: TextStyle(fontSize: 22, color: Colors.white))),
+                    child: Text('Keluar',
+                        style:
+                            TextStyle(fontSize: 20.sp, color: Colors.white))),
               ],
             ),
           ),
@@ -148,48 +163,60 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
   }
 
   void _showEndDialog(Challenge challenge) {
+    // dialog ketika permainan selesai
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color.fromARGB(255, 30, 30, 30),
+          backgroundColor: Colors.white,
           content: SizedBox(
-            width: 500,
-            height: 320,
+            width: 0.3.sw,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  child: Image(width: 100, image: AssetImage('assets/images/emoticon/amazing.png')),
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Image(
+                      height: 0.15.sh,
+                      image: AssetImage('assets/images/emoticon/amazing.png')),
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: 0.05.sh,
                 ),
-                const Text(
-                  'Permainan Selesai',
-                  style: TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(height: 20),
                 Text(
-                  'Skor ${challenge.score ?? 0}',
-                  style: const TextStyle(fontSize: 16, color: Colors.white),
+                  'Permainan Selesai',
+                  style: TextStyle(
+                      fontSize: 24.sp,
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w800),
+                ),
+                SizedBox(
+                  height: 0.05.sh,
+                ),
+                Text(
+                  'Skor ${challenge.score ?? 0}', // skor
+                  style: TextStyle(fontSize: 16.sp, color: Colors.black87),
                   textAlign: TextAlign.center,
                 ),
-                const Text(
+                Text(
                   'Teruslah berlatih dan jadilah bintang cerdas di dunia perhitungan!',
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(fontSize: 16.sp, color: Colors.black87),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 30),
+                SizedBox(
+                  height: 0.05.sh,
+                ),
                 ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.pink.shade100),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pink.shade100),
                     onPressed: () {
                       context.pop();
                       context.pop();
                     },
-                    child: const Text('Keluar', style: TextStyle(fontSize: 22, color: Colors.white))),
+                    child: Text('Keluar',
+                        style:
+                            TextStyle(fontSize: 20.sp, color: Colors.white))),
               ],
             ),
           ),
@@ -199,96 +226,110 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
   }
 
   Widget _timerWidget() {
+    // timer widget
     return Column(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
       children: [
         ValueListenableBuilder(
           valueListenable: _round,
           builder: (context, value, _) {
-            return Text("Round $value");
+            return Text(
+              "Round $value", // text round
+              style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w800),
+            );
           },
         ),
-        Expanded(
-          child: AnimatedBuilder(
-            animation: _timerBarController,
-            builder: (context, _) {
-              var curDur = _timerDuration * _timerBarController.value;
-              return Stack(
-                fit: StackFit.expand,
-                alignment: Alignment.center,
-                children: [
-                  Positioned.fill(
-                    child: LinearProgressIndicator(
-                      value: _timerBarController.value,
-                      valueColor: _colorTween.animate(_timerBarController),
+        Flexible(
+          // timer bar
+          child: SizedBox(
+            height: 0.06.sh,
+            width: 0.5.sw,
+            child: AnimatedBuilder(
+              animation: _timerBarController,
+              builder: (context, _) {
+                var curDur = _timerDuration * _timerBarController.value;
+                return Stack(
+                  fit: StackFit.expand,
+                  alignment: Alignment.center,
+                  children: [
+                    Positioned.fill(
+                      child: LinearProgressIndicator(
+                        value: _timerBarController.value,
+                        valueColor: _colorTween.animate(_timerBarController),
+                      ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Stack(
-                      children: [
-                        Text(
-                          '${curDur.inSeconds}.${(curDur.inMilliseconds % 1000).toString().padLeft(3, "0")}',
-                          style: TextStyle(
-                            fontSize: 18,
-                            foreground: Paint()
-                              ..style = PaintingStyle.stroke
-                              ..strokeWidth = 3
-                              ..color = Colors.black,
+                    Align(
+                      alignment: Alignment.center,
+                      child: Stack(
+                        children: [
+                          Text(
+                            '${curDur.inSeconds}.${(curDur.inMilliseconds % 1000).toString().padLeft(3, "0")}',
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..strokeWidth = 3
+                                ..color = Colors.black12,
+                            ),
                           ),
-                        ),
-                        Text(
-                          '${curDur.inSeconds}.${(curDur.inMilliseconds % 1000).toString().padLeft(3, "0")}',
-                          style: const TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                      ],
+                          Text(
+                            '${curDur.inSeconds}.${(curDur.inMilliseconds % 1000).toString().padLeft(3, "0")}',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 18.sp),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  // Align(
-                  //   alignment: Alignment.center,
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.fromLTRB(72, 0, 0, 0),
-                  //     child: ValueListenableBuilder(
-                  //       valueListenable: _result,
-                  //       builder: (context, value, _) {
-                  //         return AnimatedOpacity(
-                  //           opacity: (value == null) ? 0 : 1,
-                  //           duration: const Duration(milliseconds: 500),
-                  //           child: Builder(
-                  //             builder: (context) {
-                  //               if (value == null) {
-                  //                 return const SizedBox();
-                  //               } else {
-                  //                 if (value) {
-                  //                   return Text('+$_timeD');
-                  //                 } else {
-                  //                   return Text('-$_timeD');
-                  //                 }
-                  //               }
-                  //             },
-                  //           ),
-                  //         );
-                  //       },
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              );
-            },
+                    // Align(
+                    //   alignment: Alignment.center,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.fromLTRB(72, 0, 0, 0),
+                    //     child: ValueListenableBuilder(
+                    //       valueListenable: _result,
+                    //       builder: (context, value, _) {
+                    //         return AnimatedOpacity(
+                    //           opacity: (value == null) ? 0 : 1,
+                    //           duration: const Duration(milliseconds: 500),
+                    //           child: Builder(
+                    //             builder: (context) {
+                    //               if (value == null) {
+                    //                 return const SizedBox();
+                    //               } else {
+                    //                 if (value) {
+                    //                   return Text('+$_timeD');
+                    //                 } else {
+                    //                   return Text('-$_timeD');
+                    //                 }
+                    //               }
+                    //             },
+                    //           ),
+                    //         );
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
         Stack(
+          // skor dibawah timer
           clipBehavior: Clip.none,
           children: [
             ValueListenableBuilder(
+              // total skor
               valueListenable: _score,
               builder: (context, value, _) {
-                return Text(value.toString());
+                return Text(value.toString(),
+                    style: TextStyle(fontSize: 20.sp));
               },
             ),
             Positioned(
               left: 64,
               child: ValueListenableBuilder(
+                // skor yang ditambahkan
                 valueListenable: _result,
                 builder: (context, value, _) {
                   return AnimatedOpacity(
@@ -298,7 +339,10 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                       if (value == null) {
                         return const SizedBox();
                       } else {
-                        return Text('+$_scoreD');
+                        return Text(
+                          '+$_scoreD',
+                          style: TextStyle(fontSize: 20.sp),
+                        );
                       }
                     }),
                   );
@@ -315,18 +359,19 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
   void initState() {
     super.initState();
 
-    _timerBarController = AnimationController(vsync: this, duration: _timerDuration, value: 1)
-      ..addListener(
-        () {
-          if (_timerBarController.value <= 0.0) {
-            _timesup.value = true;
-            _timerBarController.stop();
-            _dataEvent!.event = "end";
-            _dataEvent!.params!["reason"] = "timeout";
-            _channelArena.sink.add(jsonEncode(_dataEvent!.toJson()));
-          }
-        },
-      );
+    _timerBarController =
+        AnimationController(vsync: this, duration: _timerDuration, value: 1)
+          ..addListener(
+            () {
+              if (_timerBarController.value <= 0.0) {
+                _timesup.value = true;
+                _timerBarController.stop();
+                _dataEvent!.event = "end";
+                _dataEvent!.params!["reason"] = "timeout";
+                _channelArena.sink.add(jsonEncode(_dataEvent!.toJson()));
+              }
+            },
+          );
 
     _challengeProvider = Provider.of<ChallengeProvider>(context, listen: false);
     _userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -337,20 +382,27 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
       if (event != null) {
         _dataEvent = DataEvent.fromJson(jsonDecode(event));
         if (_dataEvent!.event == "connected") {
-          _challengeProvider.setCur(rank: _dataEvent!.params!['cur_rank'], score: _dataEvent!.params!['cur_score']);
+          _challengeProvider.setCur(
+              rank: _dataEvent!.params!['cur_rank'],
+              score: _dataEvent!.params!['cur_score']);
         } else if (_dataEvent!.event == "question") {
-          _challengeProvider.setQuestion(Question.fromJson(_dataEvent!.params!['question']));
+          _challengeProvider
+              .setQuestion(Question.fromJson(_dataEvent!.params!['question']));
         } else if (_dataEvent!.event == "result") {
           _scoreD = _dataEvent!.params!["score"];
           _score.value += _scoreD;
           _scores.add(_scoreD);
           if (_scoreD > 0) {
             _result.value = true;
-            _timeD = ((1 / (_timerDuration.inSeconds / 3)) * _timerDuration.inSeconds).round();
+            _timeD = ((1 / (_timerDuration.inSeconds / 3)) *
+                    _timerDuration.inSeconds)
+                .round();
             _timerBarController.value += (1 / (_timerDuration.inSeconds / 3));
           } else {
             _result.value = false;
-            _timeD = ((1 / (_timerDuration.inSeconds)) * _timerDuration.inSeconds).round();
+            _timeD =
+                ((1 / (_timerDuration.inSeconds)) * _timerDuration.inSeconds)
+                    .round();
             _timerBarController.value -= (1 / (_timerDuration.inSeconds));
           }
 
@@ -366,7 +418,8 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
             _countDown();
           });
         } else if (_dataEvent!.event == "end") {
-          Challenge challenge = Challenge.fromJson(_dataEvent!.params!["challenge"]);
+          Challenge challenge =
+              Challenge.fromJson(_dataEvent!.params!["challenge"]);
           _timerBarController.stop();
           if (_dataEvent!.params!["reason"] == "timeout") {
             _showTimeoutDialog(challenge);
@@ -418,6 +471,7 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
     });
   }
 
+  // arena permainan single player
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -428,7 +482,8 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
           decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/images/background/background2.png'),
+              image: AssetImage(
+                  'assets/images/background/background2.png'), // background
             ),
           ),
           child: Stack(
@@ -440,71 +495,95 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(40, 40, 0, 0),
                   child: ElevatedButton(
+                    // button home
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.pink.shade100,
                         padding: const EdgeInsets.all(0),
-                        fixedSize: const Size(65, 65),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
-                    child: const Icon(
+                        minimumSize: Size(0.06.sw, 0.12.sh),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.sp))),
+                    child: Icon(
                       Icons.home,
                       color: Colors.white,
-                      size: 40,
+                      size: 25.sp,
                     ),
                     onPressed: () {
                       showDialog(
+                        // dialog meninggalkan permainan
                         context: context,
                         barrierDismissible: false,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            backgroundColor: const Color.fromARGB(255, 30, 30, 30),
+                            backgroundColor:
+                                const Color.fromARGB(255, 255, 255, 255),
                             content: SizedBox(
-                              width: 350,
-                              height: 200,
+                              width: 0.3.sw,
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                    child: Image(width: 50, image: AssetImage('assets/images/emoticon/suspicious.png')),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        10.sp, 10.sp, 10.sp, 10.sp),
+                                    child: Image(
+                                        height: 0.15.sh,
+                                        image: AssetImage(
+                                            'assets/images/emoticon/suspicious.png')),
                                   ),
-                                  const SizedBox(
-                                    height: 20,
+                                  SizedBox(
+                                    height: 0.05.sh,
                                   ),
-                                  const Text(
+                                  Text(
                                     'Are you sure?',
-                                    style: TextStyle(fontSize: 24, color: Colors.white),
+                                    style: TextStyle(
+                                        fontSize: 18.sp,
+                                        fontWeight: FontWeight.w800),
                                   ),
-                                  const SizedBox(height: 20),
+                                  SizedBox(height: 0.05.sh),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.pink.shade100, fixedSize: const Size(100, 40)),
+                                              backgroundColor:
+                                                  Colors.pink.shade100,
+                                              minimumSize:
+                                                  Size(0.09.sw, 0.09.sh)),
                                           onPressed: () {
-                                            if (_dataEvent == null || (_dataEvent?.event ?? false) == "connected") {
+                                            if (_dataEvent == null ||
+                                                (_dataEvent?.event ?? false) ==
+                                                    "connected") {
                                               context.pop();
                                               context.pop();
                                             } else {
                                               _timerBarController.stop();
                                               _dataEvent!.event = "end";
-                                              _dataEvent!.params!["reason"] = "exit";
-                                              _channelArena.sink.add(jsonEncode(_dataEvent!.toJson()));
+                                              _dataEvent!.params!["reason"] =
+                                                  "exit";
+                                              _channelArena.sink.add(jsonEncode(
+                                                  _dataEvent!.toJson()));
                                               context.pop();
                                             }
                                           },
-                                          child:
-                                              const Text('Yes', style: TextStyle(fontSize: 22, color: Colors.white))),
-                                      const SizedBox(
-                                        width: 20,
+                                          child: Text('Yes',
+                                              style: TextStyle(
+                                                  fontSize: 18.sp,
+                                                  color: Colors.white))),
+                                      SizedBox(
+                                        width: 0.05.sw,
                                       ),
                                       ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.blue.shade200, fixedSize: const Size(100, 40)),
+                                              backgroundColor:
+                                                  Colors.blue.shade200,
+                                              minimumSize:
+                                                  Size(0.09.sw, 0.09.sh)),
                                           onPressed: () {
                                             context.pop();
                                           },
-                                          child: const Text('No', style: TextStyle(fontSize: 22, color: Colors.white)))
+                                          child: Text('No',
+                                              style: TextStyle(
+                                                  fontSize: 18.sp,
+                                                  color: Colors.white)))
                                     ],
                                   )
                                 ],
@@ -522,9 +601,7 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
                     child: SizedBox(
-                      height: 80,
-                      width: 500,
-                      child: _timerWidget(),
+                      child: _timerWidget(), // timer widget
                     )),
               ),
               Align(
@@ -533,8 +610,8 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SizedBox(
-                      height: 120,
-                      width: 120,
+                      height: 0.2.sh,
+                      width: 0.2.sw,
                       child: ListenableBuilder(
                         listenable: _diceModel,
                         builder: (context, _) {
@@ -566,6 +643,7 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                             duration = 250;
                           }
                           return AnimatedSlide(
+                            // dadu kiri
                             offset: Offset(rDx1, rDy),
                             duration: Duration(milliseconds: duration),
                             child: AnimatedRotation(
@@ -575,7 +653,8 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                                 duration: const Duration(milliseconds: 150),
                                 child: Image(
                                   key: ValueKey(Random().nextDouble()),
-                                  image: AssetImage('assets/images/dices/dice_${_diceModel.dice1}.png'),
+                                  image: AssetImage(
+                                      'assets/images/dices/dice_${_diceModel.dice1}.png'),
                                 ),
                               ),
                             ),
@@ -593,9 +672,12 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                               if (challenge.question != null) {
                                 return Center(
                                   child: Text(
-                                    challenge.question!.op,
-                                    style:
-                                        const TextStyle(fontSize: 80, color: Colors.black, fontWeight: FontWeight.w700),
+                                    challenge.question!
+                                        .op, // random operasi perhitungan
+                                    style: TextStyle(
+                                        fontSize: 70.sp,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700),
                                   ),
                                 );
                               } else {
@@ -610,17 +692,19 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                                         if (value == 5) {
                                           return Center(
                                             child: SizedBox(
-                                              height: 40,
-                                              width: 100,
+                                              width: 0.1.sw,
+                                              height: 0.06.sh,
                                               child: ElevatedButton(
+                                                // button start untuk memulai permainan
                                                 onPressed: () {
-                                                  _count.value--;
+                                                  _count
+                                                      .value--; // hitung mundur 3 2 1
                                                   _countDown();
                                                 },
-                                                child: const Text(
+                                                child: Text(
                                                   "Start",
                                                   style: TextStyle(
-                                                    fontSize: 20,
+                                                    fontSize: 18.sp,
                                                   ),
                                                 ),
                                               ),
@@ -629,40 +713,54 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                                         } else if (value == -1) {
                                           child = const SizedBox();
                                         } else if (value == 4) {
-                                          child = const Text(
+                                          child = Text(
                                             "Ready",
                                             style: TextStyle(
-                                                fontSize: 32, fontWeight: FontWeight.w700, color: Colors.white),
+                                                fontSize: 20.sp,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white),
                                           );
                                         } else if (value == 0) {
-                                          child = const Text(
+                                          child = Text(
                                             "ROLL",
                                             style: TextStyle(
-                                                fontSize: 50, fontWeight: FontWeight.w700, color: Colors.white),
+                                                fontSize: 32.sp,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white),
                                           );
                                         } else {
                                           child = Text(
                                             value.toString(),
-                                            style: const TextStyle(
-                                                fontSize: 32, fontWeight: FontWeight.w700, color: Colors.white),
+                                            style: TextStyle(
+                                                fontSize: 28.sp,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white),
                                           );
                                         }
 
                                         return Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             (value <= 0)
                                                 ? const SizedBox()
                                                 : Text(
                                                     "Round $round",
-                                                    style: const TextStyle(
-                                                        fontSize: 32, fontWeight: FontWeight.w700, color: Colors.white),
+                                                    style: TextStyle(
+                                                        fontSize: 28.sp,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                        color: Colors.white),
                                                   ),
                                             AnimatedSwitcher(
-                                              duration: (value == 0 || value == 4)
-                                                  ? const Duration(milliseconds: 0)
-                                                  : const Duration(milliseconds: 250),
-                                              transitionBuilder: (child, animation) {
+                                              duration:
+                                                  (value == 0 || value == 4)
+                                                      ? const Duration(
+                                                          milliseconds: 0)
+                                                      : const Duration(
+                                                          milliseconds: 250),
+                                              transitionBuilder:
+                                                  (child, animation) {
                                                 return ScaleTransition(
                                                   scale: animation,
                                                   child: child,
@@ -686,8 +784,8 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                       },
                     ),
                     SizedBox(
-                      height: 120,
-                      width: 120,
+                      height: 0.2.sh,
+                      width: 0.2.sw,
                       child: ListenableBuilder(
                         listenable: _diceModel,
                         builder: (context, _) {
@@ -719,6 +817,7 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                             duration = 250;
                           }
                           return AnimatedSlide(
+                            // dadu kanan
                             offset: Offset(rDx2, rDy),
                             duration: Duration(milliseconds: duration),
                             child: AnimatedRotation(
@@ -740,9 +839,10 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                 ),
               ),
               Align(
+                // pemberitahuan jawaban benar atau salah
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 230),
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 180.sp),
                   child: ValueListenableBuilder(
                     valueListenable: _result,
                     builder: (context, value, _) {
@@ -756,24 +856,12 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                           text = "Wrong Answer";
                         }
 
-                        return Stack(
-                          children: [
-                            Text(
-                              text,
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                foreground: Paint()
-                                  ..style = PaintingStyle.stroke
-                                  ..strokeWidth = 4
-                                  ..color = Colors.black,
-                              ),
-                            ),
-                            Text(
-                              text,
-                              style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),
-                            ),
-                          ],
+                        return Text(
+                          text,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w700),
                         );
                       }
                     },
@@ -783,7 +871,7 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 230),
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 160.sp),
                   child: ValueListenableBuilder(
                     valueListenable: _hasSelectOption,
                     builder: (context, value, _) {
@@ -796,24 +884,12 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                           if (options.isEmpty) {
                             return const SizedBox();
                           } else {
-                            return Stack(
-                              children: [
-                                Text(
-                                  'Choose the correct answer below',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                    foreground: Paint()
-                                      ..style = PaintingStyle.stroke
-                                      ..strokeWidth = 4
-                                      ..color = Colors.black,
-                                  ),
-                                ),
-                                const Text(
-                                  'Choose the correct answer below',
-                                  style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),
-                                ),
-                              ],
+                            return Text(
+                              'Choose the correct answer below',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w700),
                             );
                           }
                         },
@@ -823,11 +899,12 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                 ),
               ),
               Align(
+                // pilihan jawaban
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 150),
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 90.sp),
                   child: SizedBox(
-                    height: 60,
+                    height: 0.1.sh,
                     child: ValueListenableBuilder(
                       valueListenable: _result,
                       builder: (context, result, _) {
@@ -853,22 +930,37 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                                         return SizedBox(
                                           width: 120,
                                           child: AnimatedOpacity(
-                                            opacity: ((value == null || value == index) ||
+                                            opacity: ((value == null ||
+                                                        value == index) ||
                                                     (result != null &&
                                                         (result == false &&
-                                                            options[index] == challenge.question!.answer!)))
+                                                            options[index] ==
+                                                                challenge
+                                                                    .question!
+                                                                    .answer!)))
                                                 ? 1
                                                 : 0,
-                                            duration: const Duration(milliseconds: 250),
+                                            duration: const Duration(
+                                                milliseconds: 250),
                                             child: ElevatedButton(
                                               style: ButtonStyle(
                                                 shape: MaterialStatePropertyAll(
-                                                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
-                                                backgroundColor: MaterialStateProperty.resolveWith(
+                                                    RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20))),
+                                                backgroundColor:
+                                                    MaterialStateProperty
+                                                        .resolveWith(
                                                   (states) {
-                                                    bool isCorrect = (options[index] == challenge.question!.answer!);
+                                                    bool isCorrect =
+                                                        (options[index] ==
+                                                            challenge.question!
+                                                                .answer!);
 
-                                                    if (states.contains(MaterialState.disabled)) {
+                                                    if (states.contains(
+                                                        MaterialState
+                                                            .disabled)) {
                                                       if (result == null) {
                                                         return Colors.orange;
                                                       } else if (isCorrect) {
@@ -885,18 +977,34 @@ class _SinglePlayerPageState extends State<SinglePlayerPage> with TickerProvider
                                               onPressed: (value != null)
                                                   ? null
                                                   : () {
-                                                      _hasSelectOption.value = true;
-                                                      _selectedOption.value = index;
-                                                      _timerBarController.stop();
-                                                      _dataEvent!.event = "answer";
-                                                      _dataEvent!.params!["answer"] = options[index];
-                                                      _dataEvent!.params!['remaining_seconds'] =
-                                                          _timerBarController.value * _timerDuration.inSeconds;
-                                                      _channelArena.sink.add(jsonEncode(_dataEvent!.toJson()));
+                                                      _hasSelectOption.value =
+                                                          true;
+                                                      _selectedOption.value =
+                                                          index;
+                                                      _timerBarController
+                                                          .stop();
+                                                      _dataEvent!.event =
+                                                          "answer";
+                                                      _dataEvent!.params![
+                                                              "answer"] =
+                                                          options[index];
+                                                      _dataEvent!.params![
+                                                              'remaining_seconds'] =
+                                                          _timerBarController
+                                                                  .value *
+                                                              _timerDuration
+                                                                  .inSeconds;
+                                                      _channelArena.sink.add(
+                                                          jsonEncode(_dataEvent!
+                                                              .toJson()));
                                                     },
-                                              child: Text(options[index].toString(),
-                                                  style: const TextStyle(
-                                                      fontSize: 38, fontWeight: FontWeight.bold, color: Colors.white)),
+                                              child: Text(
+                                                  options[index].toString(),
+                                                  style: TextStyle(
+                                                      fontSize: 28.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white)),
                                             ),
                                           ),
                                         );
