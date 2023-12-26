@@ -239,9 +239,8 @@ class _ArenaPageState extends State<VsPlayerPage>
       if (event != null) {
         _dataEvent = DataEvent.fromJson(jsonDecode(event));
         if (_dataEvent!.event == "next_round") {
-          _channelArena.sink.add(jsonEncode({
-            "event": "ready",
-          }));
+          _dataEvent!.event = "ready";
+          _channelArena.sink.add(jsonEncode(_dataEvent!.toJson()));
         } else if (_dataEvent!.event == "question") {
           _matchProvider
               .setQuestion(Question.fromJson(_dataEvent!.params!['question']));
