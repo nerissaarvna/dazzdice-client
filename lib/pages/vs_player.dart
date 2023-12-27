@@ -646,7 +646,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                                             : Text(
                                                 "Round $round",
                                                 style: TextStyle(
-                                                    fontSize: 28.sp,
+                                                    fontSize: 24.sp,
                                                     fontWeight: FontWeight.w700,
                                                     color: Colors.white),
                                               ),
