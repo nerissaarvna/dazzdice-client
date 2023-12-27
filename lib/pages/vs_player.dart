@@ -104,10 +104,10 @@ class _ArenaPageState extends State<VsPlayerPage>
   Widget _cardInfo(User user, int no) {
     return SizedBox(
       width: 0.15.sw,
-      height: 0.1.sh,
+      height: 0.15.sh,
       child: Card(
         clipBehavior: Clip.hardEdge,
-        color: Colors.pink.shade200,
+        color: Colors.pink.shade100,
         // shadowColor: (_userProvider.user.id == user.id) ? Colors.white : null,
         elevation: 16,
         child: Padding(

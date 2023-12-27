@@ -285,7 +285,7 @@ class _LobbyPageState extends State<LobbyPage> {
                         builder: (context) {
                           return AlertDialog(
                             content: SizedBox(
-                              height: 0.09.sw,
+                              height: 0.1.sw,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -301,9 +301,12 @@ class _LobbyPageState extends State<LobbyPage> {
                                     color: Colors.blue.shade200,
                                   ),
                                   SizedBox(
-                                    width: 0.11.sw,
-                                    height: 0.07.sh,
+                                    width: 0.09.sw,
+                                    height: 0.05.sh,
                                     child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              Colors.pink.shade100),
                                       onPressed: () {
                                         _channelMm.sink.close();
                                         context.pop();
