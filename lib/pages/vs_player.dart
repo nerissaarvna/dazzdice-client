@@ -108,7 +108,7 @@ class _ArenaPageState extends State<VsPlayerPage>
       child: Card(
         clipBehavior: Clip.hardEdge,
         color: Colors.pink.shade200,
-        shadowColor: (_userProvider.user.id == user.id) ? Colors.white : null,
+        // shadowColor: (_userProvider.user.id == user.id) ? Colors.white : null,
         elevation: 16,
         child: Padding(
           padding: EdgeInsets.only(left: 8.sp, right: 8.sp),
@@ -765,7 +765,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                               itemCount: options.length,
                               separatorBuilder: (context, index) {
                                 return const SizedBox(
-                                  width: 50,
+                                  width: 80,
                                 );
                               },
                               itemBuilder: (context, index) {
@@ -875,7 +875,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                                   "Answer Locked",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.black12, fontSize: 12.sp),
+                                      color: Colors.black, fontSize: 12.sp),
                                 );
                               } else {
                                 return const SizedBox();
@@ -893,14 +893,14 @@ class _ArenaPageState extends State<VsPlayerPage>
                                   return Text(
                                     "Time's Up",
                                     style: TextStyle(
-                                        color: Colors.black12, fontSize: 12.sp),
+                                        color: Colors.black, fontSize: 12.sp),
                                   );
                                 } else {
                                   return Text(
                                     "Answer: $value",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.black12, fontSize: 12.sp),
+                                        color: Colors.black, fontSize: 12.sp),
                                   );
                                 }
                               } else {
@@ -920,14 +920,14 @@ class _ArenaPageState extends State<VsPlayerPage>
                                     "Correct Answer",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.black12, fontSize: 12.sp),
+                                        color: Colors.black, fontSize: 12.sp),
                                   );
                                 } else {
                                   return Text(
                                     "Wrong Answer",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.black12, fontSize: 12.sp),
+                                        color: Colors.black, fontSize: 12.sp),
                                   );
                                 }
                               } else {
@@ -946,7 +946,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                                   "+ $value",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.black12, fontSize: 12.sp),
+                                      color: Colors.black, fontSize: 12.sp),
                                 );
                               } else {
                                 return const SizedBox();
@@ -976,7 +976,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                                   "Answer Locked",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.black12, fontSize: 12.sp),
+                                      color: Colors.black, fontSize: 12.sp),
                                 );
                               } else {
                                 return const SizedBox();
@@ -994,14 +994,14 @@ class _ArenaPageState extends State<VsPlayerPage>
                                   return Text(
                                     "Time's Up",
                                     style: TextStyle(
-                                        color: Colors.black12, fontSize: 12.sp),
+                                        color: Colors.black, fontSize: 12.sp),
                                   );
                                 } else {
                                   return Text(
                                     "Answer: $value",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.black12, fontSize: 12.sp),
+                                        color: Colors.black, fontSize: 12.sp),
                                   );
                                 }
                               } else {
@@ -1021,14 +1021,14 @@ class _ArenaPageState extends State<VsPlayerPage>
                                     "Correct Answer",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.black12, fontSize: 12.sp),
+                                        color: Colors.black, fontSize: 12.sp),
                                   );
                                 } else {
                                   return Text(
                                     "Wrong Answer",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.black12, fontSize: 12.sp),
+                                        color: Colors.black, fontSize: 12.sp),
                                   );
                                 }
                               } else {
@@ -1047,7 +1047,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                                   "+ $value",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.black12, fontSize: 12.sp),
+                                      color: Colors.black, fontSize: 12.sp),
                                 );
                               } else {
                                 return const SizedBox();

@@ -78,8 +78,8 @@ class _StartPageState extends State<StartPage> {
                   height: 0.05.sh,
                 ),
                 SizedBox(
-                  width: 0.1.sw,
-                  height: 0.06.sh,
+                  width: 0.11.sw,
+                  height: 0.07.sh,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.pink.shade100),
