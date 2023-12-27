@@ -135,8 +135,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                     builder: (context, value, _) {
                       return Text(
                         'Score $value',
-                        style:
-                            TextStyle(color: Colors.black12, fontSize: 12.sp),
+                        style: TextStyle(color: Colors.black, fontSize: 12.sp),
                       );
                     },
                   );
@@ -145,8 +144,8 @@ class _ArenaPageState extends State<VsPlayerPage>
                     valueListenable: _score2,
                     builder: (context, value, _) {
                       return Text('Score $value',
-                          style: TextStyle(
-                              color: Colors.black12, fontSize: 12.sp));
+                          style:
+                              TextStyle(color: Colors.black, fontSize: 12.sp));
                     },
                   );
                 }
@@ -1042,6 +1041,9 @@ class _ArenaPageState extends State<VsPlayerPage>
                               }
                             },
                           ),
+                        ),
+                        SizedBox(
+                          height: 0.01.sh,
                         ),
                         _cardInfo(_matchProvider.match.player2!, 2),
                       ],
