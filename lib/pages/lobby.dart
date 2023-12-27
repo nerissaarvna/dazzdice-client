@@ -280,7 +280,8 @@ class _LobbyPageState extends State<LobbyPage> {
                         builder: (context) {
                           return AlertDialog(
                             content: SizedBox(
-                              width: 0.3.sw,
+                              width: 0.1.sw,
+                              height: 0.1.sw,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,

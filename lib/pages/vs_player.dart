@@ -103,29 +103,29 @@ class _ArenaPageState extends State<VsPlayerPage>
 
   Widget _cardInfo(User user, int no) {
     return SizedBox(
-      width: 200,
-      height: 80,
+      width: 0.15.sw,
+      height: 0.1.sh,
       child: Card(
         clipBehavior: Clip.hardEdge,
-        color: Colors.blueAccent,
+        color: Colors.pink.shade200,
         shadowColor: (_userProvider.user.id == user.id) ? Colors.white : null,
         elevation: 16,
         child: Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8),
+          padding: EdgeInsets.only(left: 8.sp, right: 8.sp),
           child: Column(
             children: [
               Center(
                 child: Text(
                   user.name,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                  style: TextStyle(color: Colors.white, fontSize: 16.sp),
                 ),
               ),
               Center(
                 child: Text(
                   user.matchLeaderboard?.rating?.toString() ?? '',
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                  style: TextStyle(color: Colors.white, fontSize: 16.sp),
                 ),
               ),
               Builder(builder: (context) {
@@ -133,14 +133,20 @@ class _ArenaPageState extends State<VsPlayerPage>
                   return ValueListenableBuilder(
                     valueListenable: _score1,
                     builder: (context, value, _) {
-                      return Text('Score $value');
+                      return Text(
+                        'Score $value',
+                        style:
+                            TextStyle(color: Colors.black12, fontSize: 12.sp),
+                      );
                     },
                   );
                 } else if (no == 2) {
                   return ValueListenableBuilder(
                     valueListenable: _score2,
                     builder: (context, value, _) {
-                      return Text('Score $value');
+                      return Text('Score $value',
+                          style: TextStyle(
+                              color: Colors.black12, fontSize: 12.sp));
                     },
                   );
                 }
@@ -425,496 +431,638 @@ class _ArenaPageState extends State<VsPlayerPage>
           ),
         ),
         child: Consumer<MatchProvider>(builder: (context, match, _) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    height: 0.2.sh,
-                    width: 0.2.sw,
-                    child: ListenableBuilder(
-                      listenable: _diceModel,
-                      builder: (context, _) {
-                        double rDy = 0;
-                        double turns = 0;
-                        int duration = 500;
-                        if (_rolling) {
-                          rDy = Random().nextDouble() * -1.0;
-                          if (rDx1 > 0) {
-                            rDx1 = Random().nextDouble() * -1;
-                          } else {
-                            rDx1 = Random().nextDouble() * 1;
-                          }
-                          if (rDx1 < -0.8 || rDx1 > 0.8) {
-                            if (rDx1 < -0.8) {
-                              turns = (rDx1 * -5);
-                            } else {
-                              turns = -(rDx1 * 5);
-                            }
-                          } else if (rDx1 < 0) {
-                            turns = (rDx1 * -3).clamp(1, 2);
-                          } else {
-                            turns = (-(rDx1 * 3)).clamp(-2.0, -1.0);
-                          }
-                        }
-                        if (!_rolling) {
-                          rDx1 = 0;
-                          rDy = 0;
-                          duration = 250;
-                        }
-                        return AnimatedSlide(
-                          offset: Offset(rDx1, rDy),
-                          duration: Duration(milliseconds: duration),
-                          child: AnimatedRotation(
-                            turns: turns,
-                            duration: Duration(milliseconds: duration),
-                            child: AnimatedSwitcher(
-                              duration: const Duration(milliseconds: 150),
-                              child: Image(
-                                key: ValueKey(Random().nextDouble()),
-                                image: AssetImage(
-                                    'assets/images/dices/dice_${_diceModel.dice1}.png'),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+          return Stack(children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(40.sp, 40.sp, 0, 0),
+                child: ElevatedButton(
+                  // button home
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.pink.shade100,
+                      padding: const EdgeInsets.all(0),
+                      minimumSize: Size(0.06.sw, 0.12.sh),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.sp))),
+                  child: Icon(
+                    Icons.home,
+                    color: Colors.white,
+                    size: 25.sp,
                   ),
-                  SizedBox(
-                    width: 120,
-                    height: 120,
-                    child: Builder(
-                      builder: (context) {
-                        if (match.question != null) {
-                          return Center(
-                            child: Text(
-                              match.question!.op,
-                              style: TextStyle(
-                                  fontSize: 70.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                          );
-                        } else {
-                          return ValueListenableBuilder(
-                            valueListenable: _round,
-                            builder: (context, round, _) {
-                              return ValueListenableBuilder(
-                                valueListenable: _count,
-                                builder: (context, value, _) {
-                                  Widget child = const SizedBox();
-
-                                  if (value == 5) {
-                                    return const SizedBox();
-                                  } else if (value == -1) {
-                                    child = const SizedBox();
-                                  } else if (value == 4) {
-                                    child = Text(
-                                      "Ready",
-                                      style: TextStyle(
-                                          fontSize: 20.sp,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white),
-                                    );
-                                  } else if (value == 0) {
-                                    child = Text(
-                                      "ROLL",
-                                      style: TextStyle(
-                                          fontSize: 32.sp,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white),
-                                    );
-                                  } else {
-                                    child = Text(
-                                      value.toString(),
-                                      style: TextStyle(
-                                          fontSize: 28.sp,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white),
-                                    );
-                                  }
-
-                                  return Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      (value <= 0)
-                                          ? const SizedBox()
-                                          : Text(
-                                              "Round $round",
-                                              style: TextStyle(
-                                                  fontSize: 28.sp,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.white),
-                                            ),
-                                      AnimatedSwitcher(
-                                        duration: (value == 0 || value == 4)
-                                            ? const Duration(milliseconds: 0)
-                                            : const Duration(milliseconds: 250),
-                                        transitionBuilder: (child, animation) {
-                                          return ScaleTransition(
-                                            scale: animation,
-                                            child: child,
-                                          );
+                  onPressed: () {
+                    showDialog(
+                      // dialog meninggalkan permainan
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 255, 255),
+                          content: SizedBox(
+                            width: 0.3.sw,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(
+                                      10.sp, 10.sp, 10.sp, 10.sp),
+                                  child: Image(
+                                      height: 0.15.sh,
+                                      image: AssetImage(
+                                          'assets/images/emoticon/suspicious.png')),
+                                ),
+                                SizedBox(
+                                  height: 0.05.sh,
+                                ),
+                                Text(
+                                  'Are you sure?',
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.w800),
+                                ),
+                                SizedBox(height: 0.05.sh),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                Colors.pink.shade100,
+                                            minimumSize:
+                                                Size(0.09.sw, 0.09.sh)),
+                                        onPressed: () {
+                                          if (_dataEvent == null ||
+                                              (_dataEvent?.event ?? false) ==
+                                                  "connected") {
+                                            context.pop();
+                                            context.pop();
+                                          } else {
+                                            _timerBarController.stop();
+                                            _dataEvent!.event = "end";
+                                            _dataEvent!.params!["reason"] =
+                                                "exit";
+                                            _channelArena.sink.add(jsonEncode(
+                                                _dataEvent!.toJson()));
+                                            context.pop();
+                                          }
                                         },
-                                        child: Center(
-                                          key: ValueKey<int>(value),
-                                          child: child,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                          );
-                        }
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 0.2.sh,
-                    width: 0.2.sw,
-                    child: ListenableBuilder(
-                      listenable: _diceModel,
-                      builder: (context, _) {
-                        double rDy = 0;
-                        double turns = 0;
-                        int duration = 500;
-                        if (_rolling) {
-                          rDy = Random().nextDouble() * -1.0;
-                          if (rDx2 > 0) {
-                            rDx2 = Random().nextDouble() * -1;
-                          } else {
-                            rDx2 = Random().nextDouble() * 1;
-                          }
-                          if (rDx2 < -0.8 || rDx2 > 0.8) {
-                            if (rDx2 < -0.8) {
-                              turns = (rDx2 * -5);
-                            } else {
-                              turns = -(rDx2 * 5);
-                            }
-                          } else if (rDx2 < 0) {
-                            turns = (rDx2 * -3).clamp(1, 2);
-                          } else {
-                            turns = (-(rDx2 * 3)).clamp(-2.0, -1.0);
-                          }
-                        }
-                        if (!_rolling) {
-                          rDx2 = 0;
-                          rDy = 0;
-                          duration = 250;
-                        }
-                        return AnimatedSlide(
-                          offset: Offset(rDx2, rDy),
-                          duration: Duration(milliseconds: duration),
-                          child: AnimatedRotation(
-                            turns: turns,
-                            duration: Duration(milliseconds: duration),
-                            child: AnimatedSwitcher(
-                              duration: const Duration(milliseconds: 150),
-                              child: Image.asset(
-                                'assets/images/dices/dice_${_diceModel.dice2}.png',
-                                key: ValueKey(Random().nextDouble()),
-                              ),
+                                        child: Text('Yes',
+                                            style: TextStyle(
+                                                fontSize: 18.sp,
+                                                color: Colors.white))),
+                                    SizedBox(
+                                      width: 0.05.sw,
+                                    ),
+                                    ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor:
+                                                Colors.blue.shade200,
+                                            minimumSize:
+                                                Size(0.09.sw, 0.09.sh)),
+                                        onPressed: () {
+                                          context.pop();
+                                        },
+                                        child: Text('No',
+                                            style: TextStyle(
+                                                fontSize: 18.sp,
+                                                color: Colors.white)))
+                                  ],
+                                )
+                              ],
                             ),
                           ),
                         );
                       },
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 0.1.sh,
-              ),
-              Center(
-                child: SizedBox(
-                  height: 40,
-                  child: ValueListenableBuilder(
-                    valueListenable:
-                        (_userProvider.user.id == match.match.player1Id)
-                            ? _result1
-                            : _result2,
-                    builder: (context, result, _) {
-                      return ValueListenableBuilder(
-                        valueListenable: _options,
-                        builder: (context, options, _) {
-                          return ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: options.length,
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(
-                                width: 50,
-                              );
-                            },
-                            itemBuilder: (context, index) {
-                              return ValueListenableBuilder(
-                                valueListenable: _selectedOption,
-                                builder: (context, value, _) {
-                                  return SizedBox(
-                                    width: 100,
-                                    child: AnimatedOpacity(
-                                      opacity:
-                                          ((value == null || value == index) ||
-                                                  (result != null &&
-                                                      (result == false &&
-                                                          options[index] ==
-                                                              match.question!
-                                                                  .answer!)))
-                                              ? 1
-                                              : 0,
-                                      duration:
-                                          const Duration(milliseconds: 250),
-                                      child: ElevatedButton(
-                                        style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.resolveWith(
-                                            (states) {
-                                              bool isCorrect =
-                                                  (options[index] ==
-                                                      match.question!.answer!);
-
-                                              if (states.contains(
-                                                  MaterialState.disabled)) {
-                                                if (result == null) {
-                                                  return Colors.orange;
-                                                } else if (isCorrect) {
-                                                  return Colors.green;
-                                                } else {
-                                                  return Colors.red;
-                                                }
-                                              } else {
-                                                return Colors.blue;
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                        onPressed: (value != null)
-                                            ? null
-                                            : () {
-                                                if ((_userProvider.user.id ==
-                                                    match.match.player1Id)) {
-                                                  _answer1Locked.value = true;
-                                                } else {
-                                                  _answer2Locked.value = true;
-                                                }
-                                                _selectedOption.value = index;
-                                                _timerBarController.stop();
-                                                _dataEvent!.event = "answer";
-                                                _dataEvent!.params!["answer"] =
-                                                    options[index];
-                                                _dataEvent!.params![
-                                                        'remaining_seconds'] =
-                                                    _timerBarController.value *
-                                                        _timerDuration
-                                                            .inSeconds;
-                                                _channelArena.sink.add(
-                                                    jsonEncode(
-                                                        _dataEvent!.toJson()));
-                                              },
-                                        child: Text(options[index].toString(),
-                                            style: const TextStyle(
-                                                color: Colors.white)),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          );
-                        },
-                      );
-                    },
-                  ),
+                    );
+                  },
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Stack(
-                    clipBehavior: Clip.none,
-                    alignment: Alignment.center,
-                    children: [
-                      Positioned(
-                        bottom: 80,
-                        child: ValueListenableBuilder(
-                          valueListenable: _answer1Locked,
-                          builder: (context, value, _) {
-                            if (value) {
-                              return const Text(
-                                "Answer Locked",
-                                textAlign: TextAlign.center,
-                              );
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      height: 0.2.sh,
+                      width: 0.2.sw,
+                      child: ListenableBuilder(
+                        listenable: _diceModel,
+                        builder: (context, _) {
+                          double rDy = 0;
+                          double turns = 0;
+                          int duration = 500;
+                          if (_rolling) {
+                            rDy = Random().nextDouble() * -1.0;
+                            if (rDx1 > 0) {
+                              rDx1 = Random().nextDouble() * -1;
                             } else {
-                              return const SizedBox();
+                              rDx1 = Random().nextDouble() * 1;
                             }
-                          },
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 80,
-                        child: ValueListenableBuilder(
-                          valueListenable: _answer1,
-                          builder: (context, value, _) {
-                            if (value != null) {
-                              if (value == -99999) {
-                                return const Text("Time's Up");
+                            if (rDx1 < -0.8 || rDx1 > 0.8) {
+                              if (rDx1 < -0.8) {
+                                turns = (rDx1 * -5);
                               } else {
-                                return Text(
-                                  "Answer: $value",
-                                  textAlign: TextAlign.center,
-                                );
+                                turns = -(rDx1 * 5);
                               }
+                            } else if (rDx1 < 0) {
+                              turns = (rDx1 * -3).clamp(1, 2);
                             } else {
-                              return const SizedBox();
+                              turns = (-(rDx1 * 3)).clamp(-2.0, -1.0);
                             }
-                          },
-                        ),
+                          }
+                          if (!_rolling) {
+                            rDx1 = 0;
+                            rDy = 0;
+                            duration = 250;
+                          }
+                          return AnimatedSlide(
+                            offset: Offset(rDx1, rDy),
+                            duration: Duration(milliseconds: duration),
+                            child: AnimatedRotation(
+                              turns: turns,
+                              duration: Duration(milliseconds: duration),
+                              child: AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 150),
+                                child: Image(
+                                  key: ValueKey(Random().nextDouble()),
+                                  image: AssetImage(
+                                      'assets/images/dices/dice_${_diceModel.dice1}.png'),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                      Positioned(
-                        bottom: 100,
-                        child: ValueListenableBuilder(
-                          valueListenable: _result1,
-                          builder: (context, value, _) {
-                            if (value != null) {
-                              if (value) {
-                                return const Text(
-                                  "Correct Answer",
-                                  textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      width: 120,
+                      height: 120,
+                      child: Builder(
+                        builder: (context) {
+                          if (match.question != null) {
+                            return Center(
+                              child: Text(
+                                match.question!.op,
+                                style: TextStyle(
+                                    fontSize: 70.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            );
+                          } else {
+                            return ValueListenableBuilder(
+                              valueListenable: _round,
+                              builder: (context, round, _) {
+                                return ValueListenableBuilder(
+                                  valueListenable: _count,
+                                  builder: (context, value, _) {
+                                    Widget child = const SizedBox();
+
+                                    if (value == 5) {
+                                      return const SizedBox();
+                                    } else if (value == -1) {
+                                      child = const SizedBox();
+                                    } else if (value == 4) {
+                                      child = Text(
+                                        "Ready",
+                                        style: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white),
+                                      );
+                                    } else if (value == 0) {
+                                      child = Text(
+                                        "ROLL",
+                                        style: TextStyle(
+                                            fontSize: 32.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white),
+                                      );
+                                    } else {
+                                      child = Text(
+                                        value.toString(),
+                                        style: TextStyle(
+                                            fontSize: 28.sp,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white),
+                                      );
+                                    }
+
+                                    return Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        (value <= 0)
+                                            ? const SizedBox()
+                                            : Text(
+                                                "Round $round",
+                                                style: TextStyle(
+                                                    fontSize: 28.sp,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Colors.white),
+                                              ),
+                                        AnimatedSwitcher(
+                                          duration: (value == 0 || value == 4)
+                                              ? const Duration(milliseconds: 0)
+                                              : const Duration(
+                                                  milliseconds: 250),
+                                          transitionBuilder:
+                                              (child, animation) {
+                                            return ScaleTransition(
+                                              scale: animation,
+                                              child: child,
+                                            );
+                                          },
+                                          child: Center(
+                                            key: ValueKey<int>(value),
+                                            child: child,
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 );
+                              },
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 0.2.sh,
+                      width: 0.2.sw,
+                      child: ListenableBuilder(
+                        listenable: _diceModel,
+                        builder: (context, _) {
+                          double rDy = 0;
+                          double turns = 0;
+                          int duration = 500;
+                          if (_rolling) {
+                            rDy = Random().nextDouble() * -1.0;
+                            if (rDx2 > 0) {
+                              rDx2 = Random().nextDouble() * -1;
+                            } else {
+                              rDx2 = Random().nextDouble() * 1;
+                            }
+                            if (rDx2 < -0.8 || rDx2 > 0.8) {
+                              if (rDx2 < -0.8) {
+                                turns = (rDx2 * -5);
                               } else {
-                                return const Text(
-                                  "Wrong Answer",
-                                  textAlign: TextAlign.center,
-                                );
+                                turns = -(rDx2 * 5);
                               }
+                            } else if (rDx2 < 0) {
+                              turns = (rDx2 * -3).clamp(1, 2);
                             } else {
-                              return const SizedBox();
+                              turns = (-(rDx2 * 3)).clamp(-2.0, -1.0);
                             }
-                          },
-                        ),
+                          }
+                          if (!_rolling) {
+                            rDx2 = 0;
+                            rDy = 0;
+                            duration = 250;
+                          }
+                          return AnimatedSlide(
+                            offset: Offset(rDx2, rDy),
+                            duration: Duration(milliseconds: duration),
+                            child: AnimatedRotation(
+                              turns: turns,
+                              duration: Duration(milliseconds: duration),
+                              child: AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 150),
+                                child: Image.asset(
+                                  'assets/images/dices/dice_${_diceModel.dice2}.png',
+                                  key: ValueKey(Random().nextDouble()),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                      Positioned(
-                        bottom: 120,
-                        child: ValueListenableBuilder(
-                          valueListenable: _score1D,
-                          builder: (context, value, _) {
-                            if (value != null) {
-                              return Text(
-                                "+ $value",
-                                textAlign: TextAlign.center,
-                              );
-                            } else {
-                              return const SizedBox();
-                            }
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 0.1.sh,
+                ),
+                Center(
+                  child: SizedBox(
+                    height: 0.1.sh,
+                    child: ValueListenableBuilder(
+                      valueListenable:
+                          (_userProvider.user.id == match.match.player1Id)
+                              ? _result1
+                              : _result2,
+                      builder: (context, result, _) {
+                        return ValueListenableBuilder(
+                          valueListenable: _options,
+                          builder: (context, options, _) {
+                            return ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: options.length,
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(
+                                  width: 50,
+                                );
+                              },
+                              itemBuilder: (context, index) {
+                                return ValueListenableBuilder(
+                                  valueListenable: _selectedOption,
+                                  builder: (context, value, _) {
+                                    return SizedBox(
+                                      width: 120,
+                                      child: AnimatedOpacity(
+                                        opacity: ((value == null ||
+                                                    value == index) ||
+                                                (result != null &&
+                                                    (result == false &&
+                                                        options[index] ==
+                                                            match.question!
+                                                                .answer!)))
+                                            ? 1
+                                            : 0,
+                                        duration:
+                                            const Duration(milliseconds: 250),
+                                        child: ElevatedButton(
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty
+                                                    .resolveWith(
+                                              (states) {
+                                                bool isCorrect =
+                                                    (options[index] ==
+                                                        match
+                                                            .question!.answer!);
+
+                                                if (states.contains(
+                                                    MaterialState.disabled)) {
+                                                  if (result == null) {
+                                                    return Colors.orange;
+                                                  } else if (isCorrect) {
+                                                    return Colors.green;
+                                                  } else {
+                                                    return Colors.red;
+                                                  }
+                                                } else {
+                                                  return Colors.blue;
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                          onPressed: (value != null)
+                                              ? null
+                                              : () {
+                                                  if ((_userProvider.user.id ==
+                                                      match.match.player1Id)) {
+                                                    _answer1Locked.value = true;
+                                                  } else {
+                                                    _answer2Locked.value = true;
+                                                  }
+                                                  _selectedOption.value = index;
+                                                  _timerBarController.stop();
+                                                  _dataEvent!.event = "answer";
+                                                  _dataEvent!
+                                                          .params!["answer"] =
+                                                      options[index];
+                                                  _dataEvent!.params![
+                                                          'remaining_seconds'] =
+                                                      _timerBarController
+                                                              .value *
+                                                          _timerDuration
+                                                              .inSeconds;
+                                                  _channelArena.sink.add(
+                                                      jsonEncode(_dataEvent!
+                                                          .toJson()));
+                                                },
+                                          child: Text(options[index].toString(),
+                                              style: TextStyle(
+                                                  fontSize: 28.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white)),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            );
                           },
-                        ),
-                      ),
-                      _cardInfo(_matchProvider.match.player1!, 1),
-                    ],
-                  ),
-                  Center(
-                    child: SizedBox(
-                      width: 500,
-                      height: 100,
-                      child: _timerWidget(),
+                        );
+                      },
                     ),
                   ),
-                  Stack(
-                    clipBehavior: Clip.none,
-                    alignment: Alignment.center,
-                    children: [
-                      Positioned(
-                        bottom: 80,
-                        child: ValueListenableBuilder(
-                          valueListenable: _answer2Locked,
-                          builder: (context, value, _) {
-                            if (value) {
-                              return const Text(
-                                "Answer Locked",
-                                textAlign: TextAlign.center,
-                              );
-                            } else {
-                              return const SizedBox();
-                            }
-                          },
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 80,
-                        child: ValueListenableBuilder(
-                          valueListenable: _answer2,
-                          builder: (context, value, _) {
-                            if (value != null) {
-                              if (value == -99999) {
-                                return const Text("Time's Up");
-                              } else {
-                                return Text(
-                                  "Answer: $value",
-                                  textAlign: TextAlign.center,
-                                );
-                              }
-                            } else {
-                              return const SizedBox();
-                            }
-                          },
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 100,
-                        child: ValueListenableBuilder(
-                          valueListenable: _result2,
-                          builder: (context, value, _) {
-                            if (value != null) {
+                ),
+                SizedBox(
+                  height: 0.05.sh,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.center,
+                      children: [
+                        Positioned(
+                          bottom: 80,
+                          child: ValueListenableBuilder(
+                            valueListenable: _answer1Locked,
+                            builder: (context, value, _) {
                               if (value) {
-                                return const Text(
-                                  "Correct Answer",
+                                return Text(
+                                  "Answer Locked",
                                   textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black12, fontSize: 12.sp),
                                 );
                               } else {
-                                return const Text(
-                                  "Wrong Answer",
-                                  textAlign: TextAlign.center,
-                                );
+                                return const SizedBox();
                               }
-                            } else {
-                              return const SizedBox();
-                            }
-                          },
+                            },
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        bottom: 120,
-                        child: ValueListenableBuilder(
-                          valueListenable: _score2D,
-                          builder: (context, value, _) {
-                            if (value != null) {
-                              return Text(
-                                "+ $value",
-                                textAlign: TextAlign.center,
-                              );
-                            } else {
-                              return const SizedBox();
-                            }
-                          },
+                        Positioned(
+                          bottom: 80,
+                          child: ValueListenableBuilder(
+                            valueListenable: _answer1,
+                            builder: (context, value, _) {
+                              if (value != null) {
+                                if (value == -99999) {
+                                  return Text(
+                                    "Time's Up",
+                                    style: TextStyle(
+                                        color: Colors.black12, fontSize: 12.sp),
+                                  );
+                                } else {
+                                  return Text(
+                                    "Answer: $value",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black12, fontSize: 12.sp),
+                                  );
+                                }
+                              } else {
+                                return const SizedBox();
+                              }
+                            },
+                          ),
                         ),
+                        Positioned(
+                          bottom: 100,
+                          child: ValueListenableBuilder(
+                            valueListenable: _result1,
+                            builder: (context, value, _) {
+                              if (value != null) {
+                                if (value) {
+                                  return Text(
+                                    "Correct Answer",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black12, fontSize: 12.sp),
+                                  );
+                                } else {
+                                  return Text(
+                                    "Wrong Answer",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black12, fontSize: 12.sp),
+                                  );
+                                }
+                              } else {
+                                return const SizedBox();
+                              }
+                            },
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 120,
+                          child: ValueListenableBuilder(
+                            valueListenable: _score1D,
+                            builder: (context, value, _) {
+                              if (value != null) {
+                                return Text(
+                                  "+ $value",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black12, fontSize: 12.sp),
+                                );
+                              } else {
+                                return const SizedBox();
+                              }
+                            },
+                          ),
+                        ),
+                        _cardInfo(_matchProvider.match.player1!, 1),
+                      ],
+                    ),
+                    Center(
+                      child: SizedBox(
+                        child: _timerWidget(),
                       ),
-                      _cardInfo(_matchProvider.match.player2!, 2),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          );
+                    ),
+                    Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.center,
+                      children: [
+                        Positioned(
+                          bottom: 80,
+                          child: ValueListenableBuilder(
+                            valueListenable: _answer2Locked,
+                            builder: (context, value, _) {
+                              if (value) {
+                                return Text(
+                                  "Answer Locked",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black12, fontSize: 12.sp),
+                                );
+                              } else {
+                                return const SizedBox();
+                              }
+                            },
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 80,
+                          child: ValueListenableBuilder(
+                            valueListenable: _answer2,
+                            builder: (context, value, _) {
+                              if (value != null) {
+                                if (value == -99999) {
+                                  return Text(
+                                    "Time's Up",
+                                    style: TextStyle(
+                                        color: Colors.black12, fontSize: 12.sp),
+                                  );
+                                } else {
+                                  return Text(
+                                    "Answer: $value",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black12, fontSize: 12.sp),
+                                  );
+                                }
+                              } else {
+                                return const SizedBox();
+                              }
+                            },
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 100,
+                          child: ValueListenableBuilder(
+                            valueListenable: _result2,
+                            builder: (context, value, _) {
+                              if (value != null) {
+                                if (value) {
+                                  return Text(
+                                    "Correct Answer",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black12, fontSize: 12.sp),
+                                  );
+                                } else {
+                                  return Text(
+                                    "Wrong Answer",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black12, fontSize: 12.sp),
+                                  );
+                                }
+                              } else {
+                                return const SizedBox();
+                              }
+                            },
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 120,
+                          child: ValueListenableBuilder(
+                            valueListenable: _score2D,
+                            builder: (context, value, _) {
+                              if (value != null) {
+                                return Text(
+                                  "+ $value",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black12, fontSize: 12.sp),
+                                );
+                              } else {
+                                return const SizedBox();
+                              }
+                            },
+                          ),
+                        ),
+                        _cardInfo(_matchProvider.match.player2!, 2),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ]);
         }),
       ),
     ));
