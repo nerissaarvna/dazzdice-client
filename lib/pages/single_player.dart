@@ -724,7 +724,7 @@ class _SinglePlayerPageState extends State<SinglePlayerPage>
                                           child = Text(
                                             "ROLL",
                                             style: TextStyle(
-                                                fontSize: 32.sp,
+                                                fontSize: 30.sp,
                                                 fontWeight: FontWeight.w700,
                                                 color: Colors.white),
                                           );
@@ -740,7 +740,7 @@ class _SinglePlayerPageState extends State<SinglePlayerPage>
 
                                         return Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.center,
                                           children: [
                                             (value <= 0)
                                                 ? const SizedBox()
@@ -752,6 +752,9 @@ class _SinglePlayerPageState extends State<SinglePlayerPage>
                                                             FontWeight.w700,
                                                         color: Colors.white),
                                                   ),
+                                            SizedBox(
+                                              height: 0.01.sh,
+                                            ),
                                             AnimatedSwitcher(
                                               duration:
                                                   (value == 0 || value == 4)

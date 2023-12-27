@@ -210,7 +210,12 @@ class _LobbyPageState extends State<LobbyPage> {
                         ),
                         Flexible(
                           child: Consumer<LobbyUserProvider>(
-                            builder: (context, user, _) => ListView.builder(
+                            builder: (context, user, _) => ListView.separated(
+                              separatorBuilder: (context, index) {
+                                return SizedBox(
+                                  height: 0.015,
+                                );
+                              },
                               itemCount: user.items.length,
                               itemBuilder: (context, index) {
                                 return ListTile(
@@ -280,7 +285,7 @@ class _LobbyPageState extends State<LobbyPage> {
                         builder: (context) {
                           return AlertDialog(
                             content: SizedBox(
-                              height: 0.07.sw,
+                              height: 0.09.sw,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -292,13 +297,22 @@ class _LobbyPageState extends State<LobbyPage> {
                                       style: TextStyle(fontSize: 16.sp),
                                     ),
                                   ),
-                                  const CircularProgressIndicator(),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      _channelMm.sink.close();
-                                      context.pop();
-                                    },
-                                    child: const Text("Cancel"),
+                                  CircularProgressIndicator(
+                                    color: Colors.blue.shade200,
+                                  ),
+                                  SizedBox(
+                                    width: 0.11.sw,
+                                    height: 0.07.sh,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        _channelMm.sink.close();
+                                        context.pop();
+                                      },
+                                      child: Text("Cancel",
+                                          style: TextStyle(
+                                              fontSize: 16.sp,
+                                              color: Colors.white)),
+                                    ),
                                   )
                                 ],
                               ),

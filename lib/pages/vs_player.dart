@@ -491,20 +491,8 @@ class _ArenaPageState extends State<VsPlayerPage>
                                             minimumSize:
                                                 Size(0.09.sw, 0.09.sh)),
                                         onPressed: () {
-                                          if (_dataEvent == null ||
-                                              (_dataEvent?.event ?? false) ==
-                                                  "connected") {
-                                            context.pop();
-                                            context.pop();
-                                          } else {
-                                            _timerBarController.stop();
-                                            _dataEvent!.event = "end";
-                                            _dataEvent!.params!["reason"] =
-                                                "exit";
-                                            _channelArena.sink.add(jsonEncode(
-                                                _dataEvent!.toJson()));
-                                            context.pop();
-                                          }
+                                          context.pop();
+                                          context.pop();
                                         },
                                         child: Text('Yes',
                                             style: TextStyle(
