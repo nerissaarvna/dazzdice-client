@@ -345,58 +345,68 @@ class _ArenaPageState extends State<VsPlayerPage>
             barrierDismissible: false,
             builder: (context) {
               return SizedBox(
-                width: 300,
-                height: 300,
+                height: 0.3.sh,
                 child: AlertDialog(
-                  title: Text(status),
+                  title: Text(
+                    status,
+                    style:
+                        TextStyle(fontSize: 30.sp, fontWeight: FontWeight.w700),
+                  ),
                   actions: [
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.pink.shade100),
                       onPressed: () {
                         context.pop();
                         context.pop();
                       },
-                      child: const Text("Exit"),
+                      child: const Text("Exit",
+                          style: TextStyle(color: Colors.white)),
                     )
                   ],
                   content: SizedBox(
-                    height: 300,
-                    width: 300,
+                    height: 0.3.sh,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Rating"),
-                        Text("$oldRating -> $newRating"),
-                        Table(
-                          border:
-                              const TableBorder(verticalInside: BorderSide()),
-                          children: [
-                            TableRow(
-                              decoration: const BoxDecoration(
-                                  border: Border(bottom: BorderSide())),
-                              children: [
-                                Text(_matchProvider.match.player1!.name),
-                                Text(_matchProvider.match.player2!.name)
-                              ],
-                            ),
-                            ...List<int>.from(List.generate(
-                                _scores1.length, (index) => index)).map(
-                              (e) => TableRow(children: [
-                                Text(_scores1[e].toString()),
-                                Text(_scores2[e].toString()),
-                              ]),
-                            ),
-                            TableRow(
-                              decoration: const BoxDecoration(
-                                  border: Border(top: BorderSide())),
-                              children: [
-                                Text(_score1.value.toString()),
-                                Text(
-                                  _score2.value.toString(),
-                                )
-                              ],
-                            ),
-                          ],
-                        )
+                        Text("Rating",
+                            style: TextStyle(
+                              fontSize: 24.sp,
+                            )),
+                        Text("$oldRating -> $newRating",
+                            style: TextStyle(
+                                fontSize: 28.sp, fontWeight: FontWeight.w700)),
+                        // Table(
+                        //   border:
+                        //       const TableBorder(verticalInside: BorderSide()),
+                        //   children: [
+                        //     TableRow(
+                        //       decoration: const BoxDecoration(
+                        //           border: Border(bottom: BorderSide())),
+                        //       children: [
+                        //         Text(_matchProvider.match.player1!.name),
+                        //         Text(_matchProvider.match.player2!.name)
+                        //       ],
+                        //     ),
+                        //     ...List<int>.from(List.generate(
+                        //         _scores1.length, (index) => index)).map(
+                        //       (e) => TableRow(children: [
+                        //         Text(_scores1[e].toString()),
+                        //         Text(_scores2[e].toString()),
+                        //       ]),
+                        //     ),
+                        //     TableRow(
+                        //       decoration: const BoxDecoration(
+                        //           border: Border(top: BorderSide())),
+                        //       children: [
+                        //         Text(_score1.value.toString()),
+                        //         Text(
+                        //           _score2.value.toString(),
+                        //         )
+                        //       ],
+                        //     ),
+                        //   ],
+                        // )
                       ],
                     ),
                   ),
@@ -853,7 +863,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                       alignment: Alignment.center,
                       children: [
                         Positioned(
-                          bottom: 80,
+                          bottom: 100,
                           child: ValueListenableBuilder(
                             valueListenable: _answer1Locked,
                             builder: (context, value, _) {
@@ -871,7 +881,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                           ),
                         ),
                         Positioned(
-                          bottom: 80,
+                          bottom: 100,
                           child: ValueListenableBuilder(
                             valueListenable: _answer1,
                             builder: (context, value, _) {
@@ -897,7 +907,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                           ),
                         ),
                         Positioned(
-                          bottom: 100,
+                          bottom: 120,
                           child: ValueListenableBuilder(
                             valueListenable: _result1,
                             builder: (context, value, _) {
@@ -924,7 +934,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                           ),
                         ),
                         Positioned(
-                          bottom: 120,
+                          bottom: 140,
                           child: ValueListenableBuilder(
                             valueListenable: _score1D,
                             builder: (context, value, _) {
@@ -954,7 +964,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                       alignment: Alignment.center,
                       children: [
                         Positioned(
-                          bottom: 80,
+                          bottom: 100,
                           child: ValueListenableBuilder(
                             valueListenable: _answer2Locked,
                             builder: (context, value, _) {
@@ -972,7 +982,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                           ),
                         ),
                         Positioned(
-                          bottom: 80,
+                          bottom: 100,
                           child: ValueListenableBuilder(
                             valueListenable: _answer2,
                             builder: (context, value, _) {
@@ -998,7 +1008,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                           ),
                         ),
                         Positioned(
-                          bottom: 100,
+                          bottom: 120,
                           child: ValueListenableBuilder(
                             valueListenable: _result2,
                             builder: (context, value, _) {
@@ -1025,7 +1035,7 @@ class _ArenaPageState extends State<VsPlayerPage>
                           ),
                         ),
                         Positioned(
-                          bottom: 120,
+                          bottom: 140,
                           child: ValueListenableBuilder(
                             valueListenable: _score2D,
                             builder: (context, value, _) {
@@ -1041,9 +1051,6 @@ class _ArenaPageState extends State<VsPlayerPage>
                               }
                             },
                           ),
-                        ),
-                        SizedBox(
-                          height: 0.01.sh,
                         ),
                         _cardInfo(_matchProvider.match.player2!, 2),
                       ],
