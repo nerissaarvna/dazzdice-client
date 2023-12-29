@@ -72,12 +72,12 @@ class _SinglePlayerPageState extends State<SinglePlayerPage>
   }
 
   Future<void> _countDown() async {
+    _dataEvent ??= DataEvent(
+        event: "get_q",
+        params: {"challenge_id": _challengeProvider.challenge.id});
+    _dataEvent!.event = "get_q";
     _channelArena.sink.add(
-      jsonEncode(
-        DataEvent(
-            event: "get_q",
-            params: {"challenge_id": _challengeProvider.challenge.id}),
-      ),
+      jsonEncode(_dataEvent!.toJson()),
     );
     await Future.delayed(const Duration(seconds: 1));
     for (int i = 1; i < 5; i++) {
