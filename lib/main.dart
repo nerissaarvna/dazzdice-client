@@ -76,6 +76,7 @@ class MyApp extends StatelessWidget {
             ),
           ],
           child: MaterialApp.router(
+            title: "DazzDice",
             routerConfig: _router,
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
