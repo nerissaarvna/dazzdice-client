@@ -119,26 +119,31 @@ class _StartPageState extends State<StartPage> {
   }
 
   Future<bool> checkAvailibility() async {
-    var res = await http.get(Uri.parse(HTTPENDPOINT));
-    print(HTTPENDPOINT);
-    print(res.statusCode);
+    var r = false;
 
-    if (res.statusCode != 200) {
+    try {
+      var res = await http.get(Uri.parse(HTTPENDPOINT));
+
+      if (res.statusCode != 200) {
+        HTTPENDPOINT = "https://$ENDPOINT2";
+      } else {
+        r = true;
+      }
+    } on http.ClientException catch (_) {}
+    if (!r) {
       HTTPENDPOINT = "https://$ENDPOINT2";
-    } else {
-      return true;
+      try {
+        var res2 = await http.get(Uri.parse(HTTPENDPOINT));
+
+        if (res2.statusCode != 200) {
+          r = false;
+        } else {
+          r = true;
+        }
+      } on http.ClientException catch (_) {}
     }
 
-    var res2 = await http.get(Uri.parse(HTTPENDPOINT));
-
-    print(HTTPENDPOINT);
-    print(res2.statusCode);
-
-    if (res2.statusCode != 200) {
-      return false;
-    } else {
-      return true;
-    }
+    return r;
   }
 
   @override
@@ -197,34 +202,36 @@ class _StartPageState extends State<StartPage> {
                       if (!value) {
                         print("Server mati");
                         return;
+                      } else {
+                        SharedPreferences.getInstance().then(
+                          (prefs) {
+                            String? id = prefs.getString('id');
+                            if (id == null) {
+                              createUser(prefs);
+                            } else {
+                              http
+                                  .get(Uri.parse("$HTTPENDPOINT/user?id=$id"))
+                                  .then(
+                                (value) {
+                                  if (value.statusCode == 200) {
+                                    Map<String, dynamic> res =
+                                        jsonDecode(value.body);
+                                    Provider.of<UserProvider>(context,
+                                            listen: false)
+                                        .setUser(User.fromJson(res));
+                                    context.pushNamed("lobby");
+                                  } else if (value.statusCode == 404) {
+                                    createUser(prefs);
+                                  }
+                                },
+                              ).onError((error, stack) {
+                                if (error is http.ClientException) {}
+                              });
+                            }
+                          },
+                        );
                       }
                     });
-
-                    SharedPreferences.getInstance().then(
-                      (prefs) {
-                        String? id = prefs.getString('id');
-                        if (id == null) {
-                          createUser(prefs);
-                        } else {
-                          http.get(Uri.parse("$HTTPENDPOINT/user?id=$id")).then(
-                            (value) {
-                              if (value.statusCode == 200) {
-                                Map<String, dynamic> res =
-                                    jsonDecode(value.body);
-                                Provider.of<UserProvider>(context,
-                                        listen: false)
-                                    .setUser(User.fromJson(res));
-                                context.pushNamed("lobby");
-                              } else if (value.statusCode == 404) {
-                                createUser(prefs);
-                              }
-                            },
-                          ).onError((error, stack) {
-                            if (error is http.ClientException) {}
-                          });
-                        }
-                      },
-                    );
                   },
                 ),
               ),
