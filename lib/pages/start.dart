@@ -118,6 +118,29 @@ class _StartPageState extends State<StartPage> {
     );
   }
 
+  Future<bool> checkAvailibility() async {
+    var res = await http.get(Uri.parse(HTTPENDPOINT));
+    print(HTTPENDPOINT);
+    print(res.statusCode);
+
+    if (res.statusCode != 200) {
+      HTTPENDPOINT = "https://$ENDPOINT2";
+    } else {
+      return true;
+    }
+
+    var res2 = await http.get(Uri.parse(HTTPENDPOINT));
+
+    print(HTTPENDPOINT);
+    print(res2.statusCode);
+
+    if (res2.statusCode != 200) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -170,6 +193,13 @@ class _StartPageState extends State<StartPage> {
                   child: Text("Start",
                       style: TextStyle(fontSize: 24.sp, color: Colors.white)),
                   onPressed: () {
+                    checkAvailibility().then((value) {
+                      if (!value) {
+                        print("Server mati");
+                        return;
+                      }
+                    });
+
                     SharedPreferences.getInstance().then(
                       (prefs) {
                         String? id = prefs.getString('id');

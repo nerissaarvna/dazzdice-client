@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:dice_client/model.dart';
 
 const ENDPOINT = String.fromEnvironment('ENDPOINT');
-const HTTPENDPOINT = "https://$ENDPOINT";
-const WSENDPOINT = "wss://$ENDPOINT";
+const ENDPOINT2 = String.fromEnvironment('ENDPOINT2');
+String HTTPENDPOINT = "https://$ENDPOINT";
+String WSENDPOINT = "wss://$ENDPOINT";
 
 class LobbyUserProvider extends ChangeNotifier {
   final List<User> _userList = [];
