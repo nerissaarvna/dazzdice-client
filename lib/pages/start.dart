@@ -119,6 +119,7 @@ class _StartPageState extends State<StartPage> {
   }
 
   Future<bool> checkAvailibility() async {
+    print("Checking...");
     var r = false;
 
     try {
@@ -129,7 +130,9 @@ class _StartPageState extends State<StartPage> {
       } else {
         r = true;
       }
-    } on http.ClientException catch (_) {}
+    } catch (e) {
+      print(e);
+    }
     if (!r) {
       HTTPENDPOINT = "https://$ENDPOINT2";
       try {
@@ -140,7 +143,9 @@ class _StartPageState extends State<StartPage> {
         } else {
           r = true;
         }
-      } on http.ClientException catch (_) {}
+      } catch (e) {
+        print(e);
+      }
     }
 
     return r;
@@ -198,6 +203,7 @@ class _StartPageState extends State<StartPage> {
                   child: Text("Start",
                       style: TextStyle(fontSize: 24.sp, color: Colors.white)),
                   onPressed: () {
+                    print("Start");
                     checkAvailibility().then((value) {
                       if (!value) {
                         print("Server mati");
