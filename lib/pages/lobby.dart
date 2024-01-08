@@ -40,7 +40,6 @@ class _LobbyPageState extends State<LobbyPage> {
     _lobbyChallengeProvider =
         Provider.of<LobbyChallengeProvider>(context, listen: false);
 
-    print(WSENDPOINT);
     _channelLobby = WebSocketChannel.connect(
         Uri.parse("$WSENDPOINT/lobby?id=${_userProvider.user.id}"));
 
@@ -56,8 +55,8 @@ class _LobbyPageState extends State<LobbyPage> {
         } else if (data.event == "leave") {
           _lobbyUserProvider.removeUser(data.params!["id"]);
         } else if (data.event == "match_leader") {
-          dio.get("$HTTPENDPOINT/match_leader").then((value) {
-            List<dynamic> data = jsonDecode(value.data);
+          http.get(Uri.parse("$HTTPENDPOINT/match_leader")).then((value) {
+            List<dynamic> data = jsonDecode(value.body);
 
             if (data.isNotEmpty) {
               List<MatchLeaderboard> matchs = [];
@@ -69,8 +68,8 @@ class _LobbyPageState extends State<LobbyPage> {
             }
           });
         } else if (data.event == "chal_leader") {
-          dio.get("$HTTPENDPOINT/chal_leader").then((value) {
-            List<dynamic> data = jsonDecode(value.data);
+          http.get(Uri.parse("$HTTPENDPOINT/chal_leader")).then((value) {
+            List<dynamic> data = jsonDecode(value.body);
 
             if (data.isNotEmpty) {
               List<ChallengeLeaderboard> challenges = [];
@@ -88,9 +87,9 @@ class _LobbyPageState extends State<LobbyPage> {
     _channelLobby.ready.then(
       (value) {
         if (!_lobbyUserProvider.isCalled) {
-          dio.get("$HTTPENDPOINT/online").then(
+          http.get(Uri.parse("$HTTPENDPOINT/online")).then(
             (value) {
-              List data = jsonDecode(value.data);
+              List data = jsonDecode(value.body);
 
               if (data.isNotEmpty) {
                 List<User> users = [];
@@ -111,9 +110,9 @@ class _LobbyPageState extends State<LobbyPage> {
         }
 
         if (!_lobbyMatchProvider.isCalled) {
-          dio.get("$HTTPENDPOINT/match_leader").then(
+          http.get(Uri.parse("$HTTPENDPOINT/match_leader")).then(
             (value) {
-              List<dynamic> data = jsonDecode(value.data);
+              List<dynamic> data = jsonDecode(value.body);
 
               if (data.isNotEmpty) {
                 List<MatchLeaderboard> matchs = [];
@@ -128,8 +127,8 @@ class _LobbyPageState extends State<LobbyPage> {
         }
 
         if (!_lobbyChallengeProvider.isCalled) {
-          dio.get("$HTTPENDPOINT/chal_leader").then((value) {
-            List<dynamic> data = jsonDecode(value.data);
+          http.get(Uri.parse("$HTTPENDPOINT/chal_leader")).then((value) {
+            List<dynamic> data = jsonDecode(value.body);
 
             if (data.isNotEmpty) {
               List<ChallengeLeaderboard> challenges = [];
@@ -251,11 +250,12 @@ class _LobbyPageState extends State<LobbyPage> {
                   child: ElevatedButton(
                     // button single player
                     onPressed: () {
-                      dio
-                          .get(
-                              "$HTTPENDPOINT/create_challenge?id=${_userProvider.user.id}")
+                      http
+                          .get(Uri.parse(
+                              "$HTTPENDPOINT/create_challenge?id=${_userProvider.user.id}"))
                           .then((value) {
-                        Challenge challenge = Challenge.fromJson(value.data);
+                        Challenge challenge =
+                            Challenge.fromJson(jsonDecode(value.body));
                         Provider.of<ChallengeProvider>(context, listen: false)
                             .setChallenge(challenge);
                         context.pushNamed('singleplayer');

@@ -2,38 +2,11 @@ import 'dart:collection';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:dice_client/model.dart';
-import 'package:dio/dio.dart';
 
 const ENDPOINT = String.fromEnvironment('ENDPOINT');
 const ENDPOINT2 = String.fromEnvironment('ENDPOINT2');
 String HTTPENDPOINT = "https://$ENDPOINT";
 String WSENDPOINT = "wss://$ENDPOINT";
-
-class DioClient {
-  Dio? _dio;
-
-  Dio get dio {
-    if (_dio == null) {
-      BaseOptions options = BaseOptions(validateStatus: (status) {
-        return status! < 500;
-      });
-
-      _dio = Dio(options);
-      _dio!.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
-        if (options.uri.host == "flea-sought-maggot.ngrok-free.app") {
-          var ngrokHeader = {"ngrok-skip-browser-warning": "true"};
-          options.headers = ngrokHeader;
-        }
-
-        handler.next(options);
-      }));
-    }
-
-    return _dio!;
-  }
-}
-
-var dio = DioClient().dio;
 
 class LobbyUserProvider extends ChangeNotifier {
   final List<User> _userList = [];

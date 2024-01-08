@@ -105,9 +105,9 @@ class _StartPageState extends State<StartPage> {
       (value) {
         //Cek Ketersediaan dan Non-Empty Nama
         if (value != null && value.isNotEmpty) {
-          dio.get("$HTTPENDPOINT/create?name=$value").then(
+          http.get(Uri.parse("$HTTPENDPOINT/create?name=$value")).then(
             (value) {
-              User user = User.fromJson(value.data);
+              User user = User.fromJson(jsonDecode(value.body));
               prefs.setString("id", user.id);
               Provider.of<UserProvider>(context, listen: false).setUser(user);
               context.pushNamed("lobby");
@@ -123,7 +123,7 @@ class _StartPageState extends State<StartPage> {
     var r = false;
 
     try {
-      var res = await dio.get(HTTPENDPOINT);
+      var res = await http.get(Uri.parse(HTTPENDPOINT));
 
       if (res.statusCode != 200) {
         HTTPENDPOINT = "https://$ENDPOINT2";
@@ -133,9 +133,8 @@ class _StartPageState extends State<StartPage> {
     } on Exception catch (_) {}
     if (!r) {
       HTTPENDPOINT = "https://$ENDPOINT2";
-      WSENDPOINT = "wss://$ENDPOINT2";
       try {
-        var res2 = await dio.get(HTTPENDPOINT);
+        var res2 = await http.get(Uri.parse(HTTPENDPOINT));
 
         if (res2.statusCode != 200) {
           r = false;
@@ -213,11 +212,15 @@ class _StartPageState extends State<StartPage> {
                               print("create");
                               createUser(prefs);
                             } else {
-                              dio.get("$HTTPENDPOINT/user?id=$id").then(
+                              http
+                                  .get(Uri.parse("$HTTPENDPOINT/user?id=$id"))
+                                  .then(
                                 (value) {
+                                  print(value.body);
                                   if (value.statusCode == 200) {
                                     print("available");
-                                    Map<String, dynamic> res = value.data;
+                                    Map<String, dynamic> res =
+                                        jsonDecode(value.body);
                                     Provider.of<UserProvider>(context,
                                             listen: false)
                                         .setUser(User.fromJson(res));
