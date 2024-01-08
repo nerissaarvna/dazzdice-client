@@ -105,9 +105,9 @@ class _StartPageState extends State<StartPage> {
       (value) {
         //Cek Ketersediaan dan Non-Empty Nama
         if (value != null && value.isNotEmpty) {
-          http.get(Uri.parse("$HTTPENDPOINT/create?name=$value")).then(
+          dio.get("$HTTPENDPOINT/create?name=$value").then(
             (value) {
-              User user = User.fromJson(jsonDecode(value.body));
+              User user = User.fromJson(value.data);
               prefs.setString("id", user.id);
               Provider.of<UserProvider>(context, listen: false).setUser(user);
               context.pushNamed("lobby");
@@ -123,29 +123,26 @@ class _StartPageState extends State<StartPage> {
     var r = false;
 
     try {
-      var res = await http.get(Uri.parse(HTTPENDPOINT));
+      var res = await dio.get(HTTPENDPOINT);
 
       if (res.statusCode != 200) {
         HTTPENDPOINT = "https://$ENDPOINT2";
       } else {
         r = true;
       }
-    } catch (e) {
-      print(e);
-    }
+    } on Exception catch (_) {}
     if (!r) {
       HTTPENDPOINT = "https://$ENDPOINT2";
+      WSENDPOINT = "wss://$ENDPOINT2";
       try {
-        var res2 = await http.get(Uri.parse(HTTPENDPOINT));
+        var res2 = await dio.get(HTTPENDPOINT);
 
         if (res2.statusCode != 200) {
           r = false;
         } else {
           r = true;
         }
-      } catch (e) {
-        print(e);
-      }
+      } on Exception catch (_) {}
     }
 
     return r;
@@ -213,24 +210,25 @@ class _StartPageState extends State<StartPage> {
                           (prefs) {
                             String? id = prefs.getString('id');
                             if (id == null) {
+                              print("create");
                               createUser(prefs);
                             } else {
-                              http
-                                  .get(Uri.parse("$HTTPENDPOINT/user?id=$id"))
-                                  .then(
+                              dio.get("$HTTPENDPOINT/user?id=$id").then(
                                 (value) {
                                   if (value.statusCode == 200) {
-                                    Map<String, dynamic> res =
-                                        jsonDecode(value.body);
+                                    print("available");
+                                    Map<String, dynamic> res = value.data;
                                     Provider.of<UserProvider>(context,
                                             listen: false)
                                         .setUser(User.fromJson(res));
                                     context.pushNamed("lobby");
                                   } else if (value.statusCode == 404) {
+                                    print("create2");
                                     createUser(prefs);
                                   }
                                 },
                               ).onError((error, stack) {
+                                print(error);
                                 if (error is http.ClientException) {}
                               });
                             }
