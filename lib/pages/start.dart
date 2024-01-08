@@ -133,6 +133,7 @@ class _StartPageState extends State<StartPage> {
     } on Exception catch (_) {}
     if (!r) {
       HTTPENDPOINT = "https://$ENDPOINT2";
+      WSENDPOINT = "wss://$ENDPOINT2";
       try {
         var res2 = await http.get(Uri.parse(HTTPENDPOINT));
 
