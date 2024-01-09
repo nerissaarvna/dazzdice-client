@@ -3,5 +3,5 @@ package = "netlify-plugin-flutter"
    [plugins.inputs]
     channel = "stable"
 [build]
-command = "flutter build web --release --dart-define=ENDPOINT=dazzdice-server.nerissaarvna.repl.co --dart-define=ENDPOINT2=e5bf3c77-7977-4c0a-a7be-cfb0caaccb64-00-2mgki3997qqd8.picard.replit.dev"
+command = "flutter build web --release --dart-define=ENDPOINT=dazzdice-server.nerissaarvna.repl.co --dart-define=ENDPOINT2=e5bf3c77-7977-4c0a-a7be-cfb0caaccb64-00-2mgki3997qqd8.picard.replit.dev/"
 publish = "build/web"
